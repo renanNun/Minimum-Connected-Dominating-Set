@@ -9,7 +9,7 @@ using namespace std;
 /**
 *   Universidade Federal de Juiz de Fora
 *   Criador: Renan Nunes da Costa Gonçalves e Luan Reis Ciribelli
-*   versão: 1.0
+*   versão: 2.0
 */
 class Aresta{
 
