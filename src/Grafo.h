@@ -2,6 +2,13 @@
 #define GRAFO_H
 
 #include <iostream>
+#include <sstream>
+#include <string>
+#include <fstream>
+#include <stack>
+#include <list>
+#include <queue>
+
 #include "No.h"
 #include "Aresta.h"
 
@@ -13,7 +20,7 @@ using namespace std;
 *   versão: 2.0
 */
 class Grafo{
-    
+
     public:
         Grafo();
         Grafo(int ordem);
@@ -40,6 +47,23 @@ class Grafo{
         void inserirNo(int id);
         void removerNo(int id);
         void inserirAresta(int id,int id_alvo,int peso);
+
+        int grauMedioPorSomatorio();
+        int grauMedioPorAdjacencia();
+        int frequenciaRelativa(int d);
+        int grauDoGrafo();
+
+        string imprimir();
+        string imprimirMatriz();
+        void adicionaArestaMatriz(int i,int j,int peso);
+        bool verificaAdjacencia(int i,int j);
+
+
+        bool depthFirstSearch(int id_inicial);
+        bool depthFirstSearchFile(int id_inicial,fstream &outputFile);
+
+        void breathFirstSearch();
+        void breathFirstSearchFile(fstream& output_file);
     private:
         int ordem;
         int numero_arestas;
@@ -50,6 +74,12 @@ class Grafo{
         int** matriz_pesos;
         bool** matriz_adjacencia;
 
+        void inicializaMatrizes();
+        int getPosicaoMatriz(int id);
+        void deleteMatrizes();
+
+        void depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel);
+        void depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int nivel,fstream &outputFile);
 };
 
 #endif // GRAFO_H

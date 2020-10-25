@@ -22,8 +22,8 @@ class No
         Aresta* getPrimeiraAresta();
         Aresta* getUltimaAresta();
         int getId();
-        int getGrauDeEntrada();
-        int getGrauDeSaida();
+        int getGrauEntrada();
+        int getGrauSaida();
         int getPeso();
         No* getProx();
 
@@ -46,7 +46,7 @@ class No
         int getI();
         void setI(int i);
 
-        
+
     private:
         int id;
         Aresta* primeira_aresta;

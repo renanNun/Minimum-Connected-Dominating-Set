@@ -52,12 +52,12 @@ int No::getId()
     return this->id;
 }
 
-int No::getGrauDeEntrada()
+int No::getGrauEntrada()
 {
     return this->grau_de_entrada;
 }
 
-int No::getGrauDeSaida()
+int No::getGrauSaida()
 {
     return this->grau_de_saida;
 }
@@ -120,7 +120,7 @@ bool No::existeAresta(int id_alvo)
             if(aux->getId_Alvo() == id_alvo)
                 return true;
     return false;
-}   
+}
 
 int No::removerAresta(int id, bool direcionado, No* no_alvo)
 {

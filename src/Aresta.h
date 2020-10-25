@@ -1,17 +1,17 @@
 #ifndef ARESTA_H
 #define ARESA_H
-
+#pragma once
 #include <iostream>
 
 using namespace std;
-
 
 /**
 *   Universidade Federal de Juiz de Fora
 *   Criador: Renan Nunes da Costa Gonçalves e Luan Reis Ciribelli
 *   versão: 2.0
 */
-class Aresta{
+class Aresta
+{
 
 public:
     Aresta();
