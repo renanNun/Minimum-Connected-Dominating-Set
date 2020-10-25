@@ -64,6 +64,8 @@ class Grafo{
 
         void breathFirstSearch();
         void breathFirstSearchFile(fstream& output_file);
+
+        int** getMatrizPesos();
     private:
         int ordem;
         int numero_arestas;

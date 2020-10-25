@@ -13,6 +13,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
+					<Add directory="./" />
 				</Compiler>
 			</Target>
 			<Target title="Release">
@@ -22,6 +23,7 @@
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-O2" />
+					<Add directory="./" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -34,6 +36,8 @@
 		</Compiler>
 		<Unit filename="Aresta.cpp" />
 		<Unit filename="Aresta.h" />
+		<Unit filename="Floyd.cpp" />
+		<Unit filename="Floyd.h" />
 		<Unit filename="Grafo.cpp" />
 		<Unit filename="Grafo.h" />
 		<Unit filename="No.cpp" />

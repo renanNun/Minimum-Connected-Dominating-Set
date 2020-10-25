@@ -4,6 +4,7 @@
 #include <sstream>
 
 #include "Grafo.h"
+#include "Floyd.h"
 
 std::fstream inputFile;
 std::fstream outputFile;
@@ -74,6 +75,9 @@ int main(int argc, char * argv [])
     int opcao_escolhida;
     int id;
 
+    /*Algoritmos de Caminho Mínimo e AGM*/
+    Floyd* floyd;
+
     while(true)
     {
         menu();
@@ -121,6 +125,23 @@ int main(int argc, char * argv [])
             }
             limparTela();
             break;
+        case 5:
+            limparTela();
+            break;
+        case 6:
+            floyd = new Floyd(grafo,grafo->getMatrizPesos());
+            if(salvar())
+            {
+                floyd->printSolucaoFile(outputFile);
+            }
+            limparTela();
+            break;
+        case 7:
+            limparTela();
+            break;
+        case 8:
+            limparTela();
+            break;
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
@@ -137,6 +158,10 @@ void menu()
     cout << "[02] - Exibir Grafo por Matriz de Adjacencia. " << endl;
     cout << "[03] - Busca Em Profundidade. " << endl;
     cout << "[04] - Busca Em Largura. " << endl;
+    cout << "[05] - Algoritmo de Dijkstra. " << endl;
+    cout << "[06] - Algoritmo de FloydMarshall. " << endl;
+    cout << "[07] - Algoritmo de Prim. " << endl;
+    cout << "[08] - Algoritmo de Kruskal. " << endl;
     cout << "[0] - Sair. " << endl;
     cout << "Escolha: ";
 }

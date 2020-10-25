@@ -630,3 +630,8 @@ void Grafo::breathFirstSearchFile(fstream& output_file)
         }
     }
 }
+
+int** Grafo::getMatrizPesos()
+{
+    return this->matriz_pesos;
+}
