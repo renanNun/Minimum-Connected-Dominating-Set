@@ -145,6 +145,7 @@ void Grafo::diminuiNumArestas()
 /*
 * Função que retorna o ponteiro para o Nó com Id indicado
 * @param: int Id// Id do nó desejado
+* @return: Ponteiro para o Nó com id recebido
 */
 No* Grafo::getNo(int id)
 {
@@ -165,6 +166,7 @@ No* Grafo::getNo(int id)
 /*
 * Função que verifica a existencia ddo Nó com id passado.
 * @param: int Id// Id do nó desejado
+* @return: booleano que representa a existencia do Nó
 */
 bool Grafo::existeNo(int id)
 {
@@ -282,6 +284,7 @@ void Grafo::inserirAresta(int id,int id_alvo,int peso)
 
 /*
 * Função que calcula e retorna o Grau medio, usando o metodo de somatorio
+* @return: inteiro que representa o grau medio do grafo usando somatorio
 */
 int Grafo::grauMedioPorSomatorio()
 {
@@ -321,6 +324,7 @@ int Grafo::grauMedioPorSomatorio()
 }
 /*
 * Função que calcula e retorna o Grau medio, usando o metodo de adjacencia
+* @return: inteiro que representa o grau medio do grafo usando adjacencia
 */
 int Grafo::grauMedioPorAdjacencia()
 {
@@ -338,6 +342,7 @@ int Grafo::grauMedioPorAdjacencia()
 /*
 * Função que calcula e retorna a frequencia relativa de grau d
 * @param: int d// parametro de comparação
+* @return: inteiro que representa a frequencia relativa do grafo
 */
 int Grafo::frequenciaRelativa(int d)
 {
@@ -358,6 +363,7 @@ int Grafo::frequenciaRelativa(int d)
 }
 /*
 * Função que retorna o numero de nos do Grafo
+* @return: inteiro que representa o grau do Grafo
 */
 int Grafo::grauDoGrafo()
 {
@@ -375,6 +381,7 @@ int Grafo::grauDoGrafo()
 * Função que usa a matriz de adjacencia pra verificar se existe adjacencia entre dois Nos.
 * @param: int i// parametro que representa a posição do No na matriz
 * @param: int j// parametro que representa a posição do No na matriz
+* @return: booleano que representa a existencia da adjacencia entre as duas posições
 */
 bool Grafo::verificaAdjacencia(int i,int j)
 {
@@ -397,7 +404,8 @@ void Grafo::adicionaArestaMatriz(int i,int j, int peso)
 
 /*
 * Função que pega a posição do No com o id passado nas matrizes
-* @param: int id// parametro que representao Nó a ser buscado na matriz
+* @param: int id// parametro que representao Nó a ser buscado nas matrizes
+* @return: inteiro que representa a posição do No com id recebido nas matrizes
 */
 int Grafo::getPosicaoMatriz(int id)
 {

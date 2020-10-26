@@ -136,8 +136,9 @@ void No::removerTodasArestas()
 }
 
 /*
-* Função que verifica a existencia de o Nó que chama a função e o Nó que tem o id igual ao "id_alvo"
+* Função que verifica a existencia da aresta na lista de arestas
 * @param: Int id_alvo // identificador do Nó que será verificado
+* @return: booleano que representa a existencia da aresta com o Id_alvo
 */
 bool No::existeAresta(int id_alvo)
 {
@@ -148,11 +149,26 @@ bool No::existeAresta(int id_alvo)
     return false;
 }
 
+
+/*
+* Função que verifica a existencia de uma aresta entre o Nó chamdo e o No alvo.
+* @param: int id_alvo// id do Nó alvo
+* @return: booleano que representa a existencia da aresta entre os Nós indicados
+*/
+bool No::existeArestaEntre(int id_alvo)
+{
+    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
+        if(aux->getId_Alvo() == id_alvo)
+            return true;
+    return false;
+}
+
 /*
 * Função que remove uma aresta especifica e atualiza as informações de entrada e saida.
 * @param: Int id // identificador do Nó que será verificado
 * @param: bool direcionado // identificador do Nó que será verificado
 * @param: No* no_alvo // identificador do Nó que será verificado
+* @return: inteiro que representa se a aresta foi removida
 */
 int No::removerAresta(int id, bool direcionado, No* no_alvo)
 {
@@ -228,6 +244,7 @@ void No::diminuiGrauSaida()
 /*
 * Função que retorna a aresta entre o Nó que chama a função e o Nó que tenha o id passado
 * @param: int id_alvo// id do Nó alvo
+* @return: ponteiro para a aresta entre os os Nós,Null se ela não existe
 */
 Aresta* No::getArestaEntre(int id_alvo)
 {
@@ -236,19 +253,6 @@ Aresta* No::getArestaEntre(int id_alvo)
             return aux;
     return nullptr;
 }
-
-/*
-* Função que verifica a existencia de uma aresta entre o Nó chamdo e o No alvo.
-* @param: int id_alvo// id do Nó alvo
-*/
-bool No::existeArestaEntre(int id_alvo)
-{
-    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
-        if(aux->getId_Alvo() == id_alvo)
-            return true;
-    return false;
-}
-
 
 
 // Getter e Setter iterador
