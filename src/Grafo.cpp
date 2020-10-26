@@ -582,9 +582,10 @@ void Grafo::depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel)
 }
 
 /*
-* Função que imprime o resultado da busca no arquivo.
+* Função que faz busca em profundidade partindo do Nó com id passado imprimindo na saida
 * @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
 * @param: fstream &outputFile// caminho do arquivo que salva a impressão
+* @return: busca em profundidade
 */
 bool Grafo::depthFirstSearchFile(int id_inicial,fstream &outputFile)
 {
@@ -619,6 +620,10 @@ bool Grafo::depthFirstSearchFile(int id_inicial,fstream &outputFile)
     return true;
 }
 
+/*
+* Função auxiliar da busca em profundidade.
+* @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
+*/
 void Grafo::depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int nivel,fstream &outputFile)
 {
     if(no == nullptr)
@@ -645,6 +650,10 @@ void Grafo::depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int ni
     }
 }
 
+/*
+* Função que faz busca em largura imprimindo na saida
+* @return: busca em Largura
+*/
 void Grafo::breathFirstSearch()
 {
     queue<No*> fila; //FILA
@@ -691,6 +700,11 @@ void Grafo::breathFirstSearch()
     }
 }
 
+/*
+* Função que faz busca em largura
+* @param: fstream &outputFile// caminho do arquivo que salva a impressão
+* @return: busca em Largura
+*/
 void Grafo::breathFirstSearchFile(fstream& output_file)
 {
     queue<No*> fila; //FILA
