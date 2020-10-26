@@ -1,5 +1,9 @@
 #include "No.h"
 
+/*
+* Construtor classe No para casos não ponderados, recebe apenas o Id do Nó a ser criado
+* @param: Int id // identificador do Nó a ser criado
+*/
 No::No(int id)
 {
     this->id = id;
@@ -10,7 +14,11 @@ No::No(int id)
     this->ultima_aresta = nullptr;
     this->prox = nullptr;
 }
-
+/*
+* Construtor classe No para casos ponderados, recebe o Id do Nó a ser criado e o peso desse Nó
+* @param: Int id // identificador do Nó a ser criado
+* @param: Int peso// inteiro que representa o peso do Nó
+*/
 No::No(int id,int peso)
 {
     this->id = id;
@@ -22,6 +30,9 @@ No::No(int id,int peso)
     this->prox = nullptr;
 }
 
+/*
+* Destrutor
+*/
 No::~No()
 {
     Aresta* proxima_aresta = this->primeira_aresta;
@@ -83,6 +94,12 @@ void No::setPeso(int peso)
 }
 
 /*OUTROS MÉTODOS*/
+
+/*
+* Função para inserir arestas entre o Nó que chama a função até o Nó com "id_alvo" e com a aresta tendo peso passado
+* @param: Int id_alvo // identificador do Nó que receberá a aresta
+* @param: Int peso// inteiro do peso da aresta, passar -1 para arestas não ponderadas
+*/
 void No::inserirAresta(int id_alvo,int peso)
 {
     if(this->primeira_aresta != nullptr)
@@ -90,12 +107,17 @@ void No::inserirAresta(int id_alvo,int peso)
         Aresta* aresta = new Aresta(id_alvo,this->id,peso);
         this->ultima_aresta->setProxAresta(aresta);
         this->ultima_aresta = aresta;
-    } else {
+    }
+    else
+    {
         this->primeira_aresta = new Aresta(id_alvo,this->id,peso);
         this->ultima_aresta = this->primeira_aresta;
     }
 }
 
+/*
+* Função para remover todas as arestas do Nó
+*/
 void No::removerTodasArestas()
 {
     if(this->primeira_aresta != nullptr)
@@ -113,6 +135,10 @@ void No::removerTodasArestas()
     this->primeira_aresta = this->ultima_aresta = nullptr;
 }
 
+/*
+* Função que verifica a existencia de o Nó que chama a função e o Nó que tem o id igual ao "id_alvo"
+* @param: Int id_alvo // identificador do Nó que será verificado
+*/
 bool No::existeAresta(int id_alvo)
 {
     if(this->primeira_aresta != nullptr)
@@ -122,6 +148,12 @@ bool No::existeAresta(int id_alvo)
     return false;
 }
 
+/*
+* Função que remove uma aresta especifica e atualiza as informações de entrada e saida.
+* @param: Int id // identificador do Nó que será verificado
+* @param: bool direcionado // identificador do Nó que será verificado
+* @param: No* no_alvo // identificador do Nó que será verificado
+*/
 int No::removerAresta(int id, bool direcionado, No* no_alvo)
 {
     if(this->existeAresta(id))
@@ -150,36 +182,53 @@ int No::removerAresta(int id, bool direcionado, No* no_alvo)
 
         if(direcionado)
             this->diminuiGrauSaida();
-        else {
+        else
+        {
             this->diminuiGrauEntrada();
             no_alvo->diminuiGrauEntrada();
         }
 
         return 1;
     }
-
+    else cout<< "Aresta não existe"<<endl;
     return 0;
 }
 
+/*
+* Função que incrementa em um o Grau de de entrada
+*/
 void No::aumentaGrauEntrada()
 {
     this->grau_de_entrada++;
 }
+/*
+* Função que incrementa em um o Grau de de saida
+*/
 void No::aumentaGrauSaida()
 {
     this->grau_de_saida++;
 }
+/*
+* Função que decrementa em um o Grau de de entrada
+*/
 void No::diminuiGrauEntrada()
 {
     if(this->grau_de_entrada > 0)
         this->grau_de_entrada--;
 }
+/*
+* Função que decrementa em um o Grau de de entrada
+*/
 void No::diminuiGrauSaida()
 {
     if(this->grau_de_saida > 0)
         this->grau_de_saida--;
 }
 
+/*
+* Função que retorna a aresta entre o Nó que chama a função e o Nó que tenha o id passado
+* @param: int id_alvo// id do Nó alvo
+*/
 Aresta* No::getArestaEntre(int id_alvo)
 {
     for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
@@ -187,6 +236,11 @@ Aresta* No::getArestaEntre(int id_alvo)
             return aux;
     return nullptr;
 }
+
+/*
+* Função que verifica a existencia de uma aresta entre o Nó chamdo e o No alvo.
+* @param: int id_alvo// id do Nó alvo
+*/
 bool No::existeArestaEntre(int id_alvo)
 {
     for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
@@ -195,12 +249,15 @@ bool No::existeArestaEntre(int id_alvo)
     return false;
 }
 
+
+
+// Getter e Setter iterador
 int No::getI()
 {
-    return this->interador;
+    return this->iterador;
 }
 
 void No::setI(int i)
 {
-    this->interador = i;
+    this->iterador = i;
 }

@@ -1,5 +1,8 @@
 #include "Grafo.h"
 
+/*
+* Construtor vazio da classe Grafos, inicia todos os parametros como null ou 0;
+*/
 Grafo::Grafo()
 {
     this->ordem = 0;
@@ -14,6 +17,10 @@ Grafo::Grafo()
     this->inicializaMatrizes();
 }
 
+/*
+* Construtor com apenas Um dos parametros da classe Grafos, inicia a ordem e deixa todos os outros parametros como null ou 0;
+* @param: Int ordem // recebe a ordem dos grafos
+*/
 Grafo::Grafo(int ordem)
 {
     this->ordem = ordem;
@@ -28,6 +35,14 @@ Grafo::Grafo(int ordem)
     this->inicializaMatrizes();
 }
 
+/*
+* Construtor completo da classe Grafos,
+* inicia todos os parametros recebidos e deixa os outros nulos para serem preenchidos pelo "incializaMatrizes();
+* @param: Int ordem // recebe a ordem dos grafos
+* @param:  bool direcionado // booleano que indica se o grafo é direcionado
+* @param: bool ponderado_aresta // booleano que indica se as arestas são ponderadas
+* @param: bool ponderado_no// booleano que indica se os Nos são ponderados
+*/
 Grafo::Grafo(int ordem, bool direcionado,bool ponderado_aresta,bool ponderado_no)
 {
     this->ordem = ordem;
@@ -42,6 +57,9 @@ Grafo::Grafo(int ordem, bool direcionado,bool ponderado_aresta,bool ponderado_no
     this->inicializaMatrizes();
 }
 
+/*
+* Destrutor
+*/
 Grafo::~Grafo()
 {
     this->deleteMatrizes();
@@ -104,18 +122,30 @@ void Grafo::setNumeroArestas(int numeroArestas)
 
 /*Funções do Grafo*/
 
+/*
+* Função que aumenta em um o numero de arestas registradas
+*/
+
 void Grafo::aumentaNumArestas()
 {
     this->numero_arestas++;
 }
 
-
+/*
+* Função que diminui em um o numero de arestas registradas se o numero for maior que 0
+*/
 void Grafo::diminuiNumArestas()
 {
     if(this->numero_arestas > 0)
         this->numero_arestas--;
+    else
+        cout<< "É impossivel deixar o numero de arestas negativo"<<endl;
 }
 
+/*
+* Função que retorna o ponteiro para o Nó com Id indicado
+* @param: int Id// Id do nó desejado
+*/
 No* Grafo::getNo(int id)
 {
     if(this->primeiro_no != nullptr)
@@ -124,10 +154,18 @@ No* Grafo::getNo(int id)
             if(aux->getId() == id)
                 return aux;
     }
+    else
+    {
+        cout << "O Nó indicado não existe, retornando Null"<< endl;
+    }
 
     return nullptr;
 }
 
+/*
+* Função que verifica a existencia ddo Nó com id passado.
+* @param: int Id// Id do nó desejado
+*/
 bool Grafo::existeNo(int id)
 {
     if(this->primeiro_no != nullptr)
@@ -140,6 +178,10 @@ bool Grafo::existeNo(int id)
     return false;
 }
 
+/*
+* Função que insere um Nó no grafo com o Id que foi passado.
+* @param: int Id// Id do nó a ser incluido
+*/
 void Grafo::inserirNo(int id)
 {
     if(!existeNo(id))
@@ -156,8 +198,13 @@ void Grafo::inserirNo(int id)
             this->ultimo_no = this->primeiro_no;
         }
     }
+    else
+        cout << "O Nó com esse Id Já existe"<<endl;
 }
-
+/*
+* Função que remove um Nó no grafo com o Id que foi passado.
+* @param: int Id// Id do nó a ser removido
+*/
 void Grafo::removerNo(int id)
 {
     if(existeNo(id))
@@ -203,6 +250,12 @@ void Grafo::removerNo(int id)
     }
 }
 
+/*
+* Função que insere umaa aresta que começa no id e vai até o id_alvo e tem peso representado pela variavel "peso".
+* @param: int Id// Id do Nó de onde a aresta sai
+* @param: int id_alvo// Id do Nó que receberá a aresta
+* @param: int peso// peso da aresta a ser criada.
+*/
 void Grafo::inserirAresta(int id,int id_alvo,int peso)
 {
     if(!existeNo(id))
@@ -227,6 +280,9 @@ void Grafo::inserirAresta(int id,int id_alvo,int peso)
     }
 }
 
+/*
+* Função que calcula e retorna o Grau medio, usando o metodo de somatorio
+*/
 int Grafo::grauMedioPorSomatorio()
 {
     if(this->ordem != 0)
@@ -263,7 +319,9 @@ int Grafo::grauMedioPorSomatorio()
         return -1;
     }
 }
-
+/*
+* Função que calcula e retorna o Grau medio, usando o metodo de adjacencia
+*/
 int Grafo::grauMedioPorAdjacencia()
 {
     if(this->ordem != 0)
@@ -277,12 +335,16 @@ int Grafo::grauMedioPorAdjacencia()
         return -1;
     }
 }
-
+/*
+* Função que calcula e retorna a frequencia relativa de grau d
+* @param: int d// parametro de comparação
+*/
 int Grafo::frequenciaRelativa(int d)
 {
     if(this->primeiro_no == nullptr)
         return 0;
-    else {
+    else
+    {
         int cont = 0;
 
         for(No* no = this->primeiro_no; no != nullptr; no = no->getProx())
@@ -294,7 +356,9 @@ int Grafo::frequenciaRelativa(int d)
         return (cont/this->ordem);
     }
 }
-
+/*
+* Função que retorna o numero de nos do Grafo
+*/
 int Grafo::grauDoGrafo()
 {
     int grau = 0;
@@ -307,7 +371,11 @@ int Grafo::grauDoGrafo()
 
     return grau;
 }
-
+/*
+* Função que usa a matriz de adjacencia pra verificar se existe adjacencia entre dois Nos.
+* @param: int i// parametro que representa a posição do No na matriz
+* @param: int j// parametro que representa a posição do No na matriz
+*/
 bool Grafo::verificaAdjacencia(int i,int j)
 {
     if(this->matriz_adjacencia[i][j])
@@ -315,12 +383,22 @@ bool Grafo::verificaAdjacencia(int i,int j)
     return false;
 }
 
+/*
+* Função que adiciona uma aresta na matriz de pesos, da posição i e j com peso "peso".
+* @param: int i// parametro que representa a posição do No na matriz
+* @param: int j// parametro que representa a posição do No na matriz
+* @param: int peso// parametro que representa o peso da matriz a ser adicionada
+*/
 void Grafo::adicionaArestaMatriz(int i,int j, int peso)
 {
     matriz_adjacencia[this->getPosicaoMatriz(i)][this->getPosicaoMatriz(j)] = true;
     matriz_pesos[this->getPosicaoMatriz(i)][this->getPosicaoMatriz(j)] = peso;
 }
 
+/*
+* Função que pega a posição do No com o id passado nas matrizes
+* @param: int id// parametro que representao Nó a ser buscado na matriz
+*/
 int Grafo::getPosicaoMatriz(int id)
 {
     int c = 0;
@@ -337,6 +415,9 @@ int Grafo::getPosicaoMatriz(int id)
     return -1;
 }
 
+/*
+* Função usada no construtor para incializar ambas as matrizes
+*/
 void Grafo::inicializaMatrizes()
 {
     this->matriz_adjacencia = new bool*[this->ordem];
@@ -354,6 +435,9 @@ void Grafo::inicializaMatrizes()
     }
 }
 
+/*
+* Função que funciona como destrutor para ambas as matrizes
+*/
 void Grafo::deleteMatrizes()
 {
     for(int i = 0; i < this->ordem; i++)
@@ -389,7 +473,8 @@ string Grafo::imprimir()
                     stream << aresta->getId_Alvo() << "(" << aresta->getPeso() << ")--->";
                 else
                     stream << aresta->getId_Alvo() << "(" << aresta->getPeso() << ")";
-            } else
+            }
+            else
             {
                 if(aresta->getProxAresta() != nullptr)
                     stream << aresta->getId_Alvo() << "--->";
@@ -421,6 +506,10 @@ string Grafo::imprimirMatriz()
 
 /*Buscas*/
 
+/*
+* Função que faz busca em profundidade partindo do Nó com id passado.
+* @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
+*/
 bool Grafo::depthFirstSearch(int id_inicial)
 {
     bool* vetor_coloracao = new bool[this->ordem];
@@ -454,6 +543,10 @@ bool Grafo::depthFirstSearch(int id_inicial)
     return true;
 }
 
+/*
+* Função auxiliar da busca em profundidade.
+* @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
+*/
 void Grafo::depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel)
 {
     if(no == nullptr)
@@ -480,6 +573,11 @@ void Grafo::depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel)
     }
 }
 
+/*
+* Função que imprime o resultado da busca no arquivo.
+* @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
+* @param: fstream &outputFile// caminho do arquivo que salva a impressão
+*/
 bool Grafo::depthFirstSearchFile(int id_inicial,fstream &outputFile)
 {
     bool* vetor_coloracao = new bool[this->ordem];
@@ -541,7 +639,7 @@ void Grafo::depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int ni
 
 void Grafo::breathFirstSearch()
 {
-        queue<No*> fila; //FILA
+    queue<No*> fila; //FILA
 
     No* no = this->primeiro_no; //PRIMEIRO NO DO GRAFO
 
