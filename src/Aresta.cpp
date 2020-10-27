@@ -5,7 +5,7 @@
 */
 Aresta::Aresta()
 {
-    this->id_alvo = -1;
+    this->id_alvo =nullptr;
     this->prox = nullptr;
     this->peso = 0;
 }
