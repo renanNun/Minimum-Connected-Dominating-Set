@@ -200,8 +200,6 @@ void Grafo::inserirNo(int id)
             this->ultimo_no = this->primeiro_no;
         }
     }
-    else
-        cout << "O Nó com esse Id Já existe"<<endl;
 }
 /*
 * Função que remove um Nó no grafo com o Id que foi passado.
