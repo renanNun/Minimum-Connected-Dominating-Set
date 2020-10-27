@@ -14,49 +14,54 @@ using namespace std;
 */
 class No
 {
-    public:
-        No(int id);
-        No(int id, int peso);
-        virtual ~No();
+public:
+    No(int id);
+    No(int id, int peso);
+    virtual ~No();
 
-        Aresta* getPrimeiraAresta();
-        Aresta* getUltimaAresta();
-        int getId();
-        int getGrauEntrada();
-        int getGrauSaida();
-        int getPeso();
-        No* getProx();
+    Aresta* getPrimeiraAresta();
+    Aresta* getUltimaAresta();
+    int getId();
+    int getGrauEntrada();
+    int getGrauSaida();
+    int getPeso();
+    No* getProx();
 
-        void setProxNo(No* no);
-        void setPeso(int peso);
+    void setProxNo(No* no);
+    void setPeso(int peso);
 
-        bool existeAresta(int id_alvo);
-        void inserirAresta(int id_alvo,int peso);
-        void removerTodasArestas();
-        int removerAresta(int id, bool direcionado, No* no_alvo);
-        Aresta* getArestaEntre(int id_alvo);
-        bool existeArestaEntre(int id_alvo);
+    bool existeAresta(int id_alvo);
+    void inserirAresta(int id_alvo,int peso);
+    void removerTodasArestas();
+    int removerAresta(int id, bool direcionado, No* no_alvo);
+    Aresta* getArestaEntre(int id_alvo);
+    bool existeArestaEntre(int id_alvo);
 
-        void aumentaGrauEntrada();
-        void aumentaGrauSaida();
-        void diminuiGrauEntrada();
-        void diminuiGrauSaida();
+    void aumentaGrauEntrada();
+    void aumentaGrauSaida();
+    void diminuiGrauEntrada();
+    void diminuiGrauSaida();
 
-        //Variável para DFS e BFS
-        int getI();
-        void setI(int i);
+    //Variável para DFS e BFS
+    int getI();
+    void setI(int i);
 
+    //Variaveis para Prim
+    bool getMarca();
+    void setMarca();
+    void desmarca();
+    Aresta* getAresta();
+private:
+    int id;
+    Aresta* primeira_aresta;
+    Aresta* ultima_aresta;
+    int grau_de_entrada;
+    int grau_de_saida;
+    int peso;
+    No* prox;
 
-    private:
-        int id;
-        Aresta* primeira_aresta;
-        Aresta* ultima_aresta;
-        int grau_de_entrada;
-        int grau_de_saida;
-        int peso;
-        No* prox;
-
-        int interador;
+    int interador;
+    bool marca; //Para o Prim
 };
 
 #endif // NO_H

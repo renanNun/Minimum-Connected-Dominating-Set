@@ -204,3 +204,25 @@ void No::setI(int i)
 {
     this->interador = i;
 }
+
+// Funções Prim
+
+bool No::getMarca()
+{
+    return marca;
+}
+void No::setMarca()
+{
+    marca=true;
+}
+void No::desmarca()
+{
+    marca=false;
+}
+
+Aresta* No::getAresta()
+{
+    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
+        return aux;
+    return nullptr;
+}

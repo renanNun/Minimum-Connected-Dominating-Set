@@ -1,21 +1,21 @@
 # depslib dependency file v1.0
-1603634178 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.cpp
+1603824414 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.cpp
 	"Aresta.h"
 
-1603634178 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.h
+1603824414 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.h
 	<iostream>
 
-1603634178 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.cpp
+1603825298 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.cpp
 	"No.h"
 
-1603634178 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.h
+1603825278 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.h
 	<iostream>
 	"Aresta.h"
 
-1603634794 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.cpp
+1603824415 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.cpp
 	"Grafo.h"
 
-1603634773 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.h
+1603824415 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.h
 	<iostream>
 	<sstream>
 	<string>
@@ -26,18 +26,31 @@
 	"No.h"
 	"Aresta.h"
 
-1603635067 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
+1603824993 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
 	<iostream>
 	<fstream>
 	<string>
 	<sstream>
 	"Grafo.h"
 	"Floyd.h"
+	"Dijkstra.h"
 
-1603634969 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.h
+1603824415 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.h
 	"Grafo.h"
 	<fstream>
 
-1603635159 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.cpp
+1603824415 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.cpp
 	"Floyd.h"
+
+1603825088 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\dijkstra.cpp
+	"Dijkstra.h"
+
+1603824776 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\dijkstra.h
+	"Grafo.h"
+
+1603825650 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\prim.cpp
+	"Prim.h"
+
+1603825633 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\prim.h
+	"Grafo.h"
 

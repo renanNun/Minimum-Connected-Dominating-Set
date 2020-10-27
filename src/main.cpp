@@ -5,6 +5,8 @@
 
 #include "Grafo.h"
 #include "Floyd.h"
+#include "Dijkstra.h"
+#include "Prim.h"
 
 std::fstream inputFile;
 std::fstream outputFile;
@@ -77,6 +79,10 @@ int main(int argc, char * argv [])
 
     /*Algoritmos de Caminho Mínimo e AGM*/
     Floyd* floyd;
+    Dijkstra* dijkstra;
+    Prim* prim;
+
+    Grafo* AGM;
 
     while(true)
     {
@@ -126,6 +132,14 @@ int main(int argc, char * argv [])
             limparTela();
             break;
         case 5:
+            cout << "\tNo Inicial: ";
+            cin >> id;
+            cout << endl;
+            dijkstra = new Dijkstra(grafo,id);
+            if(salvar())
+            {
+                dijkstra->imprimeFile(outputFile);
+            }
             limparTela();
             break;
         case 6:
@@ -137,6 +151,22 @@ int main(int argc, char * argv [])
             limparTela();
             break;
         case 7:
+            if(grafo->getDirecionado())
+            {
+                cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Kruskal!" << endl;
+                break;
+            }
+
+            int pesoTotal;
+            prim = new Prim(grafo);
+            AGM = prim->gerar(&pesoTotal);
+            cout << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
+            cout << AGM->imprimir() << endl;
+            if(salvar())
+            {
+                outputFile << endl << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
+                outputFile << AGM->imprimir() << endl;
+            }
             limparTela();
             break;
         case 8:
