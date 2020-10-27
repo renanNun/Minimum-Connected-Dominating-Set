@@ -7,6 +7,7 @@
 #include "Floyd.h"
 #include "Dijkstra.h"
 #include "Prim.h"
+#include "Kruskal.h"
 
 std::fstream inputFile;
 std::fstream outputFile;
@@ -81,7 +82,7 @@ int main(int argc, char * argv [])
     Floyd* floyd;
     Dijkstra* dijkstra;
     Prim* prim;
-
+    Kruskal* kruskal;
     Grafo* AGM;
 
     while(true)
@@ -170,6 +171,12 @@ int main(int argc, char * argv [])
             limparTela();
             break;
         case 8:
+            kruskal = new Kruskal(grafo);
+
+            if(salvar())
+            {
+
+            }
             limparTela();
             break;
         default:

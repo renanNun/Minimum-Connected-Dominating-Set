@@ -26,7 +26,7 @@
 	"No.h"
 	"Aresta.h"
 
-1603824993 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
+1603828422 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -34,6 +34,8 @@
 	"Grafo.h"
 	"Floyd.h"
 	"Dijkstra.h"
+	"Prim.h"
+	"Kruskal.h"
 
 1603824415 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.h
 	"Grafo.h"
@@ -53,4 +55,10 @@
 
 1603825633 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\prim.h
 	"Grafo.h"
+
+1603829952 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.h
+	"Grafo.h"
+
+1603830408 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.cpp
+	"Kruskal.h"
 
