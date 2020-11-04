@@ -154,10 +154,13 @@ int main(int argc, char * argv [])
         case 7:
             if(grafo->getDirecionado())
             {
-                cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Kruskal!" << endl;
+                cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Prim!" << endl;
                 break;
             }
-
+            if(!grafo->getPonderadoAresta()){
+             cout << "Atenção: O grafo precisa ter aresta ponderada para Prim!" << endl;
+                break;
+            }
             int pesoTotal;
             prim = new Prim(grafo);
             AGM = prim->gerar(&pesoTotal);
