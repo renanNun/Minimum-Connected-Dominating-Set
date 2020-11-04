@@ -60,16 +60,14 @@ Grafo * Prim::gerar(int *soma)
         int origem = w->getId_Origem();
         int fim = w->getId_Alvo();
         int peso = w->getPeso();
-        cout << "ORIGEM " << origem << endl;
-        cout << "FIM " << fim << endl;
 
-        cout << "DA AVENTURA HUMANA NA TERRA " << soma << endl;
+
+
 
         if(origem != fim)
         {
             (*soma) += peso;
             h->inserirAresta(origem, fim, peso);
-            cout << "MINHA PEQUENA EVA" << endl;
             h->setOrdem(h->getOrdem()+1);
 
         }
