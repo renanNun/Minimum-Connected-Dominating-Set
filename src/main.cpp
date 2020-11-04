@@ -142,6 +142,7 @@ int main(int argc, char * argv [])
                 dijkstra->imprimeFile(outputFile);
             }
             limparTela();
+            delete dijkstra;
             break;
         case 6:
             floyd = new Floyd(grafo,grafo->getMatrizPesos());
@@ -150,6 +151,7 @@ int main(int argc, char * argv [])
                 floyd->printSolucaoFile(outputFile);
             }
             limparTela();
+            delete floyd;
             break;
         case 7:
             if(grafo->getDirecionado())
@@ -164,6 +166,7 @@ int main(int argc, char * argv [])
             int pesoTotal;
             prim = new Prim(grafo);
             AGM = prim->gerar(&pesoTotal);
+            delete prim;
             cout << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
             cout << AGM->imprimir() << endl;
             if(salvar())
@@ -172,6 +175,9 @@ int main(int argc, char * argv [])
                 outputFile << AGM->imprimir() << endl;
             }
             limparTela();
+            delete AGM;
+
+
             break;
         case 8:
             kruskal = new Kruskal(grafo);
@@ -181,6 +187,7 @@ int main(int argc, char * argv [])
 
             }
             limparTela();
+            delete kruskal;
             break;
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
@@ -188,6 +195,7 @@ int main(int argc, char * argv [])
         }
     }
 
+    delete grafo;
     return 0;
 }
 

@@ -73,7 +73,6 @@ Grafo * Prim::gerar(int *soma)
         }
 
     }
-    cout << "NAO E POSSIVEL" << endl;
     return h;
 }
 
