@@ -184,7 +184,7 @@ int main(int argc, char * argv [])
 
             if(salvar())
             {
-
+                kruskal->imprimeFile(outputFile);
             }
             limparTela();
             delete kruskal;

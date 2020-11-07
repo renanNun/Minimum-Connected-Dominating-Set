@@ -40,9 +40,9 @@ void Kruskal::preencheListaArestas()
         }
     }
 
-    cout<< "Lista Inicial: "<<endl;
-    for(Aresta* & aresta : listaArestasaux)
-        cout<<aresta->getPeso()<<endl;
+    // cout<< "Lista Inicial: " << listaArestasaux.size() <<endl;
+    /*for(Aresta* & aresta : listaArestasaux)
+        cout<<aresta->getPeso()<<endl;*/
 
     while(!listaArestasaux.empty())
     {
@@ -53,7 +53,7 @@ void Kruskal::preencheListaArestas()
         if(!listaArestas.empty())
         {
             list <Aresta *>listaArestasaux2(listaArestas);
-            for (Aresta* & arestaux2 : listaArestasaux)
+            for (Aresta* & arestAux2 : listaArestasaux)
             {
                 if(!listaArestasaux2.empty())
                 {
@@ -82,30 +82,16 @@ void Kruskal::preencheListaArestas()
 
     }
     listaArestas.sort(ListaArestaComparator());
-    cout<< "Lista Final: "<<endl;
-    for(Aresta* & aresta : listaArestas)
-        cout<<aresta->getIdAresta()<<endl;
+    cout<< "Lista Final: " << listaArestas.size() <<endl;
+    /*for(Aresta* & aresta : listaArestas)
+        cout<<aresta->getIdAresta()<<endl;*/
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+void Kruskal::imprimeFile(fstream &outputFile)
+{
+    outputFile << "Lista Final: "<<endl;
+    for(Aresta* & aresta : listaArestas)
+        outputFile<<aresta->getIdAresta()<<endl;
+}
 

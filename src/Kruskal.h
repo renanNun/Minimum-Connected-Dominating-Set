@@ -18,6 +18,8 @@ public:
     Kruskal(Grafo *grafo);
     ~Kruskal();
 
+    void imprimeFile(fstream &outputFile);
+
 private:
     Grafo *grafo;
     bool direcional;
