@@ -31,11 +31,28 @@ public:
     void setId_Origem(int novo_id_origem);
     void setId_alvo(int novo_id_alvo);
 
+    //Kruskal
+    void setColocadoArvore(bool colocado);
+    bool getColocadoArvore();
+    void setIdAresta(int id);
+    Aresta * getAresta(int idAresta);
+    int getIdAresta();
+    bool operator <(const Aresta & ArestaObj) const
+    {
+        return peso < ArestaObj.peso;
+    }
+
 private:
     int id_alvo;
     int id_origem;
     int peso;
     Aresta* prox;
+
+
+    // Kruskal
+    bool colocadoArvore =false;
+    int idAresta;
+
 };
 
 #endif // ARESTA_H

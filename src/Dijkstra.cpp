@@ -96,7 +96,10 @@ void Dijkstra::imprime()
 
     for(int i = 0; i < this->graph->getOrdem(); i++)
     {
-        cout << " PARA O VERTICE: " << vertices[i] << " = " << distancias[i] << endl;
+        if(distancias[i]!= INFINITO)
+        cout<< " PARA O VERTICE: " << vertices[i] << " = " << distancias[i] << endl;
+        else
+        cout << " PARA O VERTICE: " << vertices[i] << " = " << "INFINITO" << endl;
     }
 }
 
@@ -106,7 +109,10 @@ void Dijkstra::imprimeFile(fstream &outputFile)
 
     for(int i = 0; i < this->graph->getOrdem(); i++)
     {
+        if(distancias[i]!= INFINITO)
         outputFile << " PARA O VERTICE: " << vertices[i] << " = " << distancias[i] << endl;
+        else
+        outputFile << " PARA O VERTICE: " << vertices[i] << " = " << "INFINITO" << endl;
     }
 }
 

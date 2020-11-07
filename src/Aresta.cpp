@@ -69,3 +69,33 @@ void Aresta::setId_alvo(int novo_id_alvo)
 {
     this->id_alvo = novo_id_alvo;
 }
+
+bool Aresta::getColocadoArvore()
+{
+    return this->colocadoArvore;
+}
+void Aresta::setColocadoArvore(bool colocado)
+{
+    this->colocadoArvore=colocado;
+}
+
+void Aresta::setIdAresta(int id)
+{
+    idAresta=id;
+}
+Aresta * Aresta::getAresta(int id)
+{
+    if (id == idAresta)
+        return this;
+    else
+        return nullptr;
+}
+
+int Aresta::getIdAresta(){
+return idAresta;
+}
+
+
+
+
+
