@@ -10,6 +10,8 @@ struct ListaArestaComparator
     }
 };
 
+
+
 Kruskal::Kruskal(Grafo *grafo)
 {
     this->grafo = grafo;
@@ -24,10 +26,7 @@ Kruskal:: ~Kruskal() {}
 
 void Kruskal::preencheListaArestas()
 {
-    list<Aresta*> listaArestasaux;
-    Aresta * arestaAux;
-    Aresta * arestaAux2;
-    int contador=0;
+
     int idAresta=0;
 
     for (No *i=noInicial; i!=nullptr; i=i->getProx())
@@ -36,56 +35,27 @@ void Kruskal::preencheListaArestas()
         {
             j->setIdAresta(idAresta);
             idAresta++;
-            listaArestasaux.push_back(j);
+            listaArestas.push_back(j);
         }
     }
 
-    // cout<< "Lista Inicial: " << listaArestasaux.size() <<endl;
-    /*for(Aresta* & aresta : listaArestasaux)
-        cout<<aresta->getPeso()<<endl;*/
+    cout<< "Lista Inicial: " << listaArestas.size() <<endl;
 
-    while(!listaArestasaux.empty())
-    {
-        arestaAux=listaArestasaux.front();
-        listaArestasaux.pop_front();
-        contador=0;
-
-        if(!listaArestas.empty())
-        {
-            list <Aresta *>listaArestasaux2(listaArestas);
-            for (Aresta* & arestAux2 : listaArestasaux)
-            {
-                if(!listaArestasaux2.empty())
-                {
-                    contador++;
-                    arestaAux2=listaArestasaux2.front();
-                    listaArestasaux2.pop_front();
-
-                    if(arestaAux2->getId_Alvo() == arestaAux->getId_Origem()
-                            && arestaAux2->getId_Origem() ==arestaAux->getId_Alvo() )
-                    {
-                        arestaAux= nullptr;
-                        break;
-                    }
-                    if(contador==listaArestas.size())
-                    {
-                        listaArestas.push_back(arestaAux);
-                    }
-
-
-                }
-            }
-
-        }
-        else
-            listaArestas.push_back(arestaAux);
-
-    }
     listaArestas.sort(ListaArestaComparator());
+
+    // Retirar elementos iguais
+
+
+
+
     cout<< "Lista Final: " << listaArestas.size() <<endl;
-    /*for(Aresta* & aresta : listaArestas)
-        cout<<aresta->getIdAresta()<<endl;*/
+
+
+    /*    for(Aresta* & aresta : listaArestas)
+             cout<<aresta->getIdAresta()<<endl;
+     */
 }
+
 
 
 void Kruskal::imprimeFile(fstream &outputFile)
