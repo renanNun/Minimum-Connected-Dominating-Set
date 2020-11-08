@@ -66,6 +66,8 @@ class Grafo{
         void breathFirstSearchFile(fstream& output_file);
 
         int** getMatrizPesos();
+
+        bool ehConexo(Grafo * g);
     private:
         int ordem;
         int numero_arestas;
@@ -82,6 +84,9 @@ class Grafo{
 
         void depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel);
         void depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int nivel,fstream &outputFile);
+
+
+        void percorre(No * u);
 };
 
 #endif // GRAFO_H

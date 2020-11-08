@@ -282,7 +282,8 @@ int Grafo::frequenciaRelativa(int d)
 {
     if(this->primeiro_no == nullptr)
         return 0;
-    else {
+    else
+    {
         int cont = 0;
 
         for(No* no = this->primeiro_no; no != nullptr; no = no->getProx())
@@ -389,7 +390,8 @@ string Grafo::imprimir()
                     stream << aresta->getId_Alvo() << "(" << aresta->getPeso() << ")--->";
                 else
                     stream << aresta->getId_Alvo() << "(" << aresta->getPeso() << ")";
-            } else
+            }
+            else
             {
                 if(aresta->getProxAresta() != nullptr)
                     stream << aresta->getId_Alvo() << "--->";
@@ -541,7 +543,7 @@ void Grafo::depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int ni
 
 void Grafo::breathFirstSearch()
 {
-        queue<No*> fila; //FILA
+    queue<No*> fila; //FILA
 
     No* no = this->primeiro_no; //PRIMEIRO NO DO GRAFO
 
@@ -635,3 +637,38 @@ int** Grafo::getMatrizPesos()
 {
     return this->matriz_pesos;
 }
+
+
+
+void Grafo::traverse(No * u)
+{
+    u->Marca();
+    for(No *v =primeiro_no; v=!nullptr; v=v->getProx())
+    {
+
+        if(v->existeArestaEntre(u->getId()))
+        {
+            if(!v->getMarca())
+                traverse(v);
+        }
+    }
+}
+
+bool Grafo::ehConexo(Grafo * g)
+{
+
+    for (No *i= g->getPrimeiroNo(); i!=nullptr; i=i->getProx())
+        i->desmarca();
+    traverse(g->getPrimeiroNo())
+    for (No *i= g->getPrimeiroNo(); i!=nullptr; i=i->getProx())
+    {
+        if (!i->getMarca())
+        {
+            return false
+        }
+    }
+    return true
+}
+
+
+

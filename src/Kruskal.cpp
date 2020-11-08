@@ -34,17 +34,21 @@ void Kruskal::algoritmo()
     No * noAux;
     for(Aresta* & arestaAux : listaArestas)
     {
-        if(!grafoKruskal.getNo(arestaAux->getId_Alvo())->getMarca() || !grafoKruskal.getNo(arestaAux->getId_Origem())->getMarca())
+        grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
+        if(grafoKruskal.isCyclic())
         {
-            grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
-            grafoKruskal.getNo(arestaAux->getId_Alvo())->Marca();
-            grafoKruskal.getNo(arestaAux->getId_Origem())->Marca();
+            No * i= grafoKruskal.getNo(arestaAux->getId_Origem());
+            i->removerAresta(arestaAux->getId_Origem(),false, grafoKruskal.getNo(arestaAux->getId_Alvo()));
+            i= grafoKruskal.getNo(arestaAux->getId_Alvo());
+            i->removerAresta(arestaAux->getId_Origem(),false, grafoKruskal.getNo(arestaAux->getId_Alvo()));
         }
     }
 
 
 imprime();
 }
+
+
 
 void Kruskal::preencheListaArestas()
 {
@@ -89,7 +93,6 @@ void Kruskal::preencheListaNos()
 
     for (No *i=noInicial; i!=nullptr; i=i->getProx())
     {
-        i->desmarca();
         grafoKruskal.inserirNo(i->getId());
 
     }
@@ -105,4 +108,6 @@ void Kruskal::imprime()
 {
     cout<<grafoKruskal.imprimir();
 }
+
+
 

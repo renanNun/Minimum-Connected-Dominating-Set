@@ -62,7 +62,7 @@
 1603830408 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.cpp
 	"Kruskal.h"
 
-1604849477 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.cpp
+1604853244 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.cpp
 	"Aresta.h"
 
 1604853234 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.h
@@ -74,7 +74,7 @@
 1604495280 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Dijkstra.h
 	"Grafo.h"
 
-1604495280 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Grafo.h
+1604863149 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Grafo.h
 	<iostream>
 	<sstream>
 	<string>
@@ -108,7 +108,7 @@
 1604495280 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Prim.h
 	"Grafo.h"
 
-1604851590 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/main.cpp
+1604853483 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -119,11 +119,11 @@
 	"Prim.h"
 	"Kruskal.h"
 
-1604852999 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.h
+1604861361 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.h
 	<iostream>
 	"Grafo.h"
 	<list>
 
-1604852527 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.cpp
+1604863102 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.cpp
 	"Kruskal.h"
 
