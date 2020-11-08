@@ -671,4 +671,40 @@ bool Grafo::ehConexo(Grafo * g)
 }
 
 
+bool Grafo::ehCiclo()
+{
+    No* no = this->primeiro_no;
+    bool* visitado = new bool[this->ordem];
+    for(int i = 0; i < this->ordem; i++)
+    {
+        visitado[i] = false;
+        no->setI(i);
+    }
 
+    no = this->primeiro_no;
+    for(int i = 0; i < this->ordem && no != nullptr;i++)
+    {
+        if(!visitado[no->getI()])
+            if(ehCicloAux(no,visitado,nullptr))
+                return true;
+        no = no->getProx();
+    }
+    return false;
+}
+
+bool Grafo::ehCicloAux(No* v,bool visitado[],No* pai)
+{
+    visitado[v->getI()] = true;
+    No* aux;
+    for(Aresta* adj = v->getPrimeiraAresta(); adj != nullptr; adj = adj->getProx())
+    {
+        aux = getNo(adj->getId_Alvo());
+        if(!visitado[aux->getI()])
+        {
+            if(ehCicloAux(aux,visitado,v))
+                return true;
+        } else if(aux != pai)
+            return true;
+    }
+    return false;
+}
