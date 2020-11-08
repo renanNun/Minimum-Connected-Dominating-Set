@@ -67,7 +67,7 @@ class Grafo{
 
         int** getMatrizPesos();
 
-        bool ehConexo(Grafo * g);
+        bool ehConexo();
         bool ehCiclo();
     private:
         int ordem;

@@ -32,16 +32,21 @@ void Kruskal::algoritmo()
     preencheListaNos();
 
     No * noAux;
-    for(Aresta* & arestaAux : listaArestas)
+   /* for(Aresta* & arestaAux : listaArestas)
     {
         grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
-        if(grafoKruskal.isCyclic())
+        if(grafoKruskal.ehCiclo())
         {
             No * i= grafoKruskal.getNo(arestaAux->getId_Origem());
             i->removerAresta(arestaAux->getId_Origem(),false, grafoKruskal.getNo(arestaAux->getId_Alvo()));
-            i= grafoKruskal.getNo(arestaAux->getId_Alvo());
-            i->removerAresta(arestaAux->getId_Origem(),false, grafoKruskal.getNo(arestaAux->getId_Alvo()));
+            i = grafoKruskal.getNo(arestaAux->getId_Alvo());
+            i->removerAresta(arestaAux->getId_Alvo(),false, grafoKruskal.getNo(arestaAux->getId_Origem()));
         }
+    }*/
+
+    for(Aresta* & arestaAux : listaArestas)
+    {
+
     }
 
 

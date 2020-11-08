@@ -638,50 +638,48 @@ int** Grafo::getMatrizPesos()
     return this->matriz_pesos;
 }
 
-
-
-void Grafo::traverse(No * u)
+void Grafo::percorre(No * u)
 {
     u->Marca();
-    for(No *v =primeiro_no; v=!nullptr; v=v->getProx())
+    for(No *v = this->primeiro_no; v != nullptr; v = v->getProx())
     {
-
         if(v->existeArestaEntre(u->getId()))
         {
             if(!v->getMarca())
-                traverse(v);
+                percorre(v);
         }
     }
 }
 
-bool Grafo::ehConexo(Grafo * g)
+bool Grafo::ehConexo()
 {
-
-    for (No *i= g->getPrimeiroNo(); i!=nullptr; i=i->getProx())
+    No* primeiro = this->primeiro_no;
+    for (No *i= this->primeiro_no; i!=nullptr; i=i->getProx())
         i->desmarca();
-    traverse(g->getPrimeiroNo())
-    for (No *i= g->getPrimeiroNo(); i!=nullptr; i=i->getProx())
+    percorre(primeiro);
+    for (No *i= this->primeiro_no; i!=nullptr; i=i->getProx())
     {
         if (!i->getMarca())
         {
-            return false
+            return false;
         }
     }
-    return true
+    return true;
 }
 
 
 bool Grafo::ehCiclo()
 {
-    No* no = this->primeiro_no;
-    bool* visitado = new bool[this->ordem];
+    No* no = this->primeiro_no; //Pega o primeiro
+    bool* visitado = new bool[this->ordem]; //Tamanho do Grafo
     for(int i = 0; i < this->ordem; i++)
     {
         visitado[i] = false;
         no->setI(i);
+        no = no->getProx();
     }
 
-    no = this->primeiro_no;
+    no = this->primeiro_no; //Volto pro primeiro
     for(int i = 0; i < this->ordem && no != nullptr;i++)
     {
         if(!visitado[no->getI()])
@@ -689,14 +687,15 @@ bool Grafo::ehCiclo()
                 return true;
         no = no->getProx();
     }
+
     return false;
 }
 
-bool Grafo::ehCicloAux(No* v,bool visitado[],No* pai)
+bool Grafo::ehCicloAux(No* v,bool* visitado,No* pai)
 {
     visitado[v->getI()] = true;
     No* aux;
-    for(Aresta* adj = v->getPrimeiraAresta(); adj != nullptr; adj = adj->getProx())
+    for(Aresta* adj = v->getPrimeiraAresta(); adj != nullptr; adj = adj->getProxAresta())
     {
         aux = getNo(adj->getId_Alvo());
         if(!visitado[aux->getI()])
