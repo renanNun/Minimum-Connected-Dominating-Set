@@ -184,10 +184,9 @@ int main(int argc, char * argv [])
 
             if(salvar())
             {
-                kruskal->imprimeFile(outputFile);
+            kruskal->imprimeFile(outputFile);
             }
             limparTela();
-            delete kruskal;
             break;
         default:
             cout << "Opcao Invalida! Digite Novamente: ";

@@ -134,7 +134,7 @@ Aresta** Prim::prim()
             for(aux=0; aux<tamSolucao && grafo->getNo(arestaVet[aux]->getId_Alvo())->getMarca()==true; aux++);
             primVet[tamSolucao]=arestaVet[aux];
             tamSolucao++;
-            noAtual->setMarca();
+            noAtual->Marca();
             noAtual=grafo->getNo(arestaVet[aux]->getId_Alvo());
             for(int i=aux; i < cont-1; i++)
             {
@@ -146,7 +146,7 @@ Aresta** Prim::prim()
         {
             primVet[tamSolucao]=arestaVet[0];
             tamSolucao++;
-            noAtual->setMarca();
+            noAtual->Marca();
             noAtual=grafo->getNo(arestaVet[0]->getId_Alvo());
             for(int i=0; i<cont-1; i++)
             {

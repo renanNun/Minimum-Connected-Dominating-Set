@@ -32,8 +32,7 @@ public:
     void setId_alvo(int novo_id_alvo);
 
     //Kruskal
-    void setColocadoArvore(bool colocado);
-    bool getColocadoArvore();
+
     void setIdAresta(int id);
     Aresta * getAresta(int idAresta);
     int getIdAresta();

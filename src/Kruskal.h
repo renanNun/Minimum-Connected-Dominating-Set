@@ -18,17 +18,20 @@ public:
     Kruskal(Grafo *grafo);
     ~Kruskal();
 
+    void imprime();
     void imprimeFile(fstream &outputFile);
 
 private:
     Grafo *grafo;
+    Grafo grafoKruskal;
     bool direcional;
     int ordem;
     int m;
     No * noInicial;
-    void preencheListaArestas();
     list<Aresta*> listaArestas;
-
+    void preencheListaArestas();
+    void preencheListaNos();
+    void algoritmo();
 
 
 };

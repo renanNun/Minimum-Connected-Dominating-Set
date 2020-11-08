@@ -48,7 +48,7 @@ public:
 
     //Variaveis para Prim
     bool getMarca();
-    void setMarca();
+    void Marca();
     void desmarca();
     Aresta* getAresta();
 private:

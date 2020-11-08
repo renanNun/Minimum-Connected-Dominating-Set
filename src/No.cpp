@@ -205,13 +205,13 @@ void No::setI(int i)
     this->interador = i;
 }
 
-// Funções Prim
+// Funções Kruskal
 
 bool No::getMarca()
 {
     return marca;
 }
-void No::setMarca()
+void No::Marca()
 {
     marca=true;
 }

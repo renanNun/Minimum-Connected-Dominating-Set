@@ -1,4 +1,5 @@
 #include "Kruskal.h"
+
 struct ListaArestaComparator
 {
     // Compara 2 Arestas usando Peso
@@ -20,16 +21,38 @@ Kruskal::Kruskal(Grafo *grafo)
     this->direcional = grafo->getDirecionado();
     this->noInicial = grafo->getPrimeiroNo();
 
-    preencheListaArestas();
+    algoritmo();
 }
 Kruskal:: ~Kruskal() {}
+
+void Kruskal::algoritmo()
+{
+
+    preencheListaArestas();
+    preencheListaNos();
+
+    No * noAux;
+    for(Aresta* & arestaAux : listaArestas)
+    {
+        if(!grafoKruskal.getNo(arestaAux->getId_Alvo())->getMarca() || !grafoKruskal.getNo(arestaAux->getId_Origem())->getMarca())
+        {
+            grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
+            grafoKruskal.getNo(arestaAux->getId_Alvo())->Marca();
+            grafoKruskal.getNo(arestaAux->getId_Origem())->Marca();
+        }
+    }
+
+
+imprime();
+}
 
 void Kruskal::preencheListaArestas()
 {
 
     int idAresta=0;
-    list<Aresta* >  listaArestasAux;
+    list<Aresta* >  listaArestasAux; // Lista auxiliar para pegar todas as arestas
 
+    //função que percorre o grafo, nomeia as arestas e salva ponteiros dela
     for (No *i=noInicial; i!=nullptr; i=i->getProx())
     {
         for(Aresta* j= i->getPrimeiraAresta(); j!=nullptr; j=j->getProxAresta())
@@ -40,11 +63,7 @@ void Kruskal::preencheListaArestas()
         }
     }
 
-    cout<< "Lista Inicial: " << listaArestasAux.size() <<endl;
-
-
-    // Retirar elementos iguais
- //   listaArestas.push_front(listaArestasAux.front());
+    // Insere na lista final elementos que não se repetem (devido a implementação da aresta)
     int contador;
     for(Aresta* & arestaAux : listaArestasAux)
     {
@@ -52,7 +71,7 @@ void Kruskal::preencheListaArestas()
         for(Aresta* & arestaAux2 : listaArestas)
         {
             if(arestaAux2->getId_Alvo() == arestaAux->getId_Origem()
-                 &&   arestaAux2->getId_Origem() == arestaAux->getId_Alvo())
+                    &&   arestaAux2->getId_Origem() == arestaAux->getId_Alvo())
                 break;
             else
                 contador++;
@@ -61,24 +80,29 @@ void Kruskal::preencheListaArestas()
             listaArestas.push_front(arestaAux);
     }
 
-
-
+    // Ordena lista de arestas em função do peso
     listaArestas.sort(ListaArestaComparator());
+}
 
-    cout<< "Lista Final: " << listaArestas.size() <<endl;
+void Kruskal::preencheListaNos()
+{
 
+    for (No *i=noInicial; i!=nullptr; i=i->getProx())
+    {
+        i->desmarca();
+        grafoKruskal.inserirNo(i->getId());
 
-        for(Aresta* & aresta : listaArestas)
-             cout<<aresta->getPeso()<<endl;
+    }
 
 }
 
-
-
 void Kruskal::imprimeFile(fstream &outputFile)
 {
-    outputFile << "Lista Final: "<<endl;
-    for(Aresta* & aresta : listaArestas)
-        outputFile<<aresta->getPeso()<<endl;
+   outputFile<< grafoKruskal.imprimir();
+}
+
+void Kruskal::imprime()
+{
+    cout<<grafoKruskal.imprimir();
 }
 

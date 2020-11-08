@@ -62,13 +62,13 @@
 1603830408 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.cpp
 	"Kruskal.h"
 
-1604848527 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.cpp
+1604849477 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.cpp
 	"Aresta.h"
 
-1604848532 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.h
+1604853234 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.h
 	<iostream>
 
-1604504394 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Dijkstra.cpp
+1604849477 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Dijkstra.cpp
 	"Dijkstra.h"
 
 1604495280 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Dijkstra.h
@@ -85,7 +85,7 @@
 	"No.h"
 	"Aresta.h"
 
-1604495280 /home/luan/Github/Cobertura-Minima-de-Vertices/src/No.h
+1604851663 /home/luan/Github/Cobertura-Minima-de-Vertices/src/No.h
 	<iostream>
 	"Aresta.h"
 
@@ -99,16 +99,16 @@
 1604495280 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Grafo.cpp
 	"Grafo.h"
 
-1604495280 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/No.cpp
+1604851642 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/No.cpp
 	"No.h"
 
-1604504129 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Prim.cpp
+1604851684 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Prim.cpp
 	"Prim.h"
 
 1604495280 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Prim.h
 	"Grafo.h"
 
-1604848534 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/main.cpp
+1604851590 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -119,11 +119,11 @@
 	"Prim.h"
 	"Kruskal.h"
 
-1604847915 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.h
+1604852999 /home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.h
 	<iostream>
 	"Grafo.h"
 	<list>
 
-1604848446 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.cpp
+1604852527 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Kruskal.cpp
 	"Kruskal.h"
 
