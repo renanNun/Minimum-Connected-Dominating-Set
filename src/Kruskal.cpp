@@ -38,10 +38,8 @@ void Kruskal::algoritmo()
 
         if(!ehCiclo(arestaAux))
         {
-            cout << "ehCiclo == false"<<endl;
             grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
         } else {
-            cout << "ehCiclo == true" << endl;
         }
     }
 
@@ -144,7 +142,6 @@ void Kruskal::une(No *x, No *y)
 bool Kruskal::ehCiclo(Aresta * a)
 {
 
-
     No * aux1 = grafoKruskal.getNo(a->getId_Origem());
     No * aux2 =  grafoKruskal.getNo(a->getId_Alvo());
 
@@ -154,7 +151,6 @@ bool Kruskal::ehCiclo(Aresta * a)
     }
     else
     {
-        cout << "UNIU " << aux1->getId() << " " << aux2->getId() << endl;
         une(aux1,aux2);
     }
     return false;
