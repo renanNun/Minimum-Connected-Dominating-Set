@@ -33,6 +33,15 @@ private:
     void preencheListaNos();
     void algoritmo();
 
+    // union find
+
+    void pais();
+    int acha(No *u);
+    void  une(No *x, No *y);
+    bool ehCiclo(Aresta * a);
+
+
+
 
 };
 

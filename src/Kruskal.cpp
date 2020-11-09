@@ -30,30 +30,24 @@ void Kruskal::algoritmo()
 
     preencheListaArestas();
     preencheListaNos();
+    pais();
 
-    No * noAux;
-   /* for(Aresta* & arestaAux : listaArestas)
-    {
-        grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
-        if(grafoKruskal.ehCiclo())
-        {
-            No * i= grafoKruskal.getNo(arestaAux->getId_Origem());
-            i->removerAresta(arestaAux->getId_Origem(),false, grafoKruskal.getNo(arestaAux->getId_Alvo()));
-            i = grafoKruskal.getNo(arestaAux->getId_Alvo());
-            i->removerAresta(arestaAux->getId_Alvo(),false, grafoKruskal.getNo(arestaAux->getId_Origem()));
-        }
-    }*/
 
     for(Aresta* & arestaAux : listaArestas)
     {
 
+        if(!ehCiclo(arestaAux))
+        {
+            cout << "teste 6"<<endl;
+            grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
+        }
+        cout << "Realmente realmente confuso"<<endl;
     }
 
+    imprime();
 
-imprime();
+
 }
-
-
 
 void Kruskal::preencheListaArestas()
 {
@@ -99,20 +93,76 @@ void Kruskal::preencheListaNos()
     for (No *i=noInicial; i!=nullptr; i=i->getProx())
     {
         grafoKruskal.inserirNo(i->getId());
-
     }
-
 }
 
 void Kruskal::imprimeFile(fstream &outputFile)
 {
-   outputFile<< grafoKruskal.imprimir();
+    outputFile<< grafoKruskal.imprimir();
 }
 
 void Kruskal::imprime()
 {
     cout<<grafoKruskal.imprimir();
 }
+
+// Union find
+
+void Kruskal::pais()
+{
+    for (No * i = grafo->getPrimeiroNo() ; i!=nullptr; i=i->getProx())
+    {
+            i->setPai(i);
+    }
+}
+
+No *  Kruskal::acha(No * u)
+{
+    No * z = u->getPai();
+
+    if(z != u){
+        u->setPai(acha(z));
+        }
+
+    return z;
+
+
+
+}
+
+void Kruskal::une(No *x, No *y)
+{
+
+    No * xraiz = acha(x);
+    No * yraiz = acha(y);
+
+    xraiz->setPai(yraiz);
+
+}
+
+
+bool Kruskal::ehCiclo(Aresta * a)
+{
+
+
+    No * aux1 =grafoKruskal.getNo(a->getId_Origem()) ;
+    No * aux2= grafoKruskal.getNo(a->getId_Alvo());
+
+    if(acha(aux1) == acha(aux2))
+    {
+        cout<<"Deu true"<<endl;
+        return true;
+    }
+    else
+    {
+        cout<<"Uniu"<<endl;
+        une(aux1,aux2);
+    }
+    cout<<"Deu false"<<endl;
+    return false;
+
+}
+
 
 
 

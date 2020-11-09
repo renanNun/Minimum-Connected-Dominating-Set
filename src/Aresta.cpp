@@ -70,6 +70,7 @@ void Aresta::setId_alvo(int novo_id_alvo)
     this->id_alvo = novo_id_alvo;
 }
 
+// Kruskal
 
 void Aresta::setIdAresta(int id)
 {

@@ -68,7 +68,7 @@ class Grafo{
         int** getMatrizPesos();
 
         bool ehConexo();
-        bool ehCiclo();
+
     private:
         int ordem;
         int numero_arestas;
@@ -88,7 +88,11 @@ class Grafo{
 
 
         void percorre(No * u);
-        bool ehCicloAux(No* v,bool visitado[],No* pai);
+
+
+
+        //bool ehCiclo();
+        //bool ehCicloAux(No* v,bool visitado[],No* pai);
 };
 
 #endif // GRAFO_H

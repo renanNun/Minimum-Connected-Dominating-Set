@@ -180,7 +180,9 @@ int main(int argc, char * argv [])
 
             break;
         case 8:
+
             kruskal = new Kruskal(grafo);
+
 
             if(salvar())
             {
@@ -188,15 +190,7 @@ int main(int argc, char * argv [])
             }
             limparTela();
             break;
-        case 9:
-            cout << "CICLO " << grafo->ehCiclo() << endl;
-            cout << "CONEXO " << grafo->ehConexo() << endl;
-            if(salvar())
-            {
 
-            }
-            limparTela();
-            break;
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;

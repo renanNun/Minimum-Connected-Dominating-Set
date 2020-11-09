@@ -49,8 +49,7 @@ private:
 
 
     // Kruskal
-    bool colocadoArvore =false;
-    int idAresta;
+    bool colocadoArvore =false;    int idAresta;
 
 };
 

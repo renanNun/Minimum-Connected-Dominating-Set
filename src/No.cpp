@@ -90,7 +90,9 @@ void No::inserirAresta(int id_alvo,int peso)
         Aresta* aresta = new Aresta(id_alvo,this->id,peso);
         this->ultima_aresta->setProxAresta(aresta);
         this->ultima_aresta = aresta;
-    } else {
+    }
+    else
+    {
         this->primeira_aresta = new Aresta(id_alvo,this->id,peso);
         this->ultima_aresta = this->primeira_aresta;
     }
@@ -150,7 +152,8 @@ int No::removerAresta(int id, bool direcionado, No* no_alvo)
 
         if(direcionado)
             this->diminuiGrauSaida();
-        else {
+        else
+        {
             this->diminuiGrauEntrada();
             no_alvo->diminuiGrauEntrada();
         }
@@ -205,7 +208,7 @@ void No::setI(int i)
     this->interador = i;
 }
 
-// Funções Kruskal
+// Funções PRim
 
 bool No::getMarca()
 {
@@ -225,4 +228,17 @@ Aresta* No::getAresta()
     for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
         return aux;
     return nullptr;
+}
+
+
+//Funções Kruskal
+
+void No::setPai(No * pai)
+{
+    this->pai= pai;
+}
+
+No * No::getPai()
+{
+    return this->pai;
 }

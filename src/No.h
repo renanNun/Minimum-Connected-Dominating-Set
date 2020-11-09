@@ -46,11 +46,16 @@ public:
     int getI();
     void setI(int i);
 
-    //Variaveis para Prim
+    //Funções para Prim
     bool getMarca();
     void Marca();
     void desmarca();
     Aresta* getAresta();
+
+
+    //funções kruskal
+    void setPai(int id);
+    int  getPai();
 private:
     int id;
     Aresta* primeira_aresta;
@@ -62,6 +67,9 @@ private:
 
     int interador;
     bool marca; //Para o Prim
+
+    //para Kruskal
+    No * pai;
 };
 
 #endif // NO_H

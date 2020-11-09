@@ -667,7 +667,7 @@ bool Grafo::ehConexo()
     return true;
 }
 
-
+/*
 bool Grafo::ehCiclo()
 {
     No* no = this->primeiro_no; //Pega o primeiro
@@ -707,3 +707,4 @@ bool Grafo::ehCicloAux(No* v,bool* visitado,No* pai)
     }
     return false;
 }
+*/
