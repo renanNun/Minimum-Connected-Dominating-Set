@@ -9,6 +9,7 @@ No::No(int id)
     this->primeira_aresta = nullptr;
     this->ultima_aresta = nullptr;
     this->prox = nullptr;
+    this->pai = id;
 }
 
 No::No(int id,int peso)
@@ -20,6 +21,7 @@ No::No(int id,int peso)
     this->primeira_aresta = nullptr;
     this->ultima_aresta = nullptr;
     this->prox = nullptr;
+    this->pai = id;
 }
 
 No::~No()
@@ -233,12 +235,12 @@ Aresta* No::getAresta()
 
 //Funções Kruskal
 
-void No::setPai(No * pai)
+void No::setPai(int pai)
 {
     this->pai= pai;
 }
 
-No * No::getPai()
+int No::getPai()
 {
     return this->pai;
 }

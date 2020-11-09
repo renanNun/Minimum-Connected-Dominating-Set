@@ -36,7 +36,7 @@ private:
     // union find
 
     void pais();
-    int acha(No *u);
+    No* acha(No *u);
     void  une(No *x, No *y);
     bool ehCiclo(Aresta * a);
 

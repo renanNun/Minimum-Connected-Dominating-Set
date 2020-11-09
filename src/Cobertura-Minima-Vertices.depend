@@ -1,21 +1,21 @@
 # depslib dependency file v1.0
-1604868074 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.cpp
+1604955332 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.cpp
 	"Aresta.h"
 
-1604868074 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.h
+1604955333 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\aresta.h
 	<iostream>
 
-1604868075 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.cpp
+1604955690 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.cpp
 	"No.h"
 
-1604868075 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.h
+1604955697 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\no.h
 	<iostream>
 	"Aresta.h"
 
-1603824415 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.cpp
+1604955333 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.cpp
 	"Grafo.h"
 
-1604868739 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.h
+1604955333 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\grafo.h
 	<iostream>
 	<sstream>
 	<string>
@@ -26,7 +26,7 @@
 	"No.h"
 	"Aresta.h"
 
-1604868075 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
+1604955335 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -56,7 +56,7 @@
 1603825633 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\prim.h
 	"Grafo.h"
 
-1604868075 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.h
+1604955741 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.h
 	<iostream>
 	"Grafo.h"
 	<list>

@@ -38,10 +38,11 @@ void Kruskal::algoritmo()
 
         if(!ehCiclo(arestaAux))
         {
-            cout << "teste 6"<<endl;
+            cout << "ehCiclo == false"<<endl;
             grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
+        } else {
+            cout << "ehCiclo == true" << endl;
         }
-        cout << "Realmente realmente confuso"<<endl;
     }
 
     imprime();
@@ -112,22 +113,21 @@ void Kruskal::pais()
 {
     for (No * i = grafo->getPrimeiroNo() ; i!=nullptr; i=i->getProx())
     {
-            i->setPai(i);
+            i->setPai(i->getId());
     }
 }
 
 No *  Kruskal::acha(No * u)
 {
-    No * z = u->getPai();
+    No * z = this->grafo->getNo(u->getPai());
 
-    if(z != u){
-        u->setPai(acha(z));
-        }
-
-    return z;
-
-
-
+    if(z == u)
+    {
+       return z;
+    } else {
+        return acha(z);
+    }
+    //return z;
 }
 
 void Kruskal::une(No *x, No *y)
@@ -136,7 +136,7 @@ void Kruskal::une(No *x, No *y)
     No * xraiz = acha(x);
     No * yraiz = acha(y);
 
-    xraiz->setPai(yraiz);
+    xraiz->setPai(yraiz->getId());
 
 }
 
@@ -145,20 +145,18 @@ bool Kruskal::ehCiclo(Aresta * a)
 {
 
 
-    No * aux1 =grafoKruskal.getNo(a->getId_Origem()) ;
-    No * aux2= grafoKruskal.getNo(a->getId_Alvo());
+    No * aux1 = grafoKruskal.getNo(a->getId_Origem());
+    No * aux2 =  grafoKruskal.getNo(a->getId_Alvo());
 
     if(acha(aux1) == acha(aux2))
     {
-        cout<<"Deu true"<<endl;
         return true;
     }
     else
     {
-        cout<<"Uniu"<<endl;
+        cout << "UNIU " << aux1->getId() << " " << aux2->getId() << endl;
         une(aux1,aux2);
     }
-    cout<<"Deu false"<<endl;
     return false;
 
 }

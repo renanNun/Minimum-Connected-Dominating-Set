@@ -69,7 +69,7 @@ private:
     bool marca; //Para o Prim
 
     //para Kruskal
-    No * pai;
+    int pai;
 };
 
 #endif // NO_H
