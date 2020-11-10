@@ -23,8 +23,8 @@ private:
     list<No *> listaNos;
     No* noEscolhido;
     void gerar();
-    void preencheListaArestas(No* noInicial);
-    void preencheListaNos(No* noInicial);
+    void preencheListaArestas();
+    void preencheListaNos();
 
 /*public:
     Prim(Grafo *grafo);

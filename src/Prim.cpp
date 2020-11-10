@@ -30,8 +30,6 @@ Prim::Prim(Grafo* grafo, int no_escolhido)
 {
     this->grafo = grafo;
     noEscolhido = grafo->getNo(no_escolhido);
-    preencheListaArestas(grafo->getPrimeiroNo());
-    preencheListaNos(grafo->getPrimeiroNo());
     gerar();
 }
 
@@ -42,23 +40,22 @@ Prim::~Prim()
 
 void Prim::gerar()
 {
-
+    preencheListaArestas();
+    preencheListaNos();
     No * noInicial= noEscolhido;
     noInicial->setPesoEspecial(0);
     No * menorPeso;
     list<No *> listaNosColocados;
-    int contador=0;
 
     cout<<"Tamanho lista de Nos: "<< listaNos.size()<<endl;
     listaNos.sort(ListaNoComparator());
 
-    while(contador <= listaNos.size())
+    while(!listaNos.empty())
     {
-        menorPeso=listaNos.front();
+        menorPeso = listaNos.front();
         listaNos.pop_front();
 
         grafoPrim.inserirNo(menorPeso->getId());
-        contador++;
         menorPeso->Marca();
 
         for(Aresta* & arestaAux : listaArestas)
@@ -67,14 +64,14 @@ void Prim::gerar()
             {
                 if(arestaAux->getId_Alvo() == menorPeso->getId())
                 {
-                    if(grafo->getNo(arestaAux->getId_Alvo())->getPesoEspecial() > menorPeso->getPesoEspecial() )
+                    if(grafo->getNo(arestaAux->getId_Alvo())->getPesoEspecial() > arestaAux->getPeso())
                     {
                         grafo->getNo(arestaAux->getId_Origem())->setPesoEspecial(arestaAux->getPeso());
                     }
                 }
                 else
                 {
-                    if(grafo->getNo(arestaAux->getId_Origem())->getPesoEspecial() > menorPeso->getPesoEspecial())
+                    if(grafo->getNo(arestaAux->getId_Origem())->getPesoEspecial() > arestaAux->getPeso())
                     {
                         grafo->getNo(arestaAux->getId_Alvo())->setPesoEspecial(arestaAux->getPeso());
                     }
@@ -82,22 +79,30 @@ void Prim::gerar()
             }
         }
         listaNos.sort(ListaNoComparator());
-        if(listaNosColocados.size()>1 )
+
+        /*for(No* no : listaNos)
+        {
+            cout << " ID " << no->getId() << " PESO " << no->getPesoEspecial();
+        }
+        cout << endl;*/
+
+        if(listaNosColocados.size() > 0)
         {
             Aresta * aux2;
             No * aux3 = listaNosColocados.back();
-            aux2= menorPeso->getArestaEntre(aux3->getId());
-            if(aux3== menorPeso)
+            aux2 = menorPeso->getArestaEntre(aux3->getId());
+            if(aux3 == menorPeso)
             {
                 cout<<"porra"<<endl;
             }
-            if(aux2!=nullptr)
+            if(aux2 != nullptr)
             {
+                //cout << "A " << aux2->getId_Origem() << "-->" << aux2->getId_Alvo() << endl;
                 grafoPrim.inserirAresta(aux2->getId_Origem(),aux2->getId_Alvo(),aux2->getPeso());
             }
             else
             {
-                aux2=aux3->getArestaEntre(menorPeso->getId());
+                aux2 = aux3->getArestaEntre(menorPeso->getId());
                 if(aux2!=nullptr)
                 {
                     grafoPrim.inserirAresta(aux2->getId_Origem(),aux2->getId_Alvo(),aux2->getPeso());
@@ -114,6 +119,7 @@ void Prim::gerar()
         }
 
     }
+    cout << "COLOCADOS " << listaNosColocados.size() << endl;
     imprime();
 }
 
@@ -125,13 +131,13 @@ void Prim::imprime()
 
 }
 
-void Prim::preencheListaArestas(No* noInicial)
+void Prim::preencheListaArestas()
 {
     int idAresta=0;
     list<Aresta* >  listaArestasAux; // Lista auxiliar para pegar todas as arestas
 
     //função que percorre o grafo, nomeia as arestas e salva ponteiros dela
-    for (No *i= noInicial; i != nullptr; i = i->getProx())
+    for (No *i= grafo->getPrimeiroNo(); i != nullptr; i = i->getProx())
     {
         for(Aresta* j= i->getPrimeiraAresta(); j!=nullptr; j=j->getProxAresta())
         {
@@ -162,16 +168,14 @@ void Prim::preencheListaArestas(No* noInicial)
     listaArestas.sort(ListaArestaComparator());
 }
 
-void Prim::preencheListaNos(No* noInicial)
+void Prim::preencheListaNos()
 {
-    for (No *i=noInicial; i!=nullptr; i=i->getProx())
+    for (No *i= grafo->getPrimeiroNo(); i != nullptr; i = i->getProx())
     {
         i->desmarca();
-        i->setPesoEspecial(INFINITO);
+        i->setPesoEspecial(9999999);
         listaNos.push_back(i);
     }
-
-
 }
 
 
