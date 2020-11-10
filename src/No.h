@@ -50,7 +50,8 @@ public:
     bool getMarca();
     void Marca();
     void desmarca();
-    Aresta* getAresta();
+    int getPesoEspecial();
+    void setPesoEspecial(int i);
 
 
     //funções kruskal
@@ -66,7 +67,10 @@ private:
     No* prox;
 
     int interador;
-    bool marca; //Para o Prim
+
+    //Para o Prim
+    bool marca;
+    int pesoEspecial;
 
     //para Kruskal
     int pai;

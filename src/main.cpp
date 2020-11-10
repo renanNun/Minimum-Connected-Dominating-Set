@@ -174,16 +174,13 @@ int main(int argc, char * argv [])
                 //outputFile << AGM->imprimir() << endl;
             }
             limparTela();
-            delete AGM;
-
-
             break;
         case 8:
 
             kruskal = new Kruskal(grafo);
             if(salvar())
             {
-                kruskal->imprimeFile(outputFile);
+                //kruskal->imprimeFile(outputFile);
             }
             limparTela();
             break;

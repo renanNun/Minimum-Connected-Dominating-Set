@@ -225,13 +225,14 @@ void No::desmarca()
     marca=false;
 }
 
-Aresta* No::getAresta()
+int No::getPesoEspecial()
 {
-    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
-        return aux;
-    return nullptr;
+    return this->pesoEspecial;
 }
-
+void No::setPesoEspecial(int i)
+{
+    this->pesoEspecial=i;
+}
 
 //Funções Kruskal
 

@@ -12,14 +12,17 @@ class Prim
 public:
     Prim(Grafo* grafo, int no_escolhido);
     ~Prim();
-    Grafo gerar();
+    void imprime();
+
+
 private:
     Grafo* grafo;
     Grafo grafoPrim;
     int n;
     list<Aresta*> listaArestas;
+    list<No *> listaNos;
     No* noEscolhido;
-
+    void gerar();
     void preencheListaArestas(No* noInicial);
     void preencheListaNos(No* noInicial);
 
