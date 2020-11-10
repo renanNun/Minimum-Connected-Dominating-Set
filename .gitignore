@@ -16,3 +16,10 @@ src/grafo_125.txt
 src/teste-maior.txt
 
 src/teste.txt
+
+*.o
+*.o
+*.o
+src/grafosGrupo20.exe
+*.exe
+*.depend

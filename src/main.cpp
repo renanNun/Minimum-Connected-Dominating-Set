@@ -145,13 +145,14 @@ int main(int argc, char * argv [])
             delete dijkstra;
             break;
         case 6:
-            floyd = new Floyd(grafo,grafo->getMatrizPesos());
+            floyd = new Floyd(grafo);
+            cout << endl << endl << "A EXECUTACAO DO ALGORITMO PODE RESULTAR NO FECHAMENTO IMEDIATO DO PROGRAMA" << endl;
             if(salvar())
             {
-                floyd->printSolucaoFile(outputFile);
+                floyd->imprimeSolucaoFile(outputFile);
             }
-            limparTela();
             delete floyd;
+            limparTela();
             break;
         case 7:
             if(grafo->getDirecionado())

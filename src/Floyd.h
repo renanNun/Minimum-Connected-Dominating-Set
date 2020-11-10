@@ -8,18 +8,21 @@ using namespace std;
 
 class Floyd
 {
+
 public:
-    Floyd(Grafo* g, int** matrizPesos);
+    Floyd(Grafo* grafo);
     ~Floyd();
 
-    void algoritmo();
-    void printSolucao(int** dist);
-    void printSolucaoFile(fstream &outputFile);
+    void floydWarshall();
+    void imprimeSolucao();
+    void imprimeSolucaoFile(fstream &outputFile);
 
 private:
+    int** pesoArestas;
+    int** distanciaArestas;
     int n;
-    int** A;
-    int** B;
+
+    void iniciaMatrizes(Grafo* grafo);
 };
 
 #endif // FLOYD_H

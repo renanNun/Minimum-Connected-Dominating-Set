@@ -26,7 +26,7 @@
 	"No.h"
 	"Aresta.h"
 
-1604955335 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
+1605020275 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\main.cpp
 	<iostream>
 	<fstream>
 	<string>
@@ -37,11 +37,11 @@
 	"Prim.h"
 	"Kruskal.h"
 
-1604868064 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.h
+1605020143 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.h
 	"Grafo.h"
 	<fstream>
 
-1604868064 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.cpp
+1605021279 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\floyd.cpp
 	"Floyd.h"
 
 1604709572 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\dijkstra.cpp
@@ -56,12 +56,12 @@
 1603825633 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\prim.h
 	"Grafo.h"
 
-1604955741 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.h
+1605019704 c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.h
 	<iostream>
 	"Grafo.h"
 	<list>
 
-1604868075 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.cpp
+1605019778 source:c:\users\renan\documents\github\cobertura-minima-de-vertices\src\kruskal.cpp
 	"Kruskal.h"
 
 1604949836 source:/home/luan/Github/Cobertura-Minima-de-Vertices/src/Aresta.cpp

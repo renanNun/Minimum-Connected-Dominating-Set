@@ -1,88 +1,109 @@
 #include "Floyd.h"
-#define INT_MAX 9999
+#define INT_MAX 999999
 
-Floyd::Floyd(Grafo* g,int** matrizPesos)
+Floyd::Floyd(Grafo* grafo)
 {
-    this->n = g->getOrdem();
-    A = new int*[n+1];
-    B = new int*[n+1];
+    this->n = grafo->getOrdem();
+
+    this->pesoArestas = new int*[n];
+    this->distanciaArestas = new int*[n];
 
     for(int i = 0; i < n; i++)
     {
-        A[i] = new int[n+1];
-        B[i] = new int[n+1];
+        this->pesoArestas[i] = new int[n];
+        this->distanciaArestas[i] = new int[n];
     }
 
-    for(int i = 0; i < n; i++)
-        for(int j = 0; j < n; j++)
-        {
-            if(matrizPesos[i][j] == -1)
-                A[i][j] = INT_MAX;
-            else
-                A[i][j] = matrizPesos[i][j];
-        }
-
-
-    for(int k = 0; k < n; k++)
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < n; j++)
-            {
-                if(A[i][k] + A[k][j] < A[i][j])
-                    A[i][j] = A[i][k] + A[k][j];
-            }
-
-    this->printSolucao(A);
+    iniciaMatrizes(grafo);
+    floydWarshall();
+    imprimeSolucao();
 }
 
 Floyd::~Floyd()
 {
     for(int i = 0; i < this->n; i++)
     {
-        for(int j = 0; j < this->n; i++)
-        {
-            delete [] A[i];
-            delete [] B[i];
-        }
+        delete [] this->pesoArestas[i];
+        delete [] this->distanciaArestas[i];
     }
 
-    delete [] A;
-    delete [] B;
+    delete [] this->pesoArestas;
+    delete [] this->distanciaArestas;
 }
 
-
-void Floyd::printSolucao(int** dist)
+void Floyd::iniciaMatrizes(Grafo* grafo)
 {
-    cout << endl << "ALGORITMO DE FLOYDMARSHELL" << endl;
+    No* no = grafo->getPrimeiroNo();
+    for(int i = 0; i < n && no != nullptr; i++)
+    {
+        no->setI(i);
+        no = no->getProx();
+    }
+
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+        {
+            if(i == j)
+                this->pesoArestas[i][j] = 0;
+            else
+                this->pesoArestas[i][j] = INT_MAX;
+        }
+
+
+    for(No* no = grafo->getPrimeiroNo(); no != nullptr; no = no->getProx())
+    {
+        for(Aresta* a = no->getPrimeiraAresta(); a != nullptr; a = a->getProxAresta())
+        {
+            No* aux = grafo->getNo(a->getId_Alvo());
+            this->pesoArestas[no->getI()][aux->getI()] = a->getPeso();
+        }
+    }
+}
+
+void Floyd::floydWarshall()
+{
+    for(int i = 0; i < n; i++)
+        for(int j = 0; j < n; j++)
+            this->distanciaArestas[i][j] = this->pesoArestas[i][j];
+
+    for(int k = 0; k < n; k++)
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+            {
+                if(this->distanciaArestas[i][k] + this->distanciaArestas[k][j] < this->distanciaArestas[i][j])
+                    this-> distanciaArestas[i][j] = this->distanciaArestas[i][k] + this->distanciaArestas[k][j];
+            }
+}
+
+void Floyd::imprimeSolucao()
+{
+    cout << endl << "Matriz de Floyd Warshall" << endl;
     for(int i = 0; i < n; i++)
     {
         cout << endl;
         for(int j = 0; j < n; j++)
         {
-            if(dist[i][j] == INT_MAX)
-
-                cout << "INFINITO";
-
+            if(this->distanciaArestas[i][j] == INT_MAX)
+                cout << " INFINITO ";
             else
-                cout << dist[i][j] << " ";
+                cout << this->distanciaArestas[i][j] << " ";
         }
     }
 }
 
-void Floyd::printSolucaoFile(fstream &outputFile)
+void Floyd::imprimeSolucaoFile(fstream &outputFile)
 {
-    outputFile << endl << "ALGORITMO DE FLOYDMARSHELL" << endl;
-    int** dist = this->A;
+    outputFile << endl << "Matriz de Floyd Warshall" << endl;
     for(int i = 0; i < n; i++)
     {
-        outputFile << endl;
+       outputFile << endl;
         for(int j = 0; j < n; j++)
         {
-            if(dist[i][j] == INT_MAX)
-
+            if(this->distanciaArestas[i][j] == INT_MAX)
                 outputFile << " INFINITO ";
-
             else
-                outputFile << dist[i][j] << " ";
+                outputFile << this->distanciaArestas[i][j] << " ";
         }
     }
 }
+
