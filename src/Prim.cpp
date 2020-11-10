@@ -1,5 +1,105 @@
 #include "Prim.h"
+#define INT_MAX 9999999999
 
+struct ListaArestaComparator
+{
+    // Compara 2 Arestas usando Peso
+    bool operator ()( Aresta* & Aresta1,  Aresta* & Aresta2)
+    {
+        if(Aresta1->getPeso() == Aresta2->getPeso())
+            return Aresta1 < Aresta2;
+        return Aresta1->getPeso() < Aresta2->getPeso();
+    }
+};
+
+Prim::Prim(Grafo* grafo, int no_escolhido)
+{
+    this->grafo = grafo;
+    noEscolhido = grafo->getNo(no_escolhido);
+    preencheListaArestas(grafo->getPrimeiroNo());
+    preencheListaNos(grafo->getPrimeiroNo());
+    gerar();
+}
+
+Prim::~Prim()
+{
+
+}
+
+void Prim::preencheListaArestas(No* noInicial)
+{
+    int idAresta=0;
+    list<Aresta* >  listaArestasAux; // Lista auxiliar para pegar todas as arestas
+
+    //função que percorre o grafo, nomeia as arestas e salva ponteiros dela
+    for (No *i= noInicial; i != nullptr; i = i->getProx())
+    {
+        for(Aresta* j= i->getPrimeiraAresta(); j!=nullptr; j=j->getProxAresta())
+        {
+            j->setIdAresta(idAresta);
+            idAresta++;
+            listaArestasAux.push_back(j);
+        }
+    }
+
+    // Insere na lista final elementos que não se repetem (devido a implementação da aresta)
+    int contador;
+    for(Aresta* & arestaAux : listaArestasAux)
+    {
+        contador=0;
+        for(Aresta* & arestaAux2 : listaArestas)
+        {
+            if(arestaAux2->getId_Alvo() == arestaAux->getId_Origem()
+                    &&   arestaAux2->getId_Origem() == arestaAux->getId_Alvo())
+                break;
+            else
+                contador++;
+        }
+        if(contador == listaArestas.size())
+            listaArestas.push_front(arestaAux);
+    }
+
+    // Ordena lista de arestas em função do peso
+    listaArestas.sort(ListaArestaComparator());
+}
+
+void Prim::preencheListaNos(No* noInicial)
+{
+
+    for (No *i=noInicial; i!=nullptr; i=i->getProx())
+    {
+        grafoPrim.inserirNo(i->getId());
+    }
+}
+
+Grafo Prim::gerar()
+{
+    No* no = noEscolhido;
+    list<Aresta*> listaArestasAux;
+
+    for(Aresta* & arestaAux : listaArestas)
+    {
+        if(arestaAux->getId_Origem() == no->getId())
+            listaArestasAux.push_back(arestaAux);
+    }
+
+
+    Aresta* arestaAux;
+    while(!listaArestasAux.empty())
+    {
+        arestaAux= listaArestasAux.front();
+        listaArestasAux.pop_front();
+        if(arestaAux->getId_Origem() == no->getId())
+        {
+            grafoPrim.inserirAresta(no->getId(),arestaAux->getId_Alvo(),arestaAux->getPeso());
+        }
+    }
+
+    cout << grafoPrim.imprimir();
+    return grafoPrim;
+}
+
+/*
 void Prim::ordenar(Aresta **a,int n)
 {
 
@@ -158,9 +258,9 @@ Aresta** Prim::prim()
     /*
     for(int i = 0; i < tamSolucao; i++)
         cout << primVet[i]->getId_Origem() << "--->" << primVet[i]->getId_alvo() << " ";
-    cout << endl;*/
+    cout << endl;
 
-    return primVet;
+return primVet;
 }
 
 
@@ -171,3 +271,4 @@ Prim::Prim(Grafo *grafo)
 }
 
 Prim::~Prim() {}
+*/

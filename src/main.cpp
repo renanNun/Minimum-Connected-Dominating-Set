@@ -165,15 +165,13 @@ int main(int argc, char * argv [])
                 break;
             }
             int pesoTotal;
-            prim = new Prim(grafo);
-            AGM = prim->gerar(&pesoTotal);
-            delete prim;
-            cout << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
-            cout << AGM->imprimir() << endl;
+            prim = new Prim(grafo,0);
+            //cout << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
+
             if(salvar())
             {
-                outputFile << endl << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
-                outputFile << AGM->imprimir() << endl;
+                //outputFile << endl << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
+                //outputFile << AGM->imprimir() << endl;
             }
             limparTela();
             delete AGM;
@@ -183,11 +181,9 @@ int main(int argc, char * argv [])
         case 8:
 
             kruskal = new Kruskal(grafo);
-
-
             if(salvar())
             {
-            kruskal->imprimeFile(outputFile);
+                kruskal->imprimeFile(outputFile);
             }
             limparTela();
             break;
