@@ -227,6 +227,26 @@ void Grafo::inserirAresta(int id,int id_alvo,int peso)
     }
 }
 
+bool Grafo::removerAresta(int id, int id_alvo)
+{
+    if(existeNo(id) && existeNo(id_alvo))
+    {
+        No* no_origem = getNo(id);
+        No* no_alvo = getNo(id_alvo);
+
+        if(no_origem->removerAresta(id,this->direcionado,no_alvo) == 1 &&
+        no_alvo->removerAresta(id_alvo,this->direcionado,no_origem) == 1)
+        {
+            return true;
+        } else {
+            return false;
+        }
+
+    } else {
+        return false;
+    }
+}
+
 int Grafo::grauMedioPorSomatorio()
 {
     if(this->ordem != 0)
