@@ -8,6 +8,7 @@
 #include "Dijkstra.h"
 #include "Prim.h"
 #include "Kruskal.h"
+#include "Guloso.h"
 
 std::fstream inputFile;
 std::fstream outputFile;
@@ -84,6 +85,7 @@ int main(int argc, char * argv [])
     Prim* prim;
     Kruskal* kruskal;
     Grafo* AGM;
+    Guloso * guloso;
 
     while(true)
     {
@@ -160,8 +162,9 @@ int main(int argc, char * argv [])
                 cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Prim!" << endl;
                 break;
             }
-            if(!grafo->getPonderadoAresta()){
-             cout << "Atenção: O grafo precisa ter aresta ponderada para Prim!" << endl;
+            if(!grafo->getPonderadoAresta())
+            {
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Prim!" << endl;
                 break;
             }
             int pesoTotal;
@@ -184,6 +187,14 @@ int main(int argc, char * argv [])
             }
             limparTela();
             break;
+
+        case 9:
+            guloso= new Guloso(grafo);
+            if(salvar())
+            {
+                //kruskal->imprimeFile(outputFile);
+            }
+            limparTela();
 
         default:
             cout << "Opcao Invalida! Digite Novamente: ";

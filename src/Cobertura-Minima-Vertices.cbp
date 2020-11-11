@@ -42,6 +42,8 @@
 		<Unit filename="Floyd.h" />
 		<Unit filename="Grafo.cpp" />
 		<Unit filename="Grafo.h" />
+		<Unit filename="Guloso.cpp" />
+		<Unit filename="Guloso.h" />
 		<Unit filename="Kruskal.cpp" />
 		<Unit filename="Kruskal.h" />
 		<Unit filename="No.cpp" />
