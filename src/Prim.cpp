@@ -60,31 +60,26 @@ void Prim::gerar()
 
         for(Aresta* & arestaAux : listaArestas)
         {
-            if(arestaAux->getId_Alvo() == menorPeso->getId() || arestaAux->getId_Origem()== menorPeso->getId())
+            if(arestaAux->getId_Origem() == menorPeso->getId() || arestaAux->getId_Alvo() == menorPeso->getId() )
             {
-                if(arestaAux->getId_Alvo() == menorPeso->getId())
+                if(arestaAux->getId_Origem() == menorPeso->getId())
                 {
-                    if(grafo->getNo(arestaAux->getId_Alvo())->getPesoEspecial() > arestaAux->getPeso())
+                    if(grafo->getNo(arestaAux->getId_Alvo())->getPesoEspecial() >= arestaAux->getPeso())
                     {
-                        grafo->getNo(arestaAux->getId_Origem())->setPesoEspecial(arestaAux->getPeso());
+                        grafo->getNo(arestaAux->getId_Alvo())->setPesoEspecial(arestaAux->getPeso());
                     }
                 }
                 else
                 {
-                    if(grafo->getNo(arestaAux->getId_Origem())->getPesoEspecial() > arestaAux->getPeso())
+                    if(grafo->getNo(arestaAux->getId_Origem())->getPesoEspecial() >= arestaAux->getPeso())
                     {
-                        grafo->getNo(arestaAux->getId_Alvo())->setPesoEspecial(arestaAux->getPeso());
+                        grafo->getNo(arestaAux->getId_Origem())->setPesoEspecial(arestaAux->getPeso());
                     }
                 }
             }
         }
         listaNos.sort(ListaNoComparator());
 
-        /*for(No* no : listaNos)
-        {
-            cout << " ID " << no->getId() << " PESO " << no->getPesoEspecial();
-        }
-        cout << endl;*/
 
         if(listaNosColocados.size() > 0)
         {
@@ -93,11 +88,10 @@ void Prim::gerar()
             aux2 = menorPeso->getArestaEntre(aux3->getId());
             if(aux3 == menorPeso)
             {
-                cout<<"porra"<<endl;
+                cout<< "ERRO" <<endl;
             }
             if(aux2 != nullptr)
             {
-                //cout << "A " << aux2->getId_Origem() << "-->" << aux2->getId_Alvo() << endl;
                 grafoPrim.inserirAresta(aux2->getId_Origem(),aux2->getId_Alvo(),aux2->getPeso());
             }
             else
@@ -109,7 +103,7 @@ void Prim::gerar()
                 }
                 else
                 {
-                    cout<< "Deu erro"<<endl;
+                cout<< "erro"<<endl;
                 }
             }
         }

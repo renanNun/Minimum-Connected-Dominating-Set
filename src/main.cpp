@@ -165,7 +165,7 @@ int main(int argc, char * argv [])
                 break;
             }
             int pesoTotal;
-            prim = new Prim(grafo,0);
+            prim = new Prim(grafo,8);
             //cout << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
 
             if(salvar())
