@@ -44,12 +44,12 @@ void Guloso::algoritmoGuloso()
 
     No* no;
     bool w = 1;
-    cout << "PRIMEIRA LINHA ";
+    /*cout << "PRIMEIRA LINHA ";
     for(int t = 0; t < grafo->getOrdem(); t++)
     {
         cout << "\t id " << listaIds[t] << "|" << listaGraus[t] << "|" << coloracao[t];
     }
-    cout << endl;
+    cout << endl;*/
     int p,cont;
     while(w)
     {
@@ -83,11 +83,11 @@ void Guloso::algoritmoGuloso()
 
         quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds);
 
-        for(int t = 0; t < grafo->getOrdem(); t++)
+        /*for(int t = 0; t < grafo->getOrdem(); t++)
         {
             cout << "\t id " << listaIds[t] << "|" << listaGraus[t] << "|" << coloracao[t];
         }
-        cout << endl;
+        cout << endl;*/
         cont = 0;
         for(int k = 0; k < grafo->getOrdem(); k ++)
         {
@@ -107,10 +107,10 @@ void Guloso::algoritmoGuloso()
     cout << endl;
     while(solucao[t] != -1)
     {
-        cout << "Solucao " << solucao[t] << " ";
+        //cout << "Solucao " << solucao[t] << " ";
         t++;
     }
-    cout << endl;
+    cout << "Tamanho da solucao " << t << endl;
 }
 
 void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices)
