@@ -47,6 +47,7 @@ class Grafo{
         void inserirNo(int id);
         void removerNo(int id);
         void inserirAresta(int id,int id_alvo,int peso);
+        bool removerAresta(int id, int id_alvo);
 
         int grauMedioPorSomatorio();
         int grauMedioPorAdjacencia();
