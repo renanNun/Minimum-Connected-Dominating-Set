@@ -21,44 +21,96 @@ Guloso::~Guloso()
 
 void Guloso::algoritmoGuloso()
 {
-    preencheGrafo(); //Copia o Grafo original
-    coloreDeBranco(); //Todos os nós do Grafo são pintados de Branco
+    int* solucao = new int[grafo->getOrdem()];
+    int* listaGraus = new int[grafo->getOrdem()];
+    int* listaIds = new int[grafo->getOrdem()];
+    int* coloracao = new int[grafo->getOrdem()];
 
-    int* listaGraus = new int[grafoGuloso.getOrdem()];
-    int* listaIds = new int[grafoGuloso.getOrdem()];
+    //Inicializa toda a solucação com -1
+    for(int k = 0; k < grafo->getOrdem(); k++)
+        solucao[k] = -1;
 
     int i = 0;
-    for(No* no = grafoGuloso.getPrimeiroNo(); no != nullptr; no = no->getProx()) //Iniciando graus e ids
+    for(No* no = grafo->getPrimeiroNo(); no != nullptr; no = no->getProx()) //Iniciando graus e ids
     {
         listaGraus[i] = no->getGrauEntrada();
         listaIds[i] = no->getId();
+        coloracao[no->getId()] = 0;
         i++;
     }
 
-    quickSort(listaGraus,0,grafoGuloso.getOrdem()-1,listaIds); //Ordenando do maior para o menor grau
+    i = 0;
+    quickSort(listaGraus,i,grafo->getOrdem()-1,listaIds); //Ordenando do maior para o menor grau
 
-    No* no = grafoGuloso.getNo(listaIds[0]);
-    No* aux;
+    No* no;
     bool w = 1;
-
+    cout << "PRIMEIRA LINHA ";
+    for(int t = 0; t < grafo->getOrdem(); t++)
+    {
+        cout << "\t id " << listaIds[t] << "|" << listaGraus[t] << "|" << coloracao[t];
+    }
+    cout << endl;
+    int p,cont;
     while(w)
     {
-        no->setI(2); //Pinta o Grafo de preto
+        no = grafo->getNo(listaIds[i]);
+        coloracao[i] = 2; //Pinta o Grafo de preto
 
         for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta())
         {
-            aux = grafoGuloso.getNo(aresta->getId_Alvo());
-            aux->setI(1); //Os Adjacentes a ele se tornam cinzas
+
+            for(p = 0; p < grafo->getOrdem(); p++)
+            {
+                if(listaIds[p] == aresta->getId_Alvo())
+                    break;
+            }
+
+            if(coloracao[aresta->getId_Alvo()] == 0) //Se for branco ok!
+            {
+                coloracao[aresta->getId_Alvo()] = 1; //Os Adjacentes a ele se tornam cinzas
+            }
+
+            if(listaGraus[p] > -1)
+                listaGraus[p] = listaGraus[p] - 1; //Diminui o Grau dos já conectados à ele
         }
 
-        if()
+        if(coloracao[no->getId()] != 1 || coloracao || coloracao[no->getId()] != 0)
         {
-
-        } else {
-            w = false;
+            solucao[i] = no->getId();
+            i++;
         }
+
+
+        quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds);
+
+        for(int t = 0; t < grafo->getOrdem(); t++)
+        {
+            cout << "\t id " << listaIds[t] << "|" << listaGraus[t] << "|" << coloracao[t];
+        }
+        cout << endl;
+        cont = 0;
+        for(int k = 0; k < grafo->getOrdem(); k ++)
+        {
+            cont++;
+
+            if(coloracao[k] == 0)
+            {
+                break;
+            }
+        }
+
+        if(cont == grafo->getOrdem())
+            w = false;
     }
 
+    int t = 0;
+    cout << endl;
+    while(solucao[t] != -1)
+    {
+        cout << "Solucao " << solucao[t] << " ";
+        t++;
+    }
+    cout << endl;
 }
 
 void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices)
@@ -92,60 +144,4 @@ void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices)
         quickSort(vetor,esquerda,j,indices);
     if(i < direita)
         quickSort(vetor,i,direita,indices);
-}
-
-void Guloso::imprime()
-{
-    cout<<grafoGuloso.imprimir();
-}
-
-void Guloso::preencheGrafo()
-{
-    int ordem = 0;
-    int idAresta=0;
-    list <Aresta *> listaArestas;
-    list<Aresta* >  listaArestasAux; // Lista auxiliar para pegar todas as arestas
-    //função que percorre o grafo, nomeia as arestas e salva ponteiros dela
-    for (No *i = grafo->getPrimeiroNo(); i!=nullptr; i=i->getProx())
-    {
-        grafoGuloso.inserirNo(i->getId());
-        ordem++;
-        for(Aresta* j= i->getPrimeiraAresta(); j!=nullptr; j=j->getProxAresta())
-        {
-            j->setIdAresta(idAresta);
-            idAresta++;
-            listaArestasAux.push_back(j);
-        }
-    }
-    // Insere na lista final elementos que não se repetem (devido a implementação da aresta)
-    int contador;
-    for(Aresta* & arestaAux : listaArestasAux)
-    {
-        contador=0;
-        for(Aresta* & arestaAux2 : listaArestas)
-        {
-            if(arestaAux2->getId_Alvo() == arestaAux->getId_Origem()
-                    &&   arestaAux2->getId_Origem() == arestaAux->getId_Alvo())
-                break;
-            else
-                contador++;
-        }
-        if(contador == listaArestas.size())
-            listaArestas.push_front(arestaAux);
-    }
-
-    for(Aresta* & arestaAux : listaArestasAux)
-    {
-        this->grafoGuloso.inserirAresta(arestaAux->getId_Origem(), arestaAux->getId_Alvo(),arestaAux->getPeso());
-    }
-
-    grafoGuloso.setOrdem(ordem);
-}
-
-void Guloso::coloreDeBranco()
-{
-    for(No* no = grafoGuloso.getPrimeiroNo(); no != nullptr; no = no->getProx())
-    {
-        no->setI(0); //Todos os nós são pintados de branco
-    }
 }
