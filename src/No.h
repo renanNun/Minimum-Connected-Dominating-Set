@@ -57,6 +57,7 @@ public:
     //funções kruskal
     void setPai(int id);
     int  getPai();
+
 private:
     int id;
     Aresta* primeira_aresta;
@@ -74,6 +75,7 @@ private:
 
     //para Kruskal
     int pai;
+
 };
 
 #endif // NO_H

@@ -214,22 +214,31 @@ int main(int argc, char * argv [])
             limparTela();
             break;
         case 8:
-
-            kruskal = new Kruskal(grafo);
-            if(salvar())
+            if(!grafo->getPonderadoAresta())
             {
-                //kruskal->imprimeFile(outputFile);
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                break;
             }
-            limparTela();
+            else
+            {
+                kruskal = new Kruskal(grafo);
+                if(salvar())
+                {
+                    //kruskal->imprimeFile(outputFile);
+                }
+                limparTela();
+            }
             break;
-
         case 9:
+
             guloso= new Guloso(grafo);
             if(salvar())
             {
                 //kruskal->imprimeFile(outputFile);
             }
+
             limparTela();
+            break;
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
@@ -251,6 +260,7 @@ void menu()
     cout << "[06] - Algoritmo de FloydMarshall. " << endl;
     cout << "[07] - Algoritmo de Prim. " << endl;
     cout << "[08] - Algoritmo de Kruskal. " << endl;
+    cout << "[09] - Algoritmo de Guloso. " << endl;
     cout << "[0] - Sair. " << endl;
     cout << "Escolha: ";
 }
@@ -392,6 +402,7 @@ Grafo* leituraDat()
             {
                 grafo->inserirAresta(i-1,j-1,0);
                 grafo->inserirAresta(j-1,i-1,0);
+                grafo->aumentaNumArestas();
             }
 
         }

@@ -11,13 +11,12 @@ class Guloso
 
     private:
         Grafo * grafo;
-        list <Aresta *> listaAresta;
-        void preencheListaArestas();
         Grafo grafoGuloso;
         void preencheGrafo();
-        void gerar();
+        void algoritmoGuloso();
 
-
+        void coloreDeBranco();
+        void quickSort(int vetor[],int esquerda,int direita, int* indices);
 };
 
 #endif // GULOSO_H
