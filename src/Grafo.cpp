@@ -158,6 +158,24 @@ void Grafo::inserirNo(int id)
     }
 }
 
+void Grafo::inserirNo(int id,int peso)
+{
+    if(!existeNo(id))
+    {
+        if(this->primeiro_no != nullptr)
+        {
+            No* no = new No(id,peso);
+            this->ultimo_no->setProxNo(no);
+            this->ultimo_no = no;
+        }
+        else
+        {
+            this->primeiro_no = new No(id,peso);
+            this->ultimo_no = this->primeiro_no;
+        }
+    }
+}
+
 void Grafo::removerNo(int id)
 {
     if(existeNo(id))
@@ -224,26 +242,6 @@ void Grafo::inserirAresta(int id,int id_alvo,int peso)
         No* no = getNo(id);
         no->inserirAresta(id_alvo,peso);
         no->aumentaGrauEntrada();
-    }
-}
-
-bool Grafo::removerAresta(int id, int id_alvo)
-{
-    if(existeNo(id) && existeNo(id_alvo))
-    {
-        No* no_origem = getNo(id);
-        No* no_alvo = getNo(id_alvo);
-
-        if(no_origem->removerAresta(id,this->direcionado,no_alvo) == 1 &&
-        no_alvo->removerAresta(id_alvo,this->direcionado,no_origem) == 1)
-        {
-            return true;
-        } else {
-            return false;
-        }
-
-    } else {
-        return false;
     }
 }
 

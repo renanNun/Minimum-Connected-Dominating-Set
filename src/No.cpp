@@ -140,9 +140,19 @@ int No::removerAresta(int id, bool direcionado, No* no_alvo)
         }
 
         if(anterior != nullptr)
+        {
             anterior->setProxAresta(aux->getProxAresta());
+            cout << "CASO 1" << endl;
+            cout << "id " << aux->getProxAresta()->getId_Alvo() << endl;
+        }
+
         else
+        {
+            cout << "CASO 2" << endl;
             this->primeira_aresta = aux->getProxAresta();
+            cout << "id " << aux->getProxAresta()->getId_Alvo() << endl;
+        }
+
 
         if(aux == this->ultima_aresta)
             this->ultima_aresta = anterior;

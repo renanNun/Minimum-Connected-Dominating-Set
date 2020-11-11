@@ -23,3 +23,5 @@ src/teste.txt
 src/grafosGrupo20.exe
 *.exe
 *.depend
+*.exe
+*.o

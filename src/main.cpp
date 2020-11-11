@@ -21,6 +21,10 @@ void limparTela();
 
 Grafo* leitura();
 
+Grafo* leituraDat();
+
+string* limpaMatriz(string &line);
+
 bool salvar();
 
 int main(int argc, char * argv [])
@@ -57,7 +61,38 @@ int main(int argc, char * argv [])
     outputFile << "Alunos: Luan Reis Ciribelli e Renan Nunes da Costa Gonçalves" << endl;
     outputFile << "Nome do arquivo: " << argv[1] << endl;
 
-    Grafo* grafo = leitura();
+    Grafo* grafo;
+
+    string arquivo = argv[1];
+    string tex = "txt";
+    bool flag = false;
+    int k = 0;
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < arquivo.size(); j++)
+            if(arquivo[j] == tex[i])
+            {
+                flag = true;
+                k++;
+            }
+            else
+            {
+                flag = false;
+            }
+    }
+
+    if(k == 3)
+        flag = true;
+
+    if(flag)
+    {
+        grafo = leitura();
+    }
+    else
+    {
+        grafo = leituraDat();
+    }
+
 
     outputFile << "Sobre o Grafo:" << endl;
     outputFile << "\tNumero de Vertices - " << grafo->getOrdem() << endl;
@@ -195,7 +230,6 @@ int main(int argc, char * argv [])
                 //kruskal->imprimeFile(outputFile);
             }
             limparTela();
-
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
@@ -294,6 +328,74 @@ Grafo* leitura()
         }
     }
 
+
+    return grafo;
+}
+
+string* limpaMatriz(string &line)
+{
+    int tam = (line.size()-1)/2;
+    string* arr = new string[tam]; //Array para guardar os elementos
+    int i = 0; //Controle
+    stringstream ssin(line);
+    while (ssin.good() && i < tam)
+    {
+        ssin >> arr[i];
+        i++;
+    }
+
+    return arr;
+}
+
+Grafo* leituraDat()
+{
+    bool direcionado = false;
+    bool ponderado_aresta = false;
+    bool ponderado_no = false;
+    int ordem;
+    string line;
+    string* control;
+    getline(inputFile,line);
+    if(line == "NumberOfNodes:")
+    {
+        getline(inputFile,line);
+    }
+    ordem = (stoi(line));
+
+    bool matriz[ordem][ordem];
+
+    Grafo* grafo = new Grafo(ordem,direcionado,ponderado_aresta,ponderado_no);
+
+    /*Leitura propriamente dita*/
+    while(line != "******************WEIGHTS*****************************")
+    {
+        getline(inputFile,line);
+    }
+    for(int i = 0; i < ordem; i++) //Cria todos os nós
+    {
+        getline(inputFile,line);
+        grafo->inserirNo(i,stoi(line));
+    }
+
+    while(line != "*****************CONNECTIONS****************")
+    {
+        getline(inputFile,line);
+    }
+
+    for(int i = 1; i <= ordem; i++)
+    {
+        getline(inputFile,line);
+        for(int j = i; j < ordem; j++)
+        {
+            control = limpaMatriz(line);
+            if(stoi(control[j]) == 1)
+            {
+                grafo->inserirAresta(i-1,j-1,0);
+                grafo->inserirAresta(j-1,i-1,0);
+            }
+
+        }
+    }
 
     return grafo;
 }
