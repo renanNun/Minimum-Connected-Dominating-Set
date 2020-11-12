@@ -134,7 +134,7 @@ int main(int argc, char * argv [])
                 cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
                 cin >> id;
             }
-
+            grafo->depthFirstSearch(id);
             if(salvar())
             {
                 outputFile << endl << grafo->depthFirstSearchFile(id,outputFile) << endl;
@@ -205,10 +205,11 @@ int main(int argc, char * argv [])
             int escolha;
             cout<< "Escolha o no inicial de prim : "<<endl;
             cin >> escolha;
-            while(grafo->getNo(id) == nullptr)
+
+            while(grafo->getNo(escolha) == nullptr)
             {
-                cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
-                cin >> id;
+                cout<< "Escolha invalida, por favor escolha um no que exista: "<<endl;
+                cin >> escolha;
             }
 
             prim = new Prim(grafo,escolha);
