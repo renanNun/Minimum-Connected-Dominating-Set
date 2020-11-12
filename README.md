@@ -6,7 +6,7 @@ Para mais detalhes, veja nessa [wiki](https://github.com/renanNun/Minimum-indepe
 ## Para a criação do executável
 
 ```
-$ g++ *.cpp -o grafosGrupo
+$ g++ *.cpp -o grafosGrupo20
 ```
 
 ## Para a execução do programa utiliza-se a seguinte linha de comando:
@@ -23,17 +23,26 @@ Para o sistema Windows:
 $ grafosGrupo20.exe <arquivo_de_entrada> <arquivo_de_saida>
 ```
 
-O programa aceita arquivos .txt e .dat nos seguintes formatos:
+### Sobre os arquivos de Entrada.
 
-.txt :
-x //Numero de nos
-X Y Z //Aresta De X Para Y Com Peso Z
+O Seguinte programa aceita entradas [.txt](https://pt.wikipedia.org/wiki/Arquivo_de_texto), com o seguinte formato
 
-exemplo:
+```
+n
+a b p
+```
+
+Onde *n* é o número de Nós.
+*a* e *b* são os nós de forma que a presença deles indique a ocorrência de uma aresta.
+*p* indica o peso no caso de grafos ponderados
+
+exemplo de entrada:
+```
 3
 0 1 1
 1 2 2
 0 2 3
+```
 
 .dat: 
 NumberOfNodes:
