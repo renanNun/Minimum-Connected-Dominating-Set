@@ -21,19 +21,6 @@ Guloso::~Guloso()
 
 }
 
-int Guloso::gerarSemente()
-{
-    int semente;
-    semente = time(nullptr);
-
-    return semente;
-}
-
-void Guloso::algoritmoGulosoRandomizado()
-{
-    int* listaGraus = new int[grafo->getOrdem()]; //Lista de Graus do Grafo, inicialmente não ordenada
-    int* listaIds = new int[grafo->getOrdem()]; //Lista com os ids do Grafo
-}
 
 void Guloso::algoritmoGuloso()
 {
@@ -60,14 +47,18 @@ void Guloso::algoritmoGuloso()
     No* no;
     bool w = 1;
     int p,cont;
+    int z=0;
     while(w)
     {
+        z++;
         no = grafo->getNo(listaIds[i]);
         coloracao[i] = 2; //Pinta o Grafo de preto
 
+        int q =0;
+
+
         for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta())
         {
-
             for(p = 0; p < grafo->getOrdem(); p++)
             {
                 if(listaIds[p] == aresta->getId_Alvo())
@@ -83,13 +74,17 @@ void Guloso::algoritmoGuloso()
                 listaGraus[p] = listaGraus[p] - 1; //Diminui o Grau dos já conectados à ele
         }
 
-        if(coloracao[i] != 1 || coloracao[i] != 0)
+        if(coloracao[i] ==2)
         {
             solucao[i] = no->getId();
             i++;
         }
 
-
+        while(coloracao[q]!= -1 && q<grafo->getOrdem() )
+        {
+            cout<<"ID: "<<listaIds[q]<<" Colorido: "<<coloracao[q]<< " Com grau: "<<listaGraus[q]<<" Na inteiração:"<<z<< endl;
+            q++;
+        }
         quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds);
 
         cont = 0;
@@ -150,22 +145,18 @@ void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices)
         quickSort(vetor,i,direita,indices);
 }
 
-void Guloso::subconjuntoDominanteMinimoConexo()
+
+int Guloso::gerarSemente()
 {
-    int n = grafo->getOrdem();
-    int* candidatos = new int[n]; //Vetor de Candidatos
-    int* grausCandidatos = new int[n]; //Graus dos Vetores Cândidatos a solução
-    int* coloracao = new int[n]; //Vetor de coloração
+    int semente;
+    semente = time(nullptr);
 
-    /*
-    * Cores para coloração
-    * branco = 0
-    * cinza = 1
-    * preto = 2
-    */
-
-    //Inicializa toda a solucação com -1
-    for(int k = 0; k < grafo->getOrdem(); k++)
-        solucao[k] = -1;
-
+    return semente;
 }
+
+void Guloso::algoritmoGulosoRandomizado()
+{
+    int* listaGraus = new int[grafo->getOrdem()]; //Lista de Graus do Grafo, inicialmente não ordenada
+    int* listaIds = new int[grafo->getOrdem()]; //Lista com os ids do Grafo
+}
+
