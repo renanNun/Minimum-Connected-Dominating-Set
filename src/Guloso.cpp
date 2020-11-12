@@ -42,7 +42,7 @@ void Guloso::algoritmoGuloso()
     }
 
     i = 0;
-    quickSort(listaGraus,i,grafo->getOrdem()-1,listaIds); //Ordenando do maior para o menor grau
+    quickSort(listaGraus,i,grafo->getOrdem()-1,listaIds,coloracao); //Ordenando do maior para o menor grau
 
     No* no;
     bool w = 1;
@@ -65,9 +65,9 @@ void Guloso::algoritmoGuloso()
                     break;
             }
 
-            if(coloracao[aresta->getId_Alvo()] == 0) //Se for branco ok!
+            if(coloracao[p] == 0) //Se for branco ok!
             {
-                coloracao[aresta->getId_Alvo()] = 1; //Os Adjacentes a ele se tornam cinzas
+                coloracao[p] = 1; //Os Adjacentes a ele se tornam cinzas
             }
 
             if(listaGraus[p] > -1)
@@ -85,7 +85,7 @@ void Guloso::algoritmoGuloso()
             cout<<"ID: "<<listaIds[q]<<" Colorido: "<<coloracao[q]<< " Com grau: "<<listaGraus[q]<<" Na inteiração:"<<z<< endl;
             q++;
         }
-        quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds);
+        quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds,coloracao);
 
         cont = 0;
         for(int k = 0; k < grafo->getOrdem(); k ++)
@@ -112,7 +112,7 @@ void Guloso::algoritmoGuloso()
     cout << "Tamanho da solucao " << t << endl;
 }
 
-void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices)
+void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices, int* coloracao)
 {
     int i,j,x;
     i = esquerda;
@@ -134,15 +134,16 @@ void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices)
                 swap(indices[i],indices[j]);
             }
             swap(vetor[i],vetor[j]);
+            swap(coloracao[i],coloracao[j]);
             i++;
             j--;
         }
     }
 
     if(j > esquerda)
-        quickSort(vetor,esquerda,j,indices);
+        quickSort(vetor,esquerda,j,indices,coloracao);
     if(i < direita)
-        quickSort(vetor,i,direita,indices);
+        quickSort(vetor,i,direita,indices,coloracao);
 }
 
 

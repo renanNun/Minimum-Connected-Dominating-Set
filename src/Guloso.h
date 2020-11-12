@@ -17,7 +17,7 @@ private:
     void algoritmoGulosoRandomizado();
 
     int gerarSemente();
-    void quickSort(int vetor[],int esquerda,int direita, int* indices);
+    void quickSort(int vetor[],int esquerda,int direita, int* indices,int* coloracao);
 };
 
 #endif // GULOSO_H
