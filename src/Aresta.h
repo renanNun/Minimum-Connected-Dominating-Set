@@ -30,12 +30,19 @@ public:
     void setPeso(int peso);
     void setId_Origem(int novo_id_origem);
     void setId_alvo(int novo_id_alvo);
+    
+   // Função especial que serve para estrtura de comparação do Kruskal
+    bool operator <(const Aresta & ArestaObj) const
+    {
+        return peso < ArestaObj.peso;
+    }
 
 private:
     int id_alvo; // Identificiador do id do Nó adjacente
     int id_origem; // Identificiador do id do Nó de origem
     int peso; // peso da aresta ponderada
     Aresta* prox; // Ponteiro para a proxima aresta
+    
 };
 
 #endif // ARESTA_H
