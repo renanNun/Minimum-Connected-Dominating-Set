@@ -56,7 +56,6 @@ class Grafo{
 
         string imprimir();
         string imprimirMatriz();
-        void adicionaArestaMatriz(int i,int j,int peso);
         bool verificaAdjacencia(int i,int j);
 
 
@@ -66,10 +65,9 @@ class Grafo{
         void breathFirstSearch();
         void breathFirstSearchFile(fstream& output_file);
 
-        int** getMatrizPesos();
-
         bool ehConexo();
-
+        void iniciaMatriz();
+        void deleteMatriz();
     private:
         int ordem;
         int numero_arestas;
@@ -77,12 +75,9 @@ class Grafo{
         No* primeiro_no;
         No* ultimo_no;
 
-        int** matriz_pesos;
         bool** matriz_adjacencia;
 
-        void inicializaMatrizes();
-        int getPosicaoMatriz(int id);
-        void deleteMatrizes();
+        void alocaMatriz();
 
         void depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel);
         void depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int nivel,fstream &outputFile);

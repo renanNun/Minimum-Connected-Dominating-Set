@@ -144,11 +144,13 @@ int main(int argc, char * argv [])
             limparTela();
             break;
         case 2:
+            grafo->iniciaMatriz();
             cout << grafo->imprimirMatriz();
             if(salvar())
             {
                 outputFile << endl << grafo->imprimirMatriz() << endl;
             }
+            grafo->deleteMatriz();
             limparTela();
             break;
         case 3:

@@ -8,10 +8,6 @@ Grafo::Grafo()
     this->ponderado_aresta = false;
     this->ponderado_no = false;
     this->primeiro_no = this->ultimo_no = nullptr;
-
-    this->matriz_adjacencia = nullptr;
-    this->matriz_pesos = nullptr;
-    this->inicializaMatrizes();
 }
 
 Grafo::Grafo(int ordem)
@@ -22,10 +18,6 @@ Grafo::Grafo(int ordem)
     this->ponderado_aresta = false;
     this->ponderado_no = false;
     this->primeiro_no = this->ultimo_no = nullptr;
-
-    this->matriz_adjacencia = nullptr;
-    this->matriz_pesos = nullptr;
-    this->inicializaMatrizes();
 }
 
 Grafo::Grafo(int ordem, bool direcionado,bool ponderado_aresta,bool ponderado_no)
@@ -36,16 +28,10 @@ Grafo::Grafo(int ordem, bool direcionado,bool ponderado_aresta,bool ponderado_no
     this->ponderado_aresta = ponderado_aresta;
     this->ponderado_no = ponderado_no;
     this->primeiro_no = this->ultimo_no = nullptr;
-
-    this->matriz_adjacencia = nullptr;
-    this->matriz_pesos = nullptr;
-    this->inicializaMatrizes();
 }
 
 Grafo::~Grafo()
 {
-    this->deleteMatrizes();
-
     No* proximo_no = this->primeiro_no;
     while(proximo_no != nullptr)
     {
@@ -334,58 +320,6 @@ bool Grafo::verificaAdjacencia(int i,int j)
     return false;
 }
 
-void Grafo::adicionaArestaMatriz(int i,int j, int peso)
-{
-    matriz_adjacencia[this->getPosicaoMatriz(i)][this->getPosicaoMatriz(j)] = true;
-    matriz_pesos[this->getPosicaoMatriz(i)][this->getPosicaoMatriz(j)] = peso;
-}
-
-int Grafo::getPosicaoMatriz(int id)
-{
-    int c = 0;
-
-    for(No* no = this->primeiro_no; no != nullptr; no = no->getProx())
-    {
-        if(no->getId() == id)
-        {
-            return c;
-        }
-        c++;
-    }
-
-    return -1;
-}
-
-void Grafo::inicializaMatrizes()
-{
-    this->matriz_adjacencia = new bool*[this->ordem];
-    this->matriz_pesos = new int*[this->ordem];
-
-    for(int i = 0; i < this->ordem; i++)
-    {
-        this->matriz_adjacencia[i] = new bool[this->ordem];
-        this->matriz_pesos[i] = new int[this->ordem];
-        for(int j = 0; j < this->ordem; j++)
-        {
-            this->matriz_adjacencia[i][j] = false;
-            this->matriz_pesos[i][j] = -1;
-        }
-    }
-}
-
-void Grafo::deleteMatrizes()
-{
-    for(int i = 0; i < this->ordem; i++)
-    {
-        for(int j = 0; j < this->ordem; j++)
-        {
-            delete [] matriz_adjacencia[i];
-            delete [] matriz_pesos[i];
-        }
-        delete [] matriz_adjacencia;
-        delete [] matriz_pesos;
-    }
-}
 
 /*Impressões*/
 string Grafo::imprimir()
@@ -651,11 +585,6 @@ void Grafo::breathFirstSearchFile(fstream& output_file)
     }
 }
 
-int** Grafo::getMatrizPesos()
-{
-    return this->matriz_pesos;
-}
-
 void Grafo::percorre(No * u)
 {
     u->Marca();
@@ -685,44 +614,50 @@ bool Grafo::ehConexo()
     return true;
 }
 
-/*
-bool Grafo::ehCiclo()
+void Grafo::alocaMatriz()
 {
-    No* no = this->primeiro_no; //Pega o primeiro
-    bool* visitado = new bool[this->ordem]; //Tamanho do Grafo
-    for(int i = 0; i < this->ordem; i++)
+    this->matriz_adjacencia = new bool*[ordem];
+
+    for(int i = 0; i < ordem; i++)
+        matriz_adjacencia[i] = new bool[ordem];
+}
+
+void Grafo::iniciaMatriz()
+{
+    alocaMatriz();
+    No* no = primeiro_no;
+
+    for(int i = 0; i < ordem; i++)
     {
-        visitado[i] = false;
         no->setI(i);
         no = no->getProx();
     }
-
-    no = this->primeiro_no; //Volto pro primeiro
-    for(int i = 0; i < this->ordem && no != nullptr;i++)
+    int i;
+    no = primeiro_no;
+    while(no != nullptr) //Inicia a matriz com zeros
     {
-        if(!visitado[no->getI()])
-            if(ehCicloAux(no,visitado,nullptr))
-                return true;
+        i = no->getI();
+        for(int j = 0; j < ordem; j++)
+        {
+            matriz_adjacencia[i][j] = false;
+        }
+
         no = no->getProx();
     }
-
-    return false;
-}
-
-bool Grafo::ehCicloAux(No* v,bool* visitado,No* pai)
-{
-    visitado[v->getI()] = true;
     No* aux;
-    for(Aresta* adj = v->getPrimeiraAresta(); adj != nullptr; adj = adj->getProxAresta())
+    for(no = primeiro_no; no != nullptr; no = no->getProx())
     {
-        aux = getNo(adj->getId_Alvo());
-        if(!visitado[aux->getI()])
+        for(Aresta* a = no->getPrimeiraAresta(); a != nullptr; a = a->getProxAresta())
         {
-            if(ehCicloAux(aux,visitado,v))
-                return true;
-        } else if(aux != pai)
-            return true;
+            aux = getNo(a->getId_Alvo());
+            matriz_adjacencia[no->getI()][aux->getI()] = true;
+        }
     }
-    return false;
 }
-*/
+
+void Grafo::deleteMatriz()
+{
+    for(int i = 0; i < ordem; i++)
+           delete [] matriz_adjacencia[i];
+    delete [] matriz_adjacencia;
+}

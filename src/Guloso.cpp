@@ -83,7 +83,7 @@ void Guloso::algoritmoGuloso()
                 listaGraus[p] = listaGraus[p] - 1; //Diminui o Grau dos já conectados à ele
         }
 
-        if(coloracao[no->getId()] != 1 || coloracao || coloracao[no->getId()] != 0)
+        if(coloracao[i] != 1 || coloracao[i] != 0)
         {
             solucao[i] = no->getId();
             i++;
