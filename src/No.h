@@ -45,19 +45,21 @@ public:
     //Variável para DFS e BFS
     int getI();
     void setI(int i);
-    
-    //Funções para verificar conectividade
+
+    //Funções para Prim
     bool getMarca();
     void Marca();
     void desmarca();
+    int getPesoEspecial();
+    void setPesoEspecial(int i);
 
 
     //funções kruskal
     void setPai(int id);
     int  getPai();
 
-
 private:
+
     int id; // identificador do No
     Aresta* primeira_aresta; // Ponteiro para a primeira aresta do Nó
     Aresta* ultima_aresta; // Ponteiro para a ultima aresta  do Nó
@@ -66,13 +68,16 @@ private:
     int peso;  // Inteiro que guarda o peso de Nós ponderados
     No* prox; //ponteiro para o proximo Nó
 
-    int iterador; // inteiro para auxiliar nas funções busca em largura e busca em profundidade
-    
-    bool marca; //Marcador usado para verificar conectividade do Grafo
+    int interador;
+
+
+    bool marca; // inteiro para auxiliar nas funções busca em largura e busca em profundidade
+    int pesoEspecial;
 
     //para Kruskal
     int pai; // Armazena Id do Pai do No
 
 };
+
 
 #endif // NO_H

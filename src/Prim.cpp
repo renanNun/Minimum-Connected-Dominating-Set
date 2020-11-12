@@ -12,7 +12,6 @@ Prim::Prim(Grafo* grafo, int no_escolhido)
 {
     this->grafo = grafo;
     noEscolhido = grafo->getNo(no_escolhido);
-    //gerar();
     algoritmoDePrim();
 }
 

@@ -13,6 +13,7 @@ No::No(int id)
     this->primeira_aresta = nullptr;
     this->ultima_aresta = nullptr;
     this->prox = nullptr;
+    this->pai = id;
 }
 /*
 * Construtor classe No para casos ponderados, recebe o Id do Nó a ser criado e o peso desse Nó
@@ -28,8 +29,8 @@ No::No(int id,int peso)
     this->primeira_aresta = nullptr;
     this->ultima_aresta = nullptr;
     this->prox = nullptr;
+    this->pai = id;
 }
-
 /*
 * Destrutor
 */
@@ -94,7 +95,6 @@ void No::setPeso(int peso)
 }
 
 /*OUTROS MÉTODOS*/
-
 /*
 * Função para inserir arestas entre o Nó que chama a função até o Nó com "id_alvo" e com a aresta tendo peso passado
 * @param: Int id_alvo // identificador do Nó que receberá a aresta
@@ -114,7 +114,6 @@ void No::inserirAresta(int id_alvo,int peso)
         this->ultima_aresta = this->primeira_aresta;
     }
 }
-
 /*
 * Função para remover todas as arestas do Nó
 */
@@ -134,7 +133,6 @@ void No::removerTodasArestas()
 
     this->primeira_aresta = this->ultima_aresta = nullptr;
 }
-
 /*
 * Função que verifica a existencia da aresta na lista de arestas
 * @param: Int id_alvo // identificador do Nó que será verificado
@@ -148,21 +146,6 @@ bool No::existeAresta(int id_alvo)
                 return true;
     return false;
 }
-
-
-/*
-* Função que verifica a existencia de uma aresta entre o Nó chamdo e o No alvo.
-* @param: int id_alvo// id do Nó alvo
-* @return: booleano que representa a existencia da aresta entre os Nós indicados
-*/
-bool No::existeArestaEntre(int id_alvo)
-{
-    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
-        if(aux->getId_Alvo() == id_alvo)
-            return true;
-    return false;
-}
-
 /*
 * Função que remove uma aresta especifica e atualiza as informações de entrada e saida.
 * @param: Int id // identificador do Nó que será verificado
@@ -184,9 +167,19 @@ int No::removerAresta(int id, bool direcionado, No* no_alvo)
         }
 
         if(anterior != nullptr)
+        {
             anterior->setProxAresta(aux->getProxAresta());
+            cout << "CASO 1" << endl;
+            cout << "id " << aux->getProxAresta()->getId_Alvo() << endl;
+        }
+
         else
+        {
+            cout << "CASO 2" << endl;
             this->primeira_aresta = aux->getProxAresta();
+            cout << "id " << aux->getProxAresta()->getId_Alvo() << endl;
+        }
+
 
         if(aux == this->ultima_aresta)
             this->ultima_aresta = anterior;
@@ -206,10 +199,9 @@ int No::removerAresta(int id, bool direcionado, No* no_alvo)
 
         return 1;
     }
-    else cout<< "Aresta não existe"<<endl;
+
     return 0;
 }
-
 /*
 * Função que incrementa em um o Grau de de entrada
 */
@@ -240,7 +232,6 @@ void No::diminuiGrauSaida()
     if(this->grau_de_saida > 0)
         this->grau_de_saida--;
 }
-
 /*
 * Função que retorna a aresta entre o Nó que chama a função e o Nó que tenha o id passado
 * @param: int id_alvo// id do Nó alvo
@@ -254,22 +245,34 @@ Aresta* No::getArestaEntre(int id_alvo)
     return nullptr;
 }
 
+/*
+* Função que verifica a existencia de uma aresta entre o Nó chamdo e o No alvo.
+* @param: int id_alvo// id do Nó alvo
+* @return: booleano que representa a existencia da aresta entre os Nós indicados
+*/
+bool No::existeArestaEntre(int id_alvo)
+{
+    for(Aresta* aux = this->primeira_aresta; aux != nullptr; aux = aux->getProxAresta())
+        if(aux->getId_Alvo() == id_alvo)
+            return true;
+    return false;
+}
 
 // Getter e Setter iterador
 int No::getI()
 {
-    return this->iterador;
+    return this->interador;
 }
 
 void No::setI(int i)
 {
-    this->iterador = i;
+    this->interador = i;
 }
-
 
 //Funções para verificar conectividade
 
 // Getters e setter da variavel marca usada para verificar conectividade do Grafo
+
 bool No::getMarca()
 {
     return marca;
@@ -282,7 +285,15 @@ void No::desmarca()
 {
     marca=false;
 }
-
+// Getter e setter Peso especial
+int No::getPesoEspecial()
+{
+    return this->pesoEspecial;
+}
+void No::setPesoEspecial(int i)
+{
+    this->pesoEspecial=i;
+}
 
 //Funções Kruskal
 
@@ -296,4 +307,3 @@ int No::getPai()
 {
     return this->pai;
 }
-

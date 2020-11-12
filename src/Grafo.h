@@ -77,13 +77,13 @@ private:
     No* ultimo_no; // Ponteiro que aponta para o primeiro Nó do grafo
 
     bool** matriz_adjacencia; // ponteiros para a matriz de Adjacencia
-    
+
     void alocaMatriz();
 
 
     void depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel);
     void depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int nivel,fstream &outputFile);
-    
+
     void percorre(No * u);
 };
 

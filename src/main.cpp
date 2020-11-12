@@ -4,6 +4,10 @@
 #include <sstream>
 
 #include "Grafo.h"
+#include "Floyd.h"
+#include "Dijkstra.h"
+#include "Prim.h"
+#include "Kruskal.h"
 
 std::fstream inputFile;
 std::fstream outputFile;
@@ -74,6 +78,23 @@ int main(int argc, char * argv [])
     int opcao_escolhida;
     int id;
 
+    /*Algoritmos de Caminho Mínimo e AGM*/
+    Floyd* floyd;
+    Dijkstra* dijkstra;
+    Prim* prim;
+    Kruskal* kruskal;
+    Grafo* AGM;
+
+    cout << endl;
+    cout << "Para criacao deste algoritmo, estamos considerando que a entrada seja sempre um grafo simples,ponderado nas arestas e nao direcionado" << endl;
+    cout << "Para maiores informacoes, visite o respositorio do projeto https://github.com/renanNun/Minimum-independent-set-connected" << endl;
+    cout << endl;
+
+    outputFile << endl;
+    outputFile << "Para criacao deste algoritmo, estamos considerando que a entrada seja sempre um grafo simples,ponderado nas arestas e nao direcionado" << endl;
+    outputFile << "Para maiores informacoes, visite o respositorio do projeto https://github.com/renanNun/Minimum-independent-set-connected" << endl;
+    outputFile << endl;
+
     while(true)
     {
         menu();
@@ -95,12 +116,14 @@ int main(int argc, char * argv [])
             limparTela();
             break;
         case 2:
+            grafo->iniciaMatriz();
             cout << grafo->imprimirMatriz();
             if(salvar())
             {
                 outputFile << endl << grafo->imprimirMatriz() << endl;
             }
             limparTela();
+            grafo->deleteMatriz();
             break;
         case 3:
             cout << "\tNo Inicial: ";
@@ -121,12 +144,93 @@ int main(int argc, char * argv [])
             }
             limparTela();
             break;
+        case 5:
+            if(!grafo->getPonderadoAresta())
+            {
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                break;
+            }
+            else
+            {
+                cout << "\tNo Inicial: ";
+                cin >> id;
+                cout << endl;
+                dijkstra = new Dijkstra(grafo,id);
+                if(salvar())
+                {
+                    dijkstra->imprimeFile(outputFile);
+                }
+                limparTela();
+                delete dijkstra;
+            }
+            break;
+        case 6:
+            if(!grafo->getPonderadoAresta())
+            {
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Floyd!" << endl;
+                break;
+            }
+            else
+            {
+                floyd = new Floyd(grafo);
+                if(salvar())
+                {
+                    floyd->imprimeSolucaoFile(outputFile);
+                }
+                delete floyd;
+                limparTela();
+            }
+            break;
+        case 7:
+                 if(grafo->getDirecionado())
+            {
+                cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Prim!" << endl;
+                break;
+            }
+            if(!grafo->getPonderadoAresta())
+            {
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Prim!" << endl;
+                break;
+            }
+            int escolha;
+            cout<< "Escolha o no inicial de prim : "<<endl;
+            cin >> escolha;
+            while(escolha>(grafo->getOrdem()-1) || escolha<0)
+            {
+                cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
+                cin >> escolha;
+            }
+            prim = new Prim(grafo,escolha);
+
+            if(salvar())
+            {
+                prim->imprimeFile(outputFile);
+            }
+            limparTela();
+            break;
+        case 8:
+            if(!grafo->getPonderadoAresta())
+            {
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                break;
+            }
+            else
+            {
+                kruskal = new Kruskal(grafo);
+                if(salvar())
+                {
+                    kruskal->imprimeFile(outputFile);
+                }
+                limparTela();
+            }
+            break;
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
         }
     }
 
+    delete grafo;
     return 0;
 }
 
@@ -137,6 +241,10 @@ void menu()
     cout << "[02] - Exibir Grafo por Matriz de Adjacencia. " << endl;
     cout << "[03] - Busca Em Profundidade. " << endl;
     cout << "[04] - Busca Em Largura. " << endl;
+    cout << "[05] - Algoritmo de Dijkstra. " << endl;
+    cout << "[06] - Algoritmo de FloydMarshall. " << endl;
+    cout << "[07] - Algoritmo de Prim. " << endl;
+    cout << "[08] - Algoritmo de Kruskal. " << endl;
     cout << "[0] - Sair. " << endl;
     cout << "Escolha: ";
 }
@@ -190,11 +298,9 @@ Grafo* leitura()
         while(inputFile >> id_no >> id_alvo)
         {
             grafo->inserirAresta(id_no,id_alvo,0);
-            grafo->adicionaArestaMatriz(id_no,id_alvo,0);
             if(!direcionado)
             {
                 grafo->inserirAresta(id_alvo,id_no,0);
-                grafo->adicionaArestaMatriz(id_alvo,id_no,0);
             }
             grafo->aumentaNumArestas();
         }
@@ -204,11 +310,9 @@ Grafo* leitura()
         while(inputFile >> id_no >> id_alvo >> peso)
         {
             grafo->inserirAresta(id_no,id_alvo,peso);
-            grafo->adicionaArestaMatriz(id_no,id_alvo,peso);
             if(!direcionado)
             {
                 grafo->inserirAresta(id_alvo,id_no,peso);
-                grafo->adicionaArestaMatriz(id_alvo,id_no,peso);
             }
             grafo->aumentaNumArestas();
         }
