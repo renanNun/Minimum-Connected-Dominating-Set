@@ -1,4 +1,4 @@
-# Cobertura-Minima-de-Vertices
+#Subconjunto mínimo dominante conexo
 
 Repositorio que armazena uma estrutura de Grafos e disponibiliza a execução dos algoritmos :  Prim, Kruskal, Dijkstra, Floyd. Além disso uma implementação de um guloso e um guloso randomizado para o problema de subconjunto dominante minimo conexo.
 
