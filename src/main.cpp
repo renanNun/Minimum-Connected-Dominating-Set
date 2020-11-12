@@ -160,7 +160,7 @@ int main(int argc, char * argv [])
                 cout << "\tNo Inicial: ";
                 cin >> id;
                 cout << endl;;
-                while(id>(grafo->getOrdem()-1) || id<grafo->getPrimeiroNo()->getId())
+                while(grafo->getNo(id) == nullptr)
                 {
                     cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
                     cin >> id;
@@ -211,17 +211,16 @@ int main(int argc, char * argv [])
                 cin >> id;
             }
 
-            if(salva
-                    prim = new Prim(grafo,escolha);
+            prim = new Prim(grafo,escolha);
 
-                    if(salvar())
+            if(salvar())
             {
                 prim->imprimeFile(outputFile);
-                }
+            }
             limparTela();
             break;
         case 8:
-                if(!grafo->getPonderadoAresta())
+            if(!grafo->getPonderadoAresta())
             {
                 cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
                 break;
@@ -229,17 +228,17 @@ int main(int argc, char * argv [])
             else
             {
                 kruskal = new Kruskal(grafo);
-                    if(salvar())
-                    {
-                        kruskal->imprimeFile(outputFile);
-                    }
-                    limparTela();
+                if(salvar())
+                {
+                    kruskal->imprimeFile(outputFile);
                 }
+                limparTela();
+            }
             break;
         default:
-                cout << "Opcao Invalida! Digite Novamente: ";
-                     cin >> opcao_escolhida;
-            }
+            cout << "Opcao Invalida! Digite Novamente: ";
+            cin >> opcao_escolhida;
+        }
     }
 
     delete grafo;
