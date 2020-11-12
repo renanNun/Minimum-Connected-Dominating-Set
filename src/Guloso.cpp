@@ -80,11 +80,6 @@ void Guloso::algoritmoGuloso()
             i++;
         }
 
-        while(coloracao[q]!= -1 && q<grafo->getOrdem() )
-        {
-            cout<<"ID: "<<listaIds[q]<<" Colorido: "<<coloracao[q]<< " Com grau: "<<listaGraus[q]<<" Na inteiração:"<<z<< endl;
-            q++;
-        }
         quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds,coloracao);
 
         cont = 0;
@@ -106,7 +101,7 @@ void Guloso::algoritmoGuloso()
     cout << endl;
     while(solucao[t] != -1)
     {
-        cout << "Solucao " << solucao[t] << " ";
+       // cout << "Solucao " << solucao[t] << " ";
         t++;
     }
     cout << "Tamanho da solucao " << t << endl;

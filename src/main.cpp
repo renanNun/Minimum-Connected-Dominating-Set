@@ -414,7 +414,7 @@ Grafo* leituraDat()
     for(int i = 0; i < ordem; i++)
     {
         getline(inputFile,line);
-        for(int j = 0; j < ordem; j++)
+        for(int j = i; j < ordem; j++)
         {
             control = limpaMatriz(line);
             if(stoi(control[j]) == 1)
