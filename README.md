@@ -1,11 +1,27 @@
-#Subconjunto mínimo dominante conexo
+# Subconjunto mínimo dominante conexo
 
-Repositorio que armazena uma estrutura de Grafos e disponibiliza a execução dos algoritmos :  Prim, Kruskal, Dijkstra, Floyd. Além disso uma implementação de um guloso e um guloso randomizado para o problema de subconjunto dominante minimo conexo.
+Este Repositório tem como objetivo implementar uma estrutura de armazenamento de grafos simples e suas respectivas operações possíveis.
+Para mais detalhes, veja nessa [wiki](https://github.com/renanNun/Minimum-independent-set-connected/wiki/Introdu%C3%A7%C3%A3o).
 
-Para executar o programa utilize:
+## Para a criação do executável
 
-Linux e MAC: g++ *.cpp -o <nome_do_executavel> <arquivo_de_entrada> <arquivo_de_saida>
-Windows: 
+```
+$ g++ *.cpp -o grafosGrupo
+```
+
+## Para a execução do programa utiliza-se a seguinte linha de comando:
+
+Para Mac e Linux
+
+```
+$ ./grafosGrupo20 <arquivo_de_entrada> <arquivo_de_saida>
+```
+
+Para o sistema Windows:
+
+```
+$ grafosGrupo20.exe <arquivo_de_entrada> <arquivo_de_saida>
+```
 
 O programa aceita arquivos .txt e .dat nos seguintes formatos:
 
