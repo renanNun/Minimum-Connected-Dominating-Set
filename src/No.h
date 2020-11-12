@@ -45,6 +45,16 @@ public:
     //Variável para DFS e BFS
     int getI();
     void setI(int i);
+    
+    //Funções para verificar conectividade
+    bool getMarca();
+    void Marca();
+    void desmarca();
+
+
+    //funções kruskal
+    void setPai(int id);
+    int  getPai();
 
 
 private:
@@ -57,6 +67,12 @@ private:
     No* prox; //ponteiro para o proximo Nó
 
     int iterador; // inteiro para auxiliar nas funções busca em largura e busca em profundidade
+    
+    bool marca; //Marcador usado para verificar conectividade do Grafo
+
+    //para Kruskal
+    int pai; // Armazena Id do Pai do No
+
 };
 
 #endif // NO_H
