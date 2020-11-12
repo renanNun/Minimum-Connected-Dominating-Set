@@ -32,9 +32,9 @@ n
 a b p
 ```
 
-Onde *n* é o número de Nós.
-*a* e *b* são os nós de forma que a presença deles indique a ocorrência de uma aresta.
-*p* indica o peso no caso de grafos ponderados
+Onde *n* é o número de Nós. <br>
+*a* e *b* são os nós de forma que a presença deles indique a ocorrência de uma aresta. <br>
+*p* indica o peso no caso de grafos ponderados. <br>
 
 exemplo de entrada:
 ```
@@ -63,7 +63,7 @@ c
 0 1 1 0
 0 0 0 1
 ```
-Onde *x* é o número de nós
-*Positions* indica as coordenadas dos pontos de forma de coordenadas cartesianas
-*Weights* indica os pesos dos nós
-*Connections* indica a matriz de adjacência do grafo
+Onde *x* é o número de nós <br>
+*Positions* indica as coordenadas dos pontos de forma de coordenadas cartesianas <br>
+*Weights* indica os pesos dos nós <br>
+*Connections* indica a matriz de adjacência do grafo <br>
