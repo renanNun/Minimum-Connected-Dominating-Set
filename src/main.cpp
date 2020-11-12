@@ -43,17 +43,17 @@ int main(int argc, char * argv [])
     }
     else
     {
-        cerr << "O Algoritmo não localizou os arquivos de Entrada ou Saída!" << endl;
+        cerr << "O Algoritmo nÃ£o localizou os arquivos de Entrada ou SaÃ­da!" << endl;
         cerr << "Verifique o Formato de entrada <nome_do_executavel> <arquivo_de_entrada> <arquivo_de_saida>" << endl;
         exit(-1);
     }
 
     cout << "\t\t\tTrabalho de Teoria dos Grafos" << endl;
-    cout << "Alunos: Luan Reis Ciribelli e Renan Nunes da Costa Gonçalves" << endl;
+    cout << "Alunos: Luan Reis Ciribelli e Renan Nunes da Costa GonÃ§alves" << endl;
     cout << "Nome do arquivo: " << argv[1] << endl;
 
     outputFile << "\t\t\tTrabalho de Teoria dos Grafos" << endl;
-    outputFile << "Alunos: Luan Reis Ciribelli e Renan Nunes da Costa Gonçalves" << endl;
+    outputFile << "Alunos: Luan Reis Ciribelli e Renan Nunes da Costa GonÃ§alves" << endl;
     outputFile << "Nome do arquivo: " << argv[1] << endl;
 
     Grafo* grafo = leitura();
@@ -78,7 +78,7 @@ int main(int argc, char * argv [])
     int opcao_escolhida;
     int id;
 
-    /*Algoritmos de Caminho Mínimo e AGM*/
+    /*Algoritmos de Caminho MÃ­nimo e AGM*/
     Floyd* floyd;
     Dijkstra* dijkstra;
     Prim* prim;
@@ -128,8 +128,13 @@ int main(int argc, char * argv [])
         case 3:
             cout << "\tNo Inicial: ";
             cin >> id;
-            cout << endl;
-            cout << grafo->depthFirstSearch(id);
+            cout << endl;;
+            while(id>(grafo->getOrdem()-1) || id<grafo->getPrimeiroNo()->getId())
+               {
+                   cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
+                   cin >> id;
+               }
+                
             if(salvar())
             {
                 outputFile << endl << grafo->depthFirstSearchFile(id,outputFile) << endl;
@@ -147,14 +152,19 @@ int main(int argc, char * argv [])
         case 5:
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                cout << "AtenÃ§Ã£o: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
                 break;
             }
             else
             {
                 cout << "\tNo Inicial: ";
                 cin >> id;
-                cout << endl;
+                cout << endl;;
+                while(id>(grafo->getOrdem()-1) || id<grafo->getPrimeiroNo()->getId())
+                {
+                    cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
+                    cin >> id;
+                }
                 dijkstra = new Dijkstra(grafo,id);
                 if(salvar())
                 {
@@ -167,7 +177,7 @@ int main(int argc, char * argv [])
         case 6:
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Floyd!" << endl;
+                cout << "AtenÃ§Ã£o: O grafo precisa ter aresta ponderada para Floyd!" << endl;
                 break;
             }
             else
@@ -184,12 +194,12 @@ int main(int argc, char * argv [])
         case 7:
                  if(grafo->getDirecionado())
             {
-                cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Prim!" << endl;
+                cout << "AtenÃ§Ã£o: O grafo nÃ£o pode ser orientado para calcular a arvore geradora mÃ­nima por Prim!" << endl;
                 break;
             }
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Prim!" << endl;
+                cout << "AtenÃ§Ã£o: O grafo precisa ter aresta ponderada para Prim!" << endl;
                 break;
             }
             int escolha;
@@ -211,7 +221,7 @@ int main(int argc, char * argv [])
         case 8:
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                cout << "AtenÃ§Ã£o: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
                 break;
             }
             else
@@ -291,7 +301,7 @@ Grafo* leitura()
     getline(inputFile,line);
     ordem = (stoi(line));
 
-    Grafo* grafo = new Grafo(ordem,direcionado,ponderado_aresta,ponderado_no); //Devido as especificações do problema os indices de direcionado,ponderado aresta e nos estão travados
+    Grafo* grafo = new Grafo(ordem,direcionado,ponderado_aresta,ponderado_no); //Devido as especificaÃ§Ãµes do problema os indices de direcionado,ponderado aresta e nos estÃ£o travados
 
     if(!ponderado_aresta && !ponderado_no)
     {
