@@ -49,10 +49,21 @@ Ele também aceita entradas do tipo [dat](https://www.tecmundo.com.br/internet/8
 ```
 NumberOfNodes:
 x 
-******************WEIGHTS***************************** // seguido do peso dos nos (tem que colocar o numero de peso igual ao numero de Nós declarados)
+Positions
+p q
+r s
+t v
+******************WEIGHTS*****************************
 a
-s
-d
-*****************CONNECTIONS**************** //Seguido da matriz de adjacencia
+b
+c
+*****************CONNECTIONS**************** 
+1 0 0 0
+0 1 0 1
+0 1 1 0
+0 0 0 1
 ```
-
+Onde *x* é o número de nós
+*Positions* indica as coordenadas dos pontos de forma de coordenadas cartesianas
+*Weights* indica os pesos dos nós
+*Connections* indica a matriz de adjacência do grafo
