@@ -11,10 +11,6 @@ Grafo::Grafo()
     this->ponderado_aresta = false;
     this->ponderado_no = false;
     this->primeiro_no = this->ultimo_no = nullptr;
-
-    this->matriz_adjacencia = nullptr;
-    this->matriz_pesos = nullptr;
-    this->inicializaMatrizes();
 }
 
 /*
@@ -29,15 +25,11 @@ Grafo::Grafo(int ordem)
     this->ponderado_aresta = false;
     this->ponderado_no = false;
     this->primeiro_no = this->ultimo_no = nullptr;
-
-    this->matriz_adjacencia = nullptr;
-    this->matriz_pesos = nullptr;
-    this->inicializaMatrizes();
 }
 
 /*
 * Construtor completo da classe Grafos,
-* inicia todos os parametros recebidos e deixa os outros nulos para serem preenchidos pelo "incializaMatrizes();
+* inicia todos os parametros recebidos
 * @param: Int ordem // recebe a ordem dos grafos
 * @param:  bool direcionado // booleano que indica se o grafo é direcionado
 * @param: bool ponderado_aresta // booleano que indica se as arestas são ponderadas
@@ -51,19 +43,12 @@ Grafo::Grafo(int ordem, bool direcionado,bool ponderado_aresta,bool ponderado_no
     this->ponderado_aresta = ponderado_aresta;
     this->ponderado_no = ponderado_no;
     this->primeiro_no = this->ultimo_no = nullptr;
-
-    this->matriz_adjacencia = nullptr;
-    this->matriz_pesos = nullptr;
-    this->inicializaMatrizes();
 }
-
 /*
 * Destrutor
 */
 Grafo::~Grafo()
 {
-    this->deleteMatrizes();
-
     No* proximo_no = this->primeiro_no;
     while(proximo_no != nullptr)
     {
@@ -125,7 +110,6 @@ void Grafo::setNumeroArestas(int numeroArestas)
 /*
 * Função que aumenta em um o numero de arestas registradas
 */
-
 void Grafo::aumentaNumArestas()
 {
     this->numero_arestas++;
@@ -138,10 +122,7 @@ void Grafo::diminuiNumArestas()
 {
     if(this->numero_arestas > 0)
         this->numero_arestas--;
-    else
-        cout<< "É impossivel deixar o numero de arestas negativo"<<endl;
 }
-
 /*
 * Função que retorna o ponteiro para o Nó com Id indicado
 * @param: int Id// Id do nó desejado
@@ -154,10 +135,6 @@ No* Grafo::getNo(int id)
         for(No* aux = this->primeiro_no; aux != nullptr; aux = aux->getProx())
             if(aux->getId() == id)
                 return aux;
-    }
-    else
-    {
-        cout << "O Nó indicado não existe, retornando Null"<< endl;
     }
 
     return nullptr;
@@ -179,7 +156,6 @@ bool Grafo::existeNo(int id)
 
     return false;
 }
-
 /*
 * Função que insere um Nó no grafo com o Id que foi passado.
 * @param: int Id// Id do nó a ser incluido
@@ -197,6 +173,28 @@ void Grafo::inserirNo(int id)
         else
         {
             this->primeiro_no = new No(id);
+            this->ultimo_no = this->primeiro_no;
+        }
+    }
+}
+/*
+* Função que insere um Nó no grafo com o Id que foi passado e também insere o peso passado.
+* @param: int Id// Id do nó a ser incluido
+* @param:int peso // peso referente ao No
+*/
+void Grafo::inserirNo(int id,int peso)
+{
+    if(!existeNo(id))
+    {
+        if(this->primeiro_no != nullptr)
+        {
+            No* no = new No(id,peso);
+            this->ultimo_no->setProxNo(no);
+            this->ultimo_no = no;
+        }
+        else
+        {
+            this->primeiro_no = new No(id,peso);
             this->ultimo_no = this->primeiro_no;
         }
     }
@@ -279,7 +277,6 @@ void Grafo::inserirAresta(int id,int id_alvo,int peso)
         no->aumentaGrauEntrada();
     }
 }
-
 /*
 * Função que calcula e retorna o Grau medio, usando o metodo de somatorio
 * @return: inteiro que representa o grau medio do grafo usando somatorio
@@ -388,75 +385,6 @@ bool Grafo::verificaAdjacencia(int i,int j)
     return false;
 }
 
-/*
-* Função que adiciona uma aresta na matriz de pesos, da posição i e j com peso "peso".
-* @param: int i// parametro que representa a posição do No na matriz
-* @param: int j// parametro que representa a posição do No na matriz
-* @param: int peso// parametro que representa o peso da matriz a ser adicionada
-*/
-void Grafo::adicionaArestaMatriz(int i,int j, int peso)
-{
-    matriz_adjacencia[this->getPosicaoMatriz(i)][this->getPosicaoMatriz(j)] = true;
-    matriz_pesos[this->getPosicaoMatriz(i)][this->getPosicaoMatriz(j)] = peso;
-}
-
-/*
-* Função que pega a posição do No com o id passado nas matrizes
-* @param: int id// parametro que representao Nó a ser buscado nas matrizes
-* @return: inteiro que representa a posição do No com id recebido nas matrizes
-*/
-int Grafo::getPosicaoMatriz(int id)
-{
-    int c = 0;
-
-    for(No* no = this->primeiro_no; no != nullptr; no = no->getProx())
-    {
-        if(no->getId() == id)
-        {
-            return c;
-        }
-        c++;
-    }
-
-    return -1;
-}
-
-/*
-* Função usada no construtor para incializar ambas as matrizes
-*/
-void Grafo::inicializaMatrizes()
-{
-    this->matriz_adjacencia = new bool*[this->ordem];
-    this->matriz_pesos = new int*[this->ordem];
-
-    for(int i = 0; i < this->ordem; i++)
-    {
-        this->matriz_adjacencia[i] = new bool[this->ordem];
-        this->matriz_pesos[i] = new int[this->ordem];
-        for(int j = 0; j < this->ordem; j++)
-        {
-            this->matriz_adjacencia[i][j] = false;
-            this->matriz_pesos[i][j] = -1;
-        }
-    }
-}
-
-/*
-* Função que funciona como destrutor para ambas as matrizes
-*/
-void Grafo::deleteMatrizes()
-{
-    for(int i = 0; i < this->ordem; i++)
-    {
-        for(int j = 0; j < this->ordem; j++)
-        {
-            delete [] matriz_adjacencia[i];
-            delete [] matriz_pesos[i];
-        }
-        delete [] matriz_adjacencia;
-        delete [] matriz_pesos;
-    }
-}
 
 /*Impressões*/
 string Grafo::imprimir()
@@ -511,7 +439,6 @@ string Grafo::imprimirMatriz()
 }
 
 /*Buscas*/
-
 /*
 * Função que faz busca em profundidade partindo do Nó com id passado.
 * @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
@@ -548,7 +475,6 @@ bool Grafo::depthFirstSearch(int id_inicial)
     delete [] vetor_coloracao;
     return true;
 }
-
 /*
 * Função auxiliar da busca em profundidade.
 * @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
@@ -578,7 +504,6 @@ void Grafo::depthFirstSearchF(No* no, bool* vetor_coloracao, No* pai, int nivel)
         aresta = aresta->getProxAresta();
     }
 }
-
 /*
 * Função que faz busca em profundidade partindo do Nó com id passado imprimindo na saida
 * @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
@@ -617,7 +542,6 @@ bool Grafo::depthFirstSearchFile(int id_inicial,fstream &outputFile)
     delete [] vetor_coloracao;
     return true;
 }
-
 /*
 * Função auxiliar da busca em profundidade.
 * @param: int id_inicial// parametro que representa o id do Nó em que a busca será iniciado
@@ -647,7 +571,6 @@ void Grafo::depthFirstSearchFFile(No* no, bool* vetor_coloracao, No* pai, int ni
         aresta = aresta->getProxAresta();
     }
 }
-
 /*
 * Função que faz busca em largura imprimindo na saida
 * @return: busca em Largura
@@ -697,7 +620,6 @@ void Grafo::breathFirstSearch()
         }
     }
 }
-
 /*
 * Função que faz busca em largura
 * @param: fstream &outputFile// caminho do arquivo que salva a impressão
@@ -747,4 +669,97 @@ void Grafo::breathFirstSearchFile(fstream& output_file)
             aresta = aresta->getProxAresta();
         }
     }
+}
+
+/*
+* Função auxiliar para a função que verifica conectividade, ela percorre o grafo e marca os nos percorridos
+* @param: No * u // No onde se começa a ser percorrido
+*/
+void Grafo::percorre(No * u)
+{
+    u->Marca();
+    for(No *v = this->primeiro_no; v != nullptr; v = v->getProx())
+    {
+        if(v->existeArestaEntre(u->getId()))
+        {
+            if(!v->getMarca())
+                percorre(v);
+        }
+    }
+}
+/*
+* Função que verifica conectividade do Grafo
+* @return: booleano referente a conectividade do grafo
+*/
+bool Grafo::ehConexo()
+{
+    No* primeiro = this->primeiro_no;
+    for (No *i= this->primeiro_no; i!=nullptr; i=i->getProx())
+        i->desmarca();
+    percorre(primeiro);
+    for (No *i= this->primeiro_no; i!=nullptr; i=i->getProx())
+    {
+        if (!i->getMarca())
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
+/*
+* Função que cria a matriz na memoria
+*/
+void Grafo::alocaMatriz()
+{
+    this->matriz_adjacencia = new bool*[ordem];
+
+    for(int i = 0; i < ordem; i++)
+        matriz_adjacencia[i] = new bool[ordem];
+}
+
+/*
+* Função que inicia a matriz com os valores
+*/
+void Grafo::iniciaMatriz()
+{
+    alocaMatriz();
+    No* no = primeiro_no;
+
+    for(int i = 0; i < ordem; i++)
+    {
+        no->setI(i);
+        no = no->getProx();
+    }
+    int i;
+    no = primeiro_no;
+    while(no != nullptr) //Inicia a matriz com zeros
+    {
+        i = no->getI();
+        for(int j = 0; j < ordem; j++)
+        {
+            matriz_adjacencia[i][j] = false;
+        }
+
+        no = no->getProx();
+    }
+    No* aux;
+    for(no = primeiro_no; no != nullptr; no = no->getProx())
+    {
+        for(Aresta* a = no->getPrimeiraAresta(); a != nullptr; a = a->getProxAresta())
+        {
+            aux = getNo(a->getId_Alvo());
+            matriz_adjacencia[no->getI()][aux->getI()] = true;
+        }
+    }
+}
+
+/*
+* Função que deleta a matriz da memoria
+*/
+void Grafo::deleteMatriz()
+{
+    for(int i = 0; i < ordem; i++)
+           delete [] matriz_adjacencia[i];
+    delete [] matriz_adjacencia;
 }
