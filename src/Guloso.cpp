@@ -149,3 +149,23 @@ void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices)
     if(i < direita)
         quickSort(vetor,i,direita,indices);
 }
+
+void Guloso::subconjuntoDominanteMinimoConexo()
+{
+    int n = grafo->getOrdem();
+    int* candidatos = new int[n]; //Vetor de Candidatos
+    int* grausCandidatos = new int[n]; //Graus dos Vetores Cândidatos a solução
+    int* coloracao = new int[n]; //Vetor de coloração
+
+    /*
+    * Cores para coloração
+    * branco = 0
+    * cinza = 1
+    * preto = 2
+    */
+
+    //Inicializa toda a solucação com -1
+    for(int k = 0; k < grafo->getOrdem(); k++)
+        solucao[k] = -1;
+
+}

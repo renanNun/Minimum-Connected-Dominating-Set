@@ -222,7 +222,7 @@ int main(int argc, char * argv [])
                 break;
             }
             int pesoTotal;
-            prim = new Prim(grafo,8);
+            prim = new Prim(grafo,2);
             //cout << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
 
             if(salvar())
@@ -316,7 +316,7 @@ bool salvar()
 Grafo* leitura()
 {
     bool direcionado = false;
-    bool ponderado_aresta = false;
+    bool ponderado_aresta = true;
     bool ponderado_no = false;
 
     int id_no,id_alvo,peso;

@@ -30,7 +30,8 @@ Prim::Prim(Grafo* grafo, int no_escolhido)
 {
     this->grafo = grafo;
     noEscolhido = grafo->getNo(no_escolhido);
-    gerar();
+    //gerar();
+    algoritmoDePrim();
 }
 
 Prim::~Prim()
@@ -172,4 +173,101 @@ void Prim::preencheListaNos()
     }
 }
 
+//Implementação do Renan
+void Prim::algoritmoDePrim()
+{
+    list<Aresta*> arestasArvore;
+    int menorPeso;
+    int verticesVisitados = 0;
 
+    bool flagA = true; //primeiro teste do algoritmo de prim
+    int* verticesDoGrafo = new int[grafo->getOrdem()];
+    int* indices = new int[grafo->getOrdem()];
+    No* no = grafo->getPrimeiroNo();
+    No* aux;
+    Aresta* arestaMenorPeso = no->getPrimeiraAresta();
+
+    menorPeso = arestaMenorPeso->getPeso();
+    Aresta* a;
+
+    for(int i = 0; i < grafo->getOrdem() && no != nullptr; i++)
+    {
+        no->setI(i);
+        verticesDoGrafo[i] = 0;
+        indices[i] = no->getId();
+        no = no->getProx();
+    }
+
+    no = noEscolhido;
+
+    while(no != nullptr)
+    {
+        a = no->getPrimeiraAresta();
+
+        while(a != nullptr)
+        {
+            if(a->getPeso() < menorPeso)
+            {
+                arestaMenorPeso = a;
+                menorPeso = a->getPeso();
+            }
+            a = a->getProxAresta();
+        }
+        no = no->getProx();
+    }
+
+    arestasArvore.push_back(arestaMenorPeso);
+    aux = grafo->getNo(arestaMenorPeso->getId_Alvo());
+    verticesDoGrafo[aux->getI()] = 1;
+    verticesVisitados++;
+
+    aux = grafo->getNo(arestaMenorPeso->getId_Origem());
+    verticesDoGrafo[aux->getI()] = 1;
+    verticesVisitados++;
+
+    while(verticesVisitados < grafo->getOrdem())
+    {
+        flagA = true;
+        arestaMenorPeso = nullptr;
+        for(int i = 0; i < grafo->getOrdem(); i++)
+        {
+            if(verticesDoGrafo[i] == 1)
+            {
+                a = grafo->getNo(indices[i])->getPrimeiraAresta();
+
+                while(a != nullptr)
+                {
+                    aux = grafo->getNo(a->getId_Alvo());
+                    if(verticesDoGrafo[aux->getI()] != 1)
+                    {
+                        if(flagA)
+                        {
+                            arestaMenorPeso = a;
+                            menorPeso = a->getPeso();
+                            flagA = false;
+                        } else {
+                            if(a->getPeso() < menorPeso)
+                            {
+                                arestaMenorPeso = a;
+                                menorPeso = a->getPeso();
+                            }
+                        }
+                    }
+                    a = a->getProxAresta();
+                }
+            }
+        }
+        if(arestaMenorPeso == nullptr)
+            break;
+        arestasArvore.push_back(arestaMenorPeso);
+        aux = grafo->getNo(arestaMenorPeso->getId_Alvo());
+        verticesDoGrafo[aux->getI()] = 1;
+        verticesVisitados++;
+    }
+    cout << "PRIM" << endl;
+    for(Aresta* & arestaAux : arestasArvore)
+    {
+        cout << arestaAux->getId_Origem() << "-->" << arestaAux->getId_Alvo() << " " << arestaAux->getPeso() << endl;
+    }
+    cout << endl;
+}

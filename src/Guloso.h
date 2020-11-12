@@ -10,6 +10,7 @@ class Guloso
         Guloso(Grafo* grafo); //Subconjunto dominante mínimo conexo.
         virtual ~Guloso();
 
+        void subconjuntoDominanteMinimoConexo();
     private:
         int* solucao;
         Grafo * grafo;

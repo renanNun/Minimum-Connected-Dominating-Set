@@ -14,7 +14,7 @@ public:
     ~Prim();
     void imprime();
 
-
+    void algoritmoDePrim();
 private:
     Grafo* grafo;
     Grafo grafoPrim;
