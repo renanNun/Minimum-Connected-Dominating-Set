@@ -265,3 +265,35 @@ void No::setI(int i)
 {
     this->iterador = i;
 }
+
+
+//Funções para verificar conectividade
+
+// Getters e setter da variavel marca usada para verificar conectividade do Grafo
+bool No::getMarca()
+{
+    return marca;
+}
+void No::Marca()
+{
+    marca=true;
+}
+void No::desmarca()
+{
+    marca=false;
+}
+
+
+//Funções Kruskal
+
+// Getters e setter da variavel Pai que armazena o id de outro nó, usada no algoritmo de Kruskal
+void No::setPai(int pai)
+{
+    this->pai= pai;
+}
+
+int No::getPai()
+{
+    return this->pai;
+}
+
