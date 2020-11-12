@@ -173,26 +173,42 @@ int main(int argc, char * argv [])
             limparTela();
             break;
         case 5:
-            cout << "\tNo Inicial: ";
-            cin >> id;
-            cout << endl;
-            dijkstra = new Dijkstra(grafo,id);
-            if(salvar())
+            if(!grafo->getPonderadoAresta())
             {
-                dijkstra->imprimeFile(outputFile);
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                break;
             }
-            limparTela();
-            delete dijkstra;
+            else
+            {
+                cout << "\tNo Inicial: ";
+                cin >> id;
+                cout << endl;
+                dijkstra = new Dijkstra(grafo,id);
+                if(salvar())
+                {
+                    dijkstra->imprimeFile(outputFile);
+                }
+                limparTela();
+                delete dijkstra;
+            }
             break;
         case 6:
-            floyd = new Floyd(grafo);
-            cout << endl << endl << "A EXECUTACAO DO ALGORITMO PODE RESULTAR NO FECHAMENTO IMEDIATO DO PROGRAMA" << endl;
-            if(salvar())
+            if(!grafo->getPonderadoAresta())
             {
-                floyd->imprimeSolucaoFile(outputFile);
+                cout << "Atenção: O grafo precisa ter aresta ponderada para Floyd!" << endl;
+                break;
             }
-            delete floyd;
-            limparTela();
+            else
+            {
+                floyd = new Floyd(grafo);
+                cout << endl << endl << "A EXECUTACAO DO ALGORITMO PODE RESULTAR NO FECHAMENTO IMEDIATO DO PROGRAMA" << endl;
+                if(salvar())
+                {
+                    floyd->imprimeSolucaoFile(outputFile);
+                }
+                delete floyd;
+                limparTela();
+            }
             break;
         case 7:
             if(grafo->getDirecionado())
@@ -227,7 +243,7 @@ int main(int argc, char * argv [])
                 kruskal = new Kruskal(grafo);
                 if(salvar())
                 {
-                    //kruskal->imprimeFile(outputFile);
+                    kruskal->imprimeFile(outputFile);
                 }
                 limparTela();
             }
@@ -237,7 +253,6 @@ int main(int argc, char * argv [])
             guloso= new Guloso(grafo);
             if(salvar())
             {
-                //kruskal->imprimeFile(outputFile);
             }
 
             limparTela();
@@ -306,7 +321,6 @@ Grafo* leitura()
 
     int id_no,id_alvo,peso;
     int ordem;
-    cout << "REALIZANDO LEITURA" << endl;
     string line;
 
     getline(inputFile,line);
