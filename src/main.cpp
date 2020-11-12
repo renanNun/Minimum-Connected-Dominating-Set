@@ -411,17 +411,20 @@ Grafo* leituraDat()
         getline(inputFile,line);
     }
 
-    for(int i = 1; i <= ordem; i++)
+    for(int i = 0; i < ordem; i++)
     {
         getline(inputFile,line);
-        for(int j = i; j < ordem; j++)
+        for(int j = 0; j < ordem; j++)
         {
             control = limpaMatriz(line);
             if(stoi(control[j]) == 1)
             {
-                grafo->inserirAresta(i-1,j-1,0);
-                grafo->inserirAresta(j-1,i-1,0);
-                grafo->aumentaNumArestas();
+                if(i != j)
+                {
+                    grafo->inserirAresta(i,j,0);
+                    grafo->inserirAresta(j,i,0);
+                    grafo->aumentaNumArestas();
+                }
             }
 
         }
