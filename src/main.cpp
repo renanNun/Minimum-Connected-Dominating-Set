@@ -129,12 +129,12 @@ int main(int argc, char * argv [])
             cout << "\tNo Inicial: ";
             cin >> id;
             cout << endl;;
-            while(id>(grafo->getOrdem()-1) || id<grafo->getPrimeiroNo()->getId())
-               {
-                   cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
-                   cin >> id;
-               }
-                
+            while(grafo->getNo(id) == nullptr)
+            {
+                cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
+                cin >> id;
+            }
+
             if(salvar())
             {
                 outputFile << endl << grafo->depthFirstSearchFile(id,outputFile) << endl;
@@ -192,7 +192,7 @@ int main(int argc, char * argv [])
             }
             break;
         case 7:
-                 if(grafo->getDirecionado())
+            if(grafo->getDirecionado())
             {
                 cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Prim!" << endl;
                 break;
@@ -205,21 +205,23 @@ int main(int argc, char * argv [])
             int escolha;
             cout<< "Escolha o no inicial de prim : "<<endl;
             cin >> escolha;
-            while(escolha>(grafo->getOrdem()-1) || escolha<0)
+            while(grafo->getNo(id) == nullptr)
             {
                 cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
-                cin >> escolha;
+                cin >> id;
             }
-            prim = new Prim(grafo,escolha);
 
-            if(salvar())
+            if(salva
+                    prim = new Prim(grafo,escolha);
+
+                    if(salvar())
             {
                 prim->imprimeFile(outputFile);
-            }
+                }
             limparTela();
             break;
         case 8:
-            if(!grafo->getPonderadoAresta())
+                if(!grafo->getPonderadoAresta())
             {
                 cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
                 break;
@@ -227,17 +229,17 @@ int main(int argc, char * argv [])
             else
             {
                 kruskal = new Kruskal(grafo);
-                if(salvar())
-                {
-                    kruskal->imprimeFile(outputFile);
+                    if(salvar())
+                    {
+                        kruskal->imprimeFile(outputFile);
+                    }
+                    limparTela();
                 }
-                limparTela();
-            }
             break;
         default:
-            cout << "Opcao Invalida! Digite Novamente: ";
-            cin >> opcao_escolhida;
-        }
+                cout << "Opcao Invalida! Digite Novamente: ";
+                     cin >> opcao_escolhida;
+            }
     }
 
     delete grafo;
