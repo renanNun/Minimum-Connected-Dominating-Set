@@ -44,28 +44,15 @@ exemplo de entrada:
 0 2 3
 ```
 
-.dat: 
+Ele também aceita entradas do tipo [dat](https://www.tecmundo.com.br/internet/8937-o-que-sao-arquivos-dat-que-aparecem-em-algumas-pastas-do-windows-.htm#:~:text=A%20extens%C3%A3o%20DAT%20representa%20um,texto%2C%20entre%20v%C3%A1rios%20outros%20tipos.), que possuam o seguinte formato:
+
+```
 NumberOfNodes:
-x // colocar aqui numero de no
+x 
 ******************WEIGHTS***************************** // seguido do peso dos nos (tem que colocar o numero de peso igual ao numero de Nós declarados)
 a
 s
 d
 *****************CONNECTIONS**************** //Seguido da matriz de adjacencia
-//Por exemplo
-0 1 1
-1 0 1 
-1 1 0 
-
-Exemplo:
-NumberOfNodes:
-3
-******************WEIGHTS*****************************
-1
-2
-3
-*****************CONNECTIONS****************
-0 1 1
-1 0 1 
-1 1 0
+```
 
