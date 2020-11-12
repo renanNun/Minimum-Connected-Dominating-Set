@@ -1,4 +1,5 @@
 #include "Guloso.h"
+#define MAX_INTERACOES 1000
 
 /*
 * Cores para coloração
@@ -10,8 +11,9 @@
 Guloso::Guloso(Grafo* grafo)
 {
     this->grafo=grafo;
+    solucao = new int[grafo->getOrdem()];
     algoritmoGuloso();
-    //cout << grafoGuloso.imprimir();
+
 }
 
 Guloso::~Guloso()
@@ -19,9 +21,22 @@ Guloso::~Guloso()
 
 }
 
+int Guloso::gerarSemente()
+{
+    int semente;
+    semente = time(nullptr);
+
+    return semente;
+}
+
+void Guloso::algoritmoGulosoRandomizado()
+{
+    int* listaGraus = new int[grafo->getOrdem()]; //Lista de Graus do Grafo, inicialmente não ordenada
+    int* listaIds = new int[grafo->getOrdem()]; //Lista com os ids do Grafo
+}
+
 void Guloso::algoritmoGuloso()
 {
-    int* solucao = new int[grafo->getOrdem()];
     int* listaGraus = new int[grafo->getOrdem()];
     int* listaIds = new int[grafo->getOrdem()];
     int* coloracao = new int[grafo->getOrdem()];
@@ -44,12 +59,6 @@ void Guloso::algoritmoGuloso()
 
     No* no;
     bool w = 1;
-    /*cout << "PRIMEIRA LINHA ";
-    for(int t = 0; t < grafo->getOrdem(); t++)
-    {
-        cout << "\t id " << listaIds[t] << "|" << listaGraus[t] << "|" << coloracao[t];
-    }
-    cout << endl;*/
     int p,cont;
     while(w)
     {
@@ -83,11 +92,6 @@ void Guloso::algoritmoGuloso()
 
         quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds);
 
-        /*for(int t = 0; t < grafo->getOrdem(); t++)
-        {
-            cout << "\t id " << listaIds[t] << "|" << listaGraus[t] << "|" << coloracao[t];
-        }
-        cout << endl;*/
         cont = 0;
         for(int k = 0; k < grafo->getOrdem(); k ++)
         {
@@ -107,7 +111,7 @@ void Guloso::algoritmoGuloso()
     cout << endl;
     while(solucao[t] != -1)
     {
-        //cout << "Solucao " << solucao[t] << " ";
+        cout << "Solucao " << solucao[t] << " ";
         t++;
     }
     cout << "Tamanho da solucao " << t << endl;

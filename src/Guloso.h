@@ -1,6 +1,8 @@
 #ifndef GULOSO_H
 #define GULOSO_H
 #include "Grafo.h"
+#include <time.h>
+#include <math.h>
 
 class Guloso
 {
@@ -9,9 +11,12 @@ class Guloso
         virtual ~Guloso();
 
     private:
+        int* solucao;
         Grafo * grafo;
         void algoritmoGuloso();
+        void algoritmoGulosoRandomizado();
 
+        int gerarSemente();
         void quickSort(int vetor[],int esquerda,int direita, int* indices);
 };
 

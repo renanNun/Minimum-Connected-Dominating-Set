@@ -86,6 +86,7 @@ int main(int argc, char * argv [])
 
     if(flag)
     {
+        cout  << "LEITURA DE TXT " <<endl;
         grafo = leitura();
     }
     else
@@ -281,27 +282,29 @@ bool salvar()
     cout << endl << "Deseja salvar em arquivo? [s/n]" << endl;
     cin >> op;
 
-    while(op != 's' && op != 'n')
+    if(op == 's' || op != 'S')
+        return true;
+    else if(op == 'n' || op != 'N')
+        return false;
+
+    while(op != 's' || op != 'S' && op != 'n' || op != 'N')
     {
         cout << "Opcao Invalida! Digite Novamente: " << endl;
         cin >> op;
     }
 
-    if(op == 's')
-        return true;
-    else if(op == 'n')
-        return false;
+    return false;
 }
 
 Grafo* leitura()
 {
     bool direcionado = false;
-    bool ponderado_aresta = true;
+    bool ponderado_aresta = false;
     bool ponderado_no = false;
 
     int id_no,id_alvo,peso;
     int ordem;
-
+    cout << "REALIZANDO LEITURA" << endl;
     string line;
 
     getline(inputFile,line);
@@ -314,11 +317,9 @@ Grafo* leitura()
         while(inputFile >> id_no >> id_alvo)
         {
             grafo->inserirAresta(id_no,id_alvo,0);
-            grafo->adicionaArestaMatriz(id_no,id_alvo,0);
             if(!direcionado)
             {
                 grafo->inserirAresta(id_alvo,id_no,0);
-                grafo->adicionaArestaMatriz(id_alvo,id_no,0);
             }
             grafo->aumentaNumArestas();
         }
@@ -328,16 +329,13 @@ Grafo* leitura()
         while(inputFile >> id_no >> id_alvo >> peso)
         {
             grafo->inserirAresta(id_no,id_alvo,peso);
-            grafo->adicionaArestaMatriz(id_no,id_alvo,peso);
             if(!direcionado)
             {
                 grafo->inserirAresta(id_alvo,id_no,peso);
-                grafo->adicionaArestaMatriz(id_alvo,id_no,peso);
             }
             grafo->aumentaNumArestas();
         }
     }
-
 
     return grafo;
 }
