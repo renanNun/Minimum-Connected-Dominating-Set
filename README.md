@@ -1,7 +1,12 @@
 # Subconjunto mínimo dominante conexo
 
+![](https://img.shields.io/badge/C%2B%2B-v1.0-red)
+
 Este Repositório tem como objetivo implementar uma estrutura de armazenamento de grafos simples e suas respectivas operações possíveis.
 Para mais detalhes, veja nessa [wiki](https://github.com/renanNun/Minimum-independent-set-connected/wiki/Introdu%C3%A7%C3%A3o).
+
+Este é um projeto para disciplina de Grafos do semestre 2020.1 <br>
+Feito pelos alunos [Renan Nunes da Costa Gonçalves](https://github.com/renanNun) e [Luan Reis Ciribelli](https://github.com/LuanCiribelli)
 
 ## Para a criação do executável
 
