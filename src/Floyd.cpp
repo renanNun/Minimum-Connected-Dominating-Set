@@ -1,6 +1,10 @@
 #include "Floyd.h"
 #define INT_MAX 999999
 
+/*
+* Construtor  da classe Floyd
+* @param: Grafo* grafo // Ponteiro do grafo que se espera a solução de Floyd
+*/
 Floyd::Floyd(Grafo* grafo)
 {
     this->n = grafo->getOrdem();
@@ -19,6 +23,9 @@ Floyd::Floyd(Grafo* grafo)
     imprimeSolucao();
 }
 
+/*
+* Destrutor
+*/
 Floyd::~Floyd()
 {
     for(int i = 0; i < this->n; i++)
@@ -31,6 +38,11 @@ Floyd::~Floyd()
     delete [] this->distanciaArestas;
 }
 
+
+/*
+* Função que se inicia as matrizes de peso e distancia usando as informações do Grafo
+* @param: Grafo* grafo // Ponteiro do grafo para armazenas as informações na matriz
+*/
 void Floyd::iniciaMatrizes(Grafo* grafo)
 {
     No* no = grafo->getPrimeiroNo();
@@ -60,6 +72,9 @@ void Floyd::iniciaMatrizes(Grafo* grafo)
     }
 }
 
+/*
+* Função que resolve o algoritmo de Floyd usando as informações previamente armazenadas no construtor.
+*/
 void Floyd::floydWarshall()
 {
     for(int i = 0; i < n; i++)
@@ -75,6 +90,9 @@ void Floyd::floydWarshall()
             }
 }
 
+/*
+* Função responsavel pela impressão da solução do algoritmo de Dijkstra na tela
+*/
 void Floyd::imprimeSolucao()
 {
     cout << endl << "Matriz de Floyd Warshall" << endl;
@@ -90,13 +108,16 @@ void Floyd::imprimeSolucao()
         }
     }
 }
-
+/*
+* Função responsavel pela impressão da solução do algoritmo de Dijkstra no arquivo de saida
+* @param: fstream &outputFile // Arquivo onde será feita a impressão.
+*/
 void Floyd::imprimeSolucaoFile(fstream &outputFile)
 {
     outputFile << endl << "Matriz de Floyd Warshall" << endl;
     for(int i = 0; i < n; i++)
     {
-       outputFile << endl;
+        outputFile << endl;
         for(int j = 0; j < n; j++)
         {
             if(this->distanciaArestas[i][j] == INT_MAX)

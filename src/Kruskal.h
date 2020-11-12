@@ -7,7 +7,11 @@
 #include <list>
 
 
-
+/**
+*   Universidade Federal de Juiz de Fora
+*   Criador: Renan Nunes da Costa Gonçalves e Luan Reis Ciribelli
+*   versão: 1.0
+*/
 
 using namespace std;
 
@@ -15,25 +19,23 @@ class Kruskal
 {
 
 public:
-    Kruskal(Grafo *grafo);
-    ~Kruskal();
+    Kruskal(Grafo *grafo); //Construtor
+    ~Kruskal(); //Destrutor
 
-    void imprime();
-    void imprimeFile(fstream &outputFile);
+    void imprime(); // Função para imprimir a solução
+    void imprimeFile(fstream &outputFile); // função para salvar a solução em um arquivo de saida
 
 private:
-    Grafo *grafo;
-    Grafo grafoKruskal;
-    bool direcional;
-    int ordem;
-    int m;
-    No * noInicial;
-    list<Aresta*> listaArestas;
+    Grafo *grafo; // Armazena o ponteiro do Grafo pasado pelo usuario
+    Grafo grafoKruskal; // Grafo que será feita a solução
+    No * noInicial; // Ponteiro para o primeiro no do Grafo
+    list<Aresta*> listaArestas; // Lista de arestas contidas no grafo
     void preencheListaArestas();
     void preencheListaNos();
     void algoritmo();
+    int pesoSolucao; //inteiro que armazena o peso de todas as arestas da solução
 
-    // union find
+    // Funções union find
 
     void pais();
     No* acha(No *u);

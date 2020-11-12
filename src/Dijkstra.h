@@ -5,6 +5,12 @@
 
 using namespace std;
 
+/**
+*   Universidade Federal de Juiz de Fora
+*   Criador: Renan Nunes da Costa Gonçalves e Luan Reis Ciribelli
+*   versão: 1.0
+*/
+
 class Dijkstra
 {
 public:
@@ -19,14 +25,14 @@ public:
     void imprimeFile(fstream &outputFile);
 
 private:
-    Grafo* graph;
-    int no_inicial;
+    Grafo* graph; // Armazena o ponteiro do Grafo pasado pelo usuario
+    int no_inicial; // Id do nó inicial
 
 
-    int* vertices;
-    int* distancias;
-    int* predecessores;
-    int* abertos;
+    int* vertices; // vetor de vertices
+    int* distancias; // vetor de distancias
+    int* predecessores; // vetor de predecessores
+    int* abertos; // vetor de abertos
 };
 
 #endif // DIJKSTRA_H

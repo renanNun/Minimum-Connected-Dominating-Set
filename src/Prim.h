@@ -6,37 +6,31 @@
 
 using namespace std;
 
+
+/**
+*   Universidade Federal de Juiz de Fora
+*   Criador: Renan Nunes da Costa Gonçalves e Luan Reis Ciribelli
+*   versão: 1.0
+*/
+
 class Prim
 {
 
 public:
-    Prim(Grafo* grafo, int no_escolhido);
-    ~Prim();
-    void imprime();
-
-    void algoritmoDePrim();
-private:
-    Grafo* grafo;
-    Grafo grafoPrim;
-    int n;
-    list<Aresta*> listaArestas;
-    list<No *> listaNos;
-    No* noEscolhido;
-    void gerar();
-    void preencheListaArestas();
-    void preencheListaNos();
-
-/*public:
-    Prim(Grafo *grafo);
-    ~Prim();
-    Grafo *gerar(int *soma);
-
+    Prim(Grafo* grafo, int no_escolhido); // Construtor
+    ~Prim(); // Destrutor
+    void imprime(); // Função para imprimir a solução
+    void imprimeFile(fstream &outputFile); // função para salvar a solução em um arquivo de saida
+    void algoritmoDePrim(); // Algoritmo da solução
 
 private:
-    Grafo *grafo;
-    void ordenar(Aresta **a,int n);
-    int binarySearch(Aresta **a, Aresta *item, int low, int high);
-    Aresta** prim();*/
+
+    Grafo* grafo; // Armazena o ponteiro do Grafo pasado pelo usuario
+    No* noEscolhido; // No escolhido pelo usuario
+    list<Aresta*> arestasArvore; //List que armazena os ponteiros para a solução
+
+
+
 };
 
 #endif // PRIM_H

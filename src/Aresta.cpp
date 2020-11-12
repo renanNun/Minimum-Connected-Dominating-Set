@@ -1,10 +1,19 @@
 #include "Aresta.h"
 
+/*
+* Construtor vazio da classe Aresta, inicia todos os parametros como null ou 0;
+*/
 Aresta::Aresta()
 {
-
+    this->id_alvo = -1;
+    this->prox = nullptr;
+    this->peso = 0;
 }
 
+/*
+* Construtor  da classe Aresta para arestas Não ponderadas que armazena apenas um dos Nós
+* @param: int id_alvo // id do Nó adjacente que será armazenado
+*/
 Aresta::Aresta(int id_alvo)
 {
     this->id_alvo = id_alvo;
@@ -12,6 +21,11 @@ Aresta::Aresta(int id_alvo)
     this->peso = 0;
 }
 
+/*
+* Construtor  da classe Aresta para arestas ponderadas que armazena um dos Nós e o peso da aresta
+* @param: int id_alvo // id do Nó adjacente que será armazenado
+* @param: int peso // peso da aresta
+*/
 Aresta::Aresta(int id_alvo,int peso)
 {
     this->id_alvo = id_alvo;
@@ -19,6 +33,12 @@ Aresta::Aresta(int id_alvo,int peso)
     this->peso = peso;
 }
 
+/*
+* Construtor  da classe Aresta para arestas ponderadas que armazena ambos os Nós,o de entra e o de saida, além do peso da aresta
+* @param: int id_alvo // id do Nó adjacente que será armazenado
+* @param: int id_origem // id do Nó de origem
+* @param: int peso // peso da aresta
+*/
 Aresta::Aresta(int id_alvo,int id_origem,int peso)
 {
     this->id_alvo = id_alvo;
@@ -26,7 +46,9 @@ Aresta::Aresta(int id_alvo,int id_origem,int peso)
     this->prox = nullptr;
     this->peso = peso;
 }
-
+/*
+* Destrutor
+*/
 Aresta::~Aresta()
 {
     if(this->prox != nullptr)
@@ -69,26 +91,3 @@ void Aresta::setId_alvo(int novo_id_alvo)
 {
     this->id_alvo = novo_id_alvo;
 }
-
-// Kruskal
-
-void Aresta::setIdAresta(int id)
-{
-    idAresta=id;
-}
-Aresta * Aresta::getAresta(int id)
-{
-    if (id == idAresta)
-        return this;
-    else
-        return nullptr;
-}
-
-int Aresta::getIdAresta(){
-return idAresta;
-}
-
-
-
-
-

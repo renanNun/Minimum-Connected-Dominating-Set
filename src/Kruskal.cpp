@@ -1,5 +1,12 @@
 #include "Kruskal.h"
 
+/*
+* Estrutura especial para ordenar lista de arestas pelo peso
+* @param: Aresta* & Aresta1 // Ponteiro para primeira aresta
+* @param: Aresta* & Aresta2 // ponteiro para a segnda aresta
+* @return: boleeano que representa se o peso da primeira aresta é menor que o da segunda
+*/
+
 struct ListaArestaComparator
 {
     // Compara 2 Arestas usando Peso
@@ -13,41 +20,51 @@ struct ListaArestaComparator
 
 
 
+
+/*
+* Çonstrutor do Algoritmo que recebe um ponteiro de Grafo, armazena as informações pertinentes e chama o algoritmo
+* @param: Aresta* & Aresta1 // Ponteiro para primeira aresta
+* @param: Aresta* & Aresta2 // ponteiro para a segnda aresta
+*/
 Kruskal::Kruskal(Grafo *grafo)
 {
     this->grafo = grafo;
-    this->ordem = grafo->getOrdem();
-    this->m = grafo->getNumeroArestas();
-    this->direcional = grafo->getDirecionado();
     this->noInicial = grafo->getPrimeiroNo();
-
     algoritmo();
 }
+
+/*
+* Destrutor
+*/
 Kruskal:: ~Kruskal() {}
 
+
+/*
+* Algoritmo do Kruskal
+*/
 void Kruskal::algoritmo()
 {
-
     preencheListaArestas();
     preencheListaNos();
     pais();
-
-
+    pesoSolucao=0;
     for(Aresta* & arestaAux : listaArestas)
     {
-
         if(!ehCiclo(arestaAux))
         {
             grafoKruskal.inserirAresta(arestaAux->getId_Origem(),arestaAux->getId_Alvo(),arestaAux->getPeso());
-        } else {
+            pesoSolucao+=arestaAux->getPeso();
         }
+
     }
 
     imprime();
-
-
 }
 
+
+/*
+* Função que preenche uma list com todas as arestas no grafo e ordena a lista
+*/
 void Kruskal::preencheListaArestas()
 {
 
@@ -59,7 +76,6 @@ void Kruskal::preencheListaArestas()
     {
         for(Aresta* j= i->getPrimeiraAresta(); j!=nullptr; j=j->getProxAresta())
         {
-            j->setIdAresta(idAresta);
             idAresta++;
             listaArestasAux.push_back(j);
         }
@@ -86,6 +102,9 @@ void Kruskal::preencheListaArestas()
     listaArestas.sort(ListaArestaComparator());
 }
 
+/*
+* Função que insere todos os Nós no grafo solução
+*/
 void Kruskal::preencheListaNos()
 {
 
@@ -95,25 +114,44 @@ void Kruskal::preencheListaNos()
     }
 }
 
+/*
+* Função responsavel pela impressão da solução do algoritmo de Kruskal no arquivo de saida
+* @param: fstream &outputFile // Arquivo onde será feita a impressão.
+*/
 void Kruskal::imprimeFile(fstream &outputFile)
 {
     outputFile<< grafoKruskal.imprimir();
 }
 
+/*
+* Função responsavel pela impressão da solução do algoritmo de Kruskal na tela
+*/
 void Kruskal::imprime()
 {
+    cout<< "Solução Kruskal: "<<endl;
     cout<<grafoKruskal.imprimir();
+    cout<< "Peso final Solução : "<< pesoSolucao<<endl;
 }
 
-// Union find
+// Funções Do union find
 
+
+/*
+* Função que preenche todos os Nos como pais deles mesmo
+*/
 void Kruskal::pais()
 {
     for (No * i = grafo->getPrimeiroNo() ; i!=nullptr; i=i->getProx())
     {
-            i->setPai(i->getId());
+        i->setPai(i->getId());
     }
 }
+
+/*
+* Função que acha a partição da qual o No faz parte, retornando o No raiz da partição
+* @param: No * u // No que será feito a busca
+* @return: No raiz da partição
+*/
 
 No *  Kruskal::acha(No * u)
 {
@@ -121,12 +159,19 @@ No *  Kruskal::acha(No * u)
 
     if(z == u)
     {
-       return z;
-    } else {
+        return z;
+    }
+    else
+    {
         return acha(z);
     }
-    //return z;
 }
+
+/*
+* Função que une duas partições diferentes
+* @param: No * x // No que representa a primeira partição
+* @param: No * y // No que representa a segunda partição
+*/
 
 void Kruskal::une(No *x, No *y)
 {
@@ -138,6 +183,11 @@ void Kruskal::une(No *x, No *y)
 
 }
 
+/*
+* Função Verifica se a adição de uma aresta ao grafo cria um ciclo
+* @param: Aresta * a // Aresta a ser verificada
+* @return: boleeano que representa a existência do ciclo
+*/
 
 bool Kruskal::ehCiclo(Aresta * a)
 {

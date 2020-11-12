@@ -221,14 +221,19 @@ int main(int argc, char * argv [])
                 cout << "Atenção: O grafo precisa ter aresta ponderada para Prim!" << endl;
                 break;
             }
-            int pesoTotal;
-            prim = new Prim(grafo,2);
-            //cout << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
+            int escolha;
+            cout<< "Escolha o no inicial de prim : "<<endl;
+            cin >> escolha;
+            while(escolha>(grafo->getOrdem()-1) || escolha<0)
+            {
+                cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
+                cin >> escolha;
+            }
+            prim = new Prim(grafo,escolha);
 
             if(salvar())
             {
-                //outputFile << endl << "IMPRESSAO POR LISTA DE ADJACENCIA DA AGM POR PRIM" << endl;
-                //outputFile << AGM->imprimir() << endl;
+                prim->imprimeFile(outputFile);
             }
             limparTela();
             break;

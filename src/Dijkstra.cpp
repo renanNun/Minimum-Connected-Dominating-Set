@@ -1,6 +1,11 @@
 #include "Dijkstra.h"
 #define INFINITO 500000
 
+/*
+* Construtor  da classe Dijkstra
+* @param: Grafo* grafo // Ponteiro do grafo que se espera a solução de Dijkstra
+* @param: int no_escolhido // Id do No escolhido para começar a analise do algoritmo de Dijkstra
+*/
 Dijkstra::Dijkstra(Grafo* g,int no_inicial)
 {
     this->graph = g;
@@ -14,6 +19,9 @@ Dijkstra::Dijkstra(Grafo* g,int no_inicial)
     algoritmo();
 }
 
+/*
+* Destrutor da classe Dijkstra
+*/
 Dijkstra::~Dijkstra()
 {
     delete [] vertices;
@@ -22,6 +30,9 @@ Dijkstra::~Dijkstra()
     delete [] abertos;
 }
 
+/*
+* Função que inicia todos os parametros do No que serão utilizados
+*/
 void Dijkstra::iniciaIndices()
 {
     No* no = graph->getPrimeiroNo();
@@ -32,6 +43,9 @@ void Dijkstra::iniciaIndices()
     }
 }
 
+/*
+* Função que resolve o algoritmo de Dijkstra usando as informações previamente armazenadas no construtor.
+*/
 void Dijkstra::algoritmo()
 {
     No* p = this->graph->getPrimeiroNo();
@@ -89,7 +103,9 @@ void Dijkstra::algoritmo()
 
     imprime();
 }
-
+/*
+* Função responsavel pela impressão da solução do algoritmo de Dijkstra na tela
+*/
 void Dijkstra::imprime()
 {
     cout << "DISTANCIAS MINIMAS DO VERTICE " << this->no_inicial << " PARA O RESTANTE DOS VERTICES DO GRAFO: " << endl;
@@ -97,12 +113,15 @@ void Dijkstra::imprime()
     for(int i = 0; i < this->graph->getOrdem(); i++)
     {
         if(distancias[i]!= INFINITO)
-        cout<< " PARA O VERTICE: " << vertices[i] << " = " << distancias[i] << endl;
+            cout<< " PARA O VERTICE: " << vertices[i] << " = " << distancias[i] << endl;
         else
-        cout << " PARA O VERTICE: " << vertices[i] << " = " << "INFINITO" << endl;
+            cout << " PARA O VERTICE: " << vertices[i] << " = " << "INFINITO" << endl;
     }
 }
-
+/*
+* Função responsavel pela impressão da solução do algoritmo de Dijkstra no arquivo de saida
+* @param: fstream &outputFile // Arquivo onde será feita a impressão.
+*/
 void Dijkstra::imprimeFile(fstream &outputFile)
 {
     outputFile << endl << "DISTANCIAS MINIMAS DO VERTICE " << this->no_inicial << " PARA O RESTANTE DOS VERTICES DO GRAFO: " << endl;
@@ -110,11 +129,19 @@ void Dijkstra::imprimeFile(fstream &outputFile)
     for(int i = 0; i < this->graph->getOrdem(); i++)
     {
         if(distancias[i]!= INFINITO)
-        outputFile << " PARA O VERTICE: " << vertices[i] << " = " << distancias[i] << endl;
+            outputFile << " PARA O VERTICE: " << vertices[i] << " = " << distancias[i] << endl;
         else
-        outputFile << " PARA O VERTICE: " << vertices[i] << " = " << "INFINITO" << endl;
+            outputFile << " PARA O VERTICE: " << vertices[i] << " = " << "INFINITO" << endl;
     }
 }
+
+/*
+* Função que retorna o indice com a maior estimativa de Peso
+* @param: int* distancias// Vetor que armazena as distancias
+* @param:int* abertos// Vetor que armazena se o vertice é aberto
+* @param: int tam// tamanho dos vetores
+* @return: o indice com a maior estimativa
+*/
 
 int Dijkstra::buscaIndiceComMenorEstimativa(int* distancias, int* abertos,int tam)
 {
