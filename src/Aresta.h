@@ -1,6 +1,5 @@
 #ifndef ARESTA_H
-#define ARESA_H
-#pragma once
+#define ARESTA_H
 #include <iostream>
 
 using namespace std;
