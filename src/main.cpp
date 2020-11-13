@@ -16,6 +16,7 @@ std::fstream outputFile;
 using namespace std;
 
 void menu();
+void novoMenu();
 
 void limparTela();
 
@@ -113,6 +114,8 @@ int main(int argc, char * argv [])
 
     int opcao_escolhida;
     int id;
+    bool menuAntigo=false;
+    bool menuNovo=true;
 
     /*Algoritmos de Caminho Mínimo e AGM*/
     Floyd* floyd;
@@ -122,7 +125,52 @@ int main(int argc, char * argv [])
     Grafo* AGM;
     Guloso * guloso;
 
-    while(true)
+    while(menuNovo)
+    {
+        novoMenu();
+        cin>>opcao_escolhida;
+        switch(opcao_escolhida)
+        {
+        case 0:
+            cout<< "Fechando programa"<<endl;
+            outputFile.close();
+            inputFile.close();
+            exit(0);
+            break;
+        case 1:
+            if(grafo->ehConexo())
+            {
+                guloso= new Guloso(grafo);
+                if(salvar())
+                {
+                }
+
+                limparTela();
+            }
+
+            else
+            {
+                cout<< "O grafo precisa ser conexo para o grafo funcionar"<<endl;
+            }
+            break;
+        case 2:
+            cout<<"Ainda não implementado"<<endl;
+            break;
+        case 3:
+            menuNovo=false;
+            menuAntigo=true;
+            cout<< "Abrindo menu antigo: "<<endl;
+            break;
+
+        default:
+            cout << "Opcao Invalida! Digite Novamente: ";
+            cin >> opcao_escolhida;
+
+        }
+
+    }
+
+    while(menuAntigo)
     {
         menu();
         cin >> opcao_escolhida;
@@ -130,8 +178,10 @@ int main(int argc, char * argv [])
         switch(opcao_escolhida)
         {
         case 0:
+            cout<< "Fechando programa"<<endl;
             outputFile.close();
             inputFile.close();
+            menuAntigo=false;
             exit(0);
             break;
         case 1:
@@ -252,15 +302,7 @@ int main(int argc, char * argv [])
                 limparTela();
             }
             break;
-        case 9:
 
-            guloso= new Guloso(grafo);
-            if(salvar())
-            {
-            }
-
-            limparTela();
-            break;
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
@@ -283,6 +325,16 @@ void menu()
     cout << "[07] - Algoritmo de Prim. " << endl;
     cout << "[08] - Algoritmo de Kruskal. " << endl;
     cout << "[09] - Algoritmo de Guloso. " << endl;
+    cout << "[0] - Sair. " << endl;
+    cout << "Escolha: ";
+}
+
+void novoMenu()
+{
+    cout << "\t\tFuncionalidades:" << endl;
+    cout << "[01] - Algoritmo Guloso. " << endl;
+    cout << "[02] - Algoritmo Guloso Randomizado " << endl;
+    cout << "[03] - Funcionalidades parte 2" << endl;
     cout << "[0] - Sair. " << endl;
     cout << "Escolha: ";
 }
