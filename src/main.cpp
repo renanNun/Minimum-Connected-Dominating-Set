@@ -86,12 +86,11 @@ int main(int argc, char * argv [])
 
     if(flag)
     {
-        cout  << "LEITURA DE TXT " <<endl;
         grafo = leitura();
     }
     else
     {
-        grafo = leituraDat();
+        grafo=leituraDat();
     }
 
 
@@ -376,6 +375,7 @@ string* limpaMatriz(string &line)
     return arr;
 }
 
+
 Grafo* leituraDat()
 {
     bool direcionado = false;
@@ -385,18 +385,22 @@ Grafo* leituraDat()
     string line;
     string* control;
     getline(inputFile,line);
-    if(line == "NumberOfNodes:")
+
+    if(line[0]=='N')
     {
+
         getline(inputFile,line);
+
     }
+
     ordem = (stoi(line));
 
-    bool matriz[ordem][ordem];
+
 
     Grafo* grafo = new Grafo(ordem,direcionado,ponderado_aresta,ponderado_no);
 
     /*Leitura propriamente dita*/
-    while(line != "******************WEIGHTS*****************************")
+    while(line[0]!='*' && line[20]!='W')
     {
         getline(inputFile,line);
     }
@@ -406,7 +410,7 @@ Grafo* leituraDat()
         grafo->inserirNo(i,stoi(line));
     }
 
-    while(line != "*****************CONNECTIONS****************")
+    while(line[0]!='*' && line[18]!='C')
     {
         getline(inputFile,line);
     }
@@ -432,3 +436,6 @@ Grafo* leituraDat()
 
     return grafo;
 }
+
+
+
