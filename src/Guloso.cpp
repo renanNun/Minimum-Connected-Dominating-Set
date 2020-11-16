@@ -156,65 +156,42 @@ void Guloso::algoritmoGuloso()
     }
     this->tamSolucao = t;
 
+    if(verificaResposta())
+    {
+        cout<< "Deu certo"<<endl;
+
+    }
+    else
+    {
+        cout<< "Deu errado<<"<<endl;
+    }
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
     duracao = elapsed_seconds.count();
     cout << "Tempo: " << duracao  << " resultado: " << t << endl;
 }
 
-void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices, int* coloracao)
-{
-    int i,j,x;
-    i = esquerda;
-    j = direita;
-    int ind = (rand() % (direita - esquerda + 1))+esquerda;
-    x = vetor[ind];
-
-    while(i < j)
+bool Guloso::verificaResposta()
+{/*
+    Grafo verifica;
+    for(int i = 0; i<tamSolucao; i++)
     {
-        while(vetor[i] > x && i < direita)
-            i++;
-        while(vetor[j] < x && j > esquerda)
-            j--;
-
-        if(i <= j)
+        verifica.inserirNo(solucao[i]);
+        if(verifica.getPrimeiroNo() != nullptr)
         {
-            if(indices != nullptr)
+            for(No * aux = grafo->getPrimeiroNo(); aux->getProx()!=nullptr; aux =  aux->getProx())
             {
-                swap(indices[i],indices[j]);
+                if(aux->existeAresta(solucao[i]) )
+                    verifica.inserirAresta(solucao[i],aux->getId(),0);
             }
-            swap(vetor[i],vetor[j]);
-            swap(coloracao[i],coloracao[j]);
-            i++;
-            j--;
+
         }
     }
 
-    if(j > esquerda)
-        quickSort(vetor,esquerda,j,indices,coloracao);
-    if(i < direita)
-        quickSort(vetor,i,direita,indices,coloracao);
-}
+    return verifica.ehConexo();
 
-
-int Guloso::gerarSemente()
-{
-    int semente;
-    semente = time(nullptr);
-
-    return semente;
-}
-
-void Guloso::imprime(fstream &outputFile)
-{
-    if(alfa == 1)
-    {
-        outputFile << this->tamSolucao << ";" << duracao << endl;
-    }
-    else
-    {
-        outputFile << this->tamSolucao << ";" << duracao << ";" << alfa << endl;
-    }
+*/
+return true;
 }
 
 void Guloso::algoritmoGulosoRandomizado()
@@ -306,7 +283,7 @@ void Guloso::algoritmoGulosoRandomizado()
 
             if(coloracao[i] == 2)
             {
-               i++;
+                i++;
             }
 
             for(int m = 0; m < grafo->getOrdem(); m++)
@@ -367,5 +344,59 @@ void Guloso::algoritmoGulosoRandomizado()
     std::chrono::duration<double> elapsed_seconds = end - start;
     duracao = elapsed_seconds.count();
     cout << "Tempo: " << duracao  << " resultado: " << tamSolucao << endl;
+}
+
+int Guloso::gerarSemente()
+{
+    int semente;
+    semente = time(nullptr);
+
+    return semente;
+}
+
+void Guloso::imprime(fstream &outputFile)
+{
+    if(alfa == 1)
+    {
+        outputFile << this->tamSolucao << ";" << duracao << endl;
+    }
+    else
+    {
+        outputFile << this->tamSolucao << ";" << duracao << ";" << alfa << endl;
+    }
+}
+
+void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices, int* coloracao)
+{
+    int i,j,x;
+    i = esquerda;
+    j = direita;
+    int ind = (rand() % (direita - esquerda + 1))+esquerda;
+    x = vetor[ind];
+
+    while(i < j)
+    {
+        while(vetor[i] > x && i < direita)
+            i++;
+        while(vetor[j] < x && j > esquerda)
+            j--;
+
+        if(i <= j)
+        {
+            if(indices != nullptr)
+            {
+                swap(indices[i],indices[j]);
+            }
+            swap(vetor[i],vetor[j]);
+            swap(coloracao[i],coloracao[j]);
+            i++;
+            j--;
+        }
+    }
+
+    if(j > esquerda)
+        quickSort(vetor,esquerda,j,indices,coloracao);
+    if(i < direita)
+        quickSort(vetor,i,direita,indices,coloracao);
 }
 
