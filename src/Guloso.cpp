@@ -8,12 +8,23 @@
 * preto = 2
 */
 
-Guloso::Guloso(Grafo* grafo, fstream &outputFile)
+Guloso::Guloso(Grafo* grafo)
 {
+    this->alfa = 1;
+    this->tamSolucao = 0;
     this->grafo=grafo;
     solucao = new int[grafo->getOrdem()];
-    algoritmoGuloso(outputFile);
+    algoritmoGuloso();
 
+}
+
+Guloso::Guloso(Grafo* grafo, double alfa)
+{
+    this->alfa = alfa;
+    this->tamSolucao = 0;
+    this->grafo=grafo;
+    solucao = new int[grafo->getOrdem()];
+    algoritmoGulosoRandomizado();
 }
 
 Guloso::~Guloso()
@@ -143,10 +154,11 @@ void Guloso::algoritmoGuloso()
         if(solucao[r] != -1)
             cout << "Solucao " << solucao[r] << " ";
     }
+    this->tamSolucao = t;
 
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
-    double duracao = elapsed_seconds.count();
+    duracao = elapsed_seconds.count();
     cout << "Tempo: " << duracao  << " resultado: " << t << endl;
 }
 
@@ -191,6 +203,16 @@ int Guloso::gerarSemente()
     semente = time(nullptr);
 
     return semente;
+}
+
+void Guloso::imprime(fstream &outputFile)
+{
+    if(alfa == 1)
+    {
+        outputFile << this->tamSolucao << ";" << duracao << endl;
+    } else {
+        outputFile << this->tamSolucao << ";" << duracao << ";" << alfa << endl;
+    }
 }
 
 void Guloso::algoritmoGulosoRandomizado()

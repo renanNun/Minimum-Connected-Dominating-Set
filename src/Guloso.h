@@ -8,11 +8,14 @@ class Guloso
 {
 public:
     Guloso(Grafo* grafo); //Subconjunto dominante mínimo conexo.
+    Guloso(Grafo* grafo, double alfa);
     virtual ~Guloso();
 
     void imprime(fstream &outputFile);
 private:
+    double alfa;
     int* solucao;
+    int tamSolucao;
     Grafo * grafo;
     void algoritmoGuloso();
     void algoritmoGulosoRandomizado();
@@ -20,6 +23,7 @@ private:
     int gerarSemente();
     void quickSort(int vetor[],int esquerda,int direita, int* indices,int* coloracao);
     std::chrono::time_point<std::chrono::system_clock> start, end;
+    double duracao;
 };
 
 #endif // GULOSO_H
