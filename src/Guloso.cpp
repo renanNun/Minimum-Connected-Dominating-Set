@@ -1,5 +1,5 @@
 #include "Guloso.h"
-#define MAX_INTERACOES 1000
+#define MAX_INTERACOES 10
 
 /*
 * Cores para coloração
@@ -11,7 +11,7 @@
 Guloso::Guloso(Grafo* grafo)
 {
     this->alfa = 1;
-    this->tamSolucao = 0;
+    this->tamSolucao = 999999999;
     this->grafo=grafo;
     solucao = new int[grafo->getOrdem()];
     algoritmoGuloso();
@@ -21,7 +21,7 @@ Guloso::Guloso(Grafo* grafo)
 Guloso::Guloso(Grafo* grafo, double alfa)
 {
     this->alfa = alfa;
-    this->tamSolucao = 0;
+    this->tamSolucao = 999999999;
     this->grafo=grafo;
     solucao = new int[grafo->getOrdem()];
     algoritmoGulosoRandomizado();
@@ -210,14 +210,162 @@ void Guloso::imprime(fstream &outputFile)
     if(alfa == 1)
     {
         outputFile << this->tamSolucao << ";" << duracao << endl;
-    } else {
+    }
+    else
+    {
         outputFile << this->tamSolucao << ";" << duracao << ";" << alfa << endl;
     }
 }
 
 void Guloso::algoritmoGulosoRandomizado()
 {
-    int* listaGraus = new int[grafo->getOrdem()]; //Lista de Graus do Grafo, inicialmente não ordenada
-    int* listaIds = new int[grafo->getOrdem()]; //Lista com os ids do Grafo
+    start = std::chrono::system_clock::now();
+
+    int tam = grafo->getOrdem();
+    int* solucaoFinal = new int[tam];
+    int* listaGraus = new int[tam];
+    int* listaIds = new int[tam];
+    int* coloracao = new int[tam];
+    bool w = true;
+    bool primeiraInteracao = true;
+
+    for(int h = 0; h < MAX_INTERACOES; h++)
+    {
+        //Inicializa toda a solucação com -1
+        for(int k = 0; k < tam; k++)
+        {
+            solucao[k] = -1;
+            solucaoFinal[k] = -1;
+        }
+        int i = 0;
+        for(No* no = grafo->getPrimeiroNo(); no != nullptr; no = no->getProx()) //Iniciando graus e ids
+        {
+            listaGraus[i] = no->getGrauEntrada();
+            listaIds[i] = no->getId();
+            coloracao[no->getId()] = 0;
+            i++;
+        }
+
+        //int x = rand() % (int)((tam) * alfa);
+        i = 0;
+        tamSolucao = tam * alfa;
+        quickSort(listaGraus,i,tamSolucao,listaIds,coloracao); //Ordenando do maior para o menor grau
+        //cout << "PRIMEIRO QUICK SORT" << endl;
+        No* no;
+        w = true;
+        int p,cont;
+        int z=0;
+        while(w)
+        {
+            //cout << "DENTRO DO WHILE " << z << endl;
+            z++;
+
+            if(primeiraInteracao)
+            {
+                //cout << "Entra aqui " << endl;
+                no = grafo->getNo(listaIds[i]);
+                coloracao[i] = 2; //Pinta o Grafo de preto
+                primeiraInteracao = false;
+            }
+            else
+            {
+                //cout << "ENTRA AQUi" << endl;
+                for(int l = 0; l < tam; l++)
+                {
+                    if(coloracao[l] == 1)
+                    {
+                        no = grafo->getNo(listaIds[l]);
+                        //cout << " " << no->getId();
+                        coloracao[l] = 2;
+                        break;
+                    }
+                }
+            }
+
+
+            for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta())
+            {
+                //cout << "ARESTAS" << endl;
+                for(p = 0; p < tam; p++)
+                {
+                    if(listaIds[p] == aresta->getId_Alvo())
+                    {
+                        break;
+                    }
+
+                }
+
+                if(coloracao[p] == 0) //Se for branco ok!
+                {
+                    coloracao[p] = 1; //Os Adjacentes a ele se tornam cinzas
+                }
+
+                if(listaGraus[p] > -1)
+                    listaGraus[p] = listaGraus[p] - 1; //Diminui o Grau dos já conectados à ele
+            }
+
+            if(coloracao[i] == 2)
+            {
+               i++;
+            }
+
+            for(int m = 0; m < grafo->getOrdem(); m++)
+            {
+                cout << "ID: " << listaIds[m] << " colorido: " << coloracao[m] << " com grau: " << listaGraus[m] << " na interacao: " << z << " do max int: " << h<< endl;
+            }
+
+            quickSort(listaGraus,i,tam, listaIds,coloracao);
+
+            cont = 0;
+            for(int k = 0; k < grafo->getOrdem(); k ++)
+            {
+                cont++;
+
+                if(coloracao[k] == 0)
+                {
+                    break;
+                }
+            }
+
+            if(cont == tam)
+            {
+                w = false;
+                //cout << "FALSE" << endl;
+            }
+
+        }
+
+        primeiraInteracao = true;
+
+        int t = 0;
+        for(int n = 0; n < tam; n++)
+        {
+            if(coloracao[n] == 2)
+            {
+                //cout << " lista " << listaIds[n];
+                solucao[t] = listaIds[n];
+                //cout << " SolucaoN: " << solucao[n];
+                t++;
+            }
+
+        }
+        cout << " " << t;
+        if(tamSolucao > t)
+        {
+            tamSolucao = t;
+        }
+    }
+
+    cout << endl;
+    /*for(int r = 0; r < tamSolucao; r++)
+    {
+        if(solucaoFinal[r] != -1)
+            cout << "Solucao " << solucao[r] << " ";
+    }*/
+
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    duracao = elapsed_seconds.count();
+    cout << "Tempo: " << duracao  << " resultado: " << tamSolucao << endl;
 }
 
