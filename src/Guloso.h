@@ -13,7 +13,7 @@ public:
 
     void imprime(fstream &outputFile);
 
-     bool verificaResposta();
+    void verificaResposta();
 private:
     double alfa;
     int* solucao;
@@ -21,6 +21,7 @@ private:
     Grafo * grafo;
     void algoritmoGuloso();
     void algoritmoGulosoRandomizado();
+    bool verifica;
 
 
     int gerarSemente();

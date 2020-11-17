@@ -15,6 +15,7 @@ Guloso::Guloso(Grafo* grafo)
     this->grafo=grafo;
     solucao = new int[grafo->getOrdem()];
     algoritmoGuloso();
+    verifica = false;
 
 }
 
@@ -25,6 +26,7 @@ Guloso::Guloso(Grafo* grafo, double alfa)
     this->grafo=grafo;
     solucao = new int[grafo->getOrdem()];
     algoritmoGulosoRandomizado();
+    verifica = false;
 }
 
 Guloso::~Guloso()
@@ -157,24 +159,23 @@ void Guloso::algoritmoGuloso()
     }
     cout<<"]"<<endl;
     this->tamSolucao = t;
-    cout << verificaResposta();
-    cout << "Terminou" << endl;
-    /*if()
-    {
-        cout<< "Deu certo"<<endl;
+    verificaResposta();
 
-    }
-    else
-    {
-        cout<< "Deu errado<<"<<endl;
-    }*/
-    end = std::chrono::system_clock::now();
+    if(verifica){
+
+        end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
     duracao = elapsed_seconds.count();
     cout << "Tempo: " << duracao  << " resultado: " << t << endl;
+    }
+    else {
+    cout <<" resultado insatisfatorio"<<endl;
+    }
+
+
 }
 
-bool Guloso::verificaResposta()
+void Guloso::verificaResposta()
 {
     Grafo verifica;
     int cont = 0;
@@ -187,7 +188,6 @@ bool Guloso::verificaResposta()
         }
 
     }
-
     verifica.setOrdem(cont); //Colocamos aqui a ordem do subgrafo induzido
 
     for(int i = 0; i < this->grafo->getOrdem(); i++)
@@ -220,9 +220,8 @@ bool Guloso::verificaResposta()
         }
     }
 
-    bool x = verifica.ehConexo();
-    //cout << "verificou " << x << endl;
-    return x;
+    verifica = verifica.ehConexo();
+
 }
 
 void Guloso::algoritmoGulosoRandomizado()
