@@ -12,6 +12,8 @@ public:
     virtual ~Guloso();
 
     void imprime(fstream &outputFile);
+
+     bool verificaResposta();
 private:
     double alfa;
     int* solucao;
@@ -19,7 +21,7 @@ private:
     Grafo * grafo;
     void algoritmoGuloso();
     void algoritmoGulosoRandomizado();
-    bool verificaResposta();
+
 
     int gerarSemente();
     void quickSort(int vetor[],int esquerda,int direita, int* indices,int* coloracao);

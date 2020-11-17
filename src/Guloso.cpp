@@ -153,12 +153,13 @@ void Guloso::algoritmoGuloso()
     for(int r = 0; r < t; r++)
     {
         if(solucao[r] != -1)
-            cout << solucao[r] << ",";
+            cout << solucao[r] << " ";
     }
     cout<<"]"<<endl;
     this->tamSolucao = t;
-
-    if(verificaResposta())
+    cout << verificaResposta();
+    cout << "Terminou" << endl;
+    /*if()
     {
         cout<< "Deu certo"<<endl;
 
@@ -166,7 +167,7 @@ void Guloso::algoritmoGuloso()
     else
     {
         cout<< "Deu errado<<"<<endl;
-    }
+    }*/
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
     duracao = elapsed_seconds.count();
@@ -176,31 +177,52 @@ void Guloso::algoritmoGuloso()
 bool Guloso::verificaResposta()
 {
     Grafo verifica;
-    for(int i = 0; i<tamSolucao; i++)
+    int cont = 0;
+    for(int i = 0; i < this->grafo->getOrdem(); i++)
     {
-        verifica.inserirNo(solucao[i]);
-        if(verifica.getPrimeiroNo() != nullptr)
+        if(solucao[i] != -1)
         {
-            for(No * aux = grafo->getPrimeiroNo(); aux->getProx()!=nullptr; aux =  aux->getProx())
+            verifica.inserirNo(this->solucao[i]);
+            cont++;
+        }
+
+    }
+
+    verifica.setOrdem(cont); //Colocamos aqui a ordem do subgrafo induzido
+
+    for(int i = 0; i < this->grafo->getOrdem(); i++)
+    {
+        No* no = this->grafo->getPrimeiroNo();
+        while(no != nullptr)
+        {
+            if(solucao[i] != -1)
             {
-                if(aux->getId() != solucao[i])
+                if(solucao[i] == no->getId())
                 {
-                    if(aux->existeAresta(solucao[i]) )
+                    for(Aresta* a = no->getPrimeiraAresta(); a != nullptr; a = a->getProxAresta())
                     {
-                        cout<<"Entrou aqui"<<endl;
-                        verifica.inserirAresta(solucao[i],aux->getId(),0);
-                        cout<<"Saiu daqui"<<endl;
+                        for(int j = 0; j < this->grafo->getOrdem(); j++)
+                        {
+                            if(solucao[j] == -1)
+                            {
+                                break;
+                            }
+
+                            if(solucao[j] == a->getId_Alvo())
+                            {
+                                verifica.inserirAresta(solucao[i],solucao[j],0);
+                            }
+                        }
                     }
                 }
             }
-
+            no = no->getProx();
         }
     }
 
-    return verifica.ehConexo();
-
-
-    return true;
+    bool x = verifica.ehConexo();
+    //cout << "verificou " << x << endl;
+    return x;
 }
 
 void Guloso::algoritmoGulosoRandomizado()
@@ -335,7 +357,7 @@ void Guloso::algoritmoGulosoRandomizado()
             }
 
         }
-        cout << " " << t;
+        //cout << " " << t;
         if(tamSolucao > t)
         {
             tamSolucao = t;
