@@ -144,24 +144,35 @@ int main(int argc, char * argv [])
                 if(salvar())
                 {
                 }
-
                 limparTela();
+                delete [] guloso;
             }
-
             else
             {
                 cout<< "O grafo precisa ser conexo para o grafo funcionar"<<endl;
             }
             break;
         case 2:
-            cout<<"Ainda não implementado"<<endl;
+             if(grafo->ehConexo())
+            {
+                guloso= new Guloso(grafo,0.1);
+                if(salvar())
+                {
+                }
+
+                limparTela();
+                delete [] guloso;
+            }
+            else
+            {
+                cout<< "O grafo precisa ser conexo para o grafo funcionar"<<endl;
+            }
             break;
         case 3:
             menuNovo=false;
             menuAntigo=true;
             cout<< "Abrindo menu antigo: "<<endl;
             break;
-
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
