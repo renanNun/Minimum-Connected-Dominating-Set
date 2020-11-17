@@ -149,11 +149,13 @@ void Guloso::algoritmoGuloso()
 
 
     cout << endl;
+    cout<< "[";
     for(int r = 0; r < t; r++)
     {
         if(solucao[r] != -1)
-            cout << "Solucao " << solucao[r] << " ";
+            cout << solucao[r] << ",";
     }
+    cout<<"]"<<endl;
     this->tamSolucao = t;
 
     if(verificaResposta())
@@ -172,7 +174,7 @@ void Guloso::algoritmoGuloso()
 }
 
 bool Guloso::verificaResposta()
-{/*
+{
     Grafo verifica;
     for(int i = 0; i<tamSolucao; i++)
     {
@@ -181,8 +183,15 @@ bool Guloso::verificaResposta()
         {
             for(No * aux = grafo->getPrimeiroNo(); aux->getProx()!=nullptr; aux =  aux->getProx())
             {
-                if(aux->existeAresta(solucao[i]) )
-                    verifica.inserirAresta(solucao[i],aux->getId(),0);
+                if(aux->getId() != solucao[i])
+                {
+                    if(aux->existeAresta(solucao[i]) )
+                    {
+                        cout<<"Entrou aqui"<<endl;
+                        verifica.inserirAresta(solucao[i],aux->getId(),0);
+                        cout<<"Saiu daqui"<<endl;
+                    }
+                }
             }
 
         }
@@ -190,8 +199,8 @@ bool Guloso::verificaResposta()
 
     return verifica.ehConexo();
 
-*/
-return true;
+
+    return true;
 }
 
 void Guloso::algoritmoGulosoRandomizado()
