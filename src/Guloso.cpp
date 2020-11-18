@@ -201,14 +201,14 @@ void Guloso::algoritmoGulosoRandomizado()
     int n = grafo->getOrdem();
     int i,indiceSelecionado,candidatos;
     bool primeiraInteracao = true;
-    candidatos = n;
-
+    candidatos = 0;
     //Possui máximo de interações
-
     for(int j = 0; j < MAX_INTERACOES; j++)
     {
-        resetaSolucaoTemporaria();
 
+        primeiraInteracao = true;
+        for(int k = 0; k < n; k++)
+            solucao[k] = -1;
 
         i = 0;
         for(No* no = grafo->getPrimeiroNo(); no != nullptr; no = no->getProx()) //Iniciando graus e ids
@@ -219,17 +219,9 @@ void Guloso::algoritmoGulosoRandomizado()
             i++;
         }
 
-        i = 0;
-        quickSort(listaGraus,i,n-1, listaIds,coloracao);
-        if(candidatos == 0)
-        {
-            indiceSelecionado = 0;
-        }
-        else
-        {
-            indiceSelecionado = rand()%(int)ceil((candidatos)*alfa);
-        }
-
+        quickSort(listaGraus,0,n-1, listaIds,coloracao);
+        indiceSelecionado = rand()%(int)ceil((candidatos)*alfa);
+        candidatos++;
         No* no;
         bool w = 1;
         int p,cont;
@@ -238,8 +230,9 @@ void Guloso::algoritmoGulosoRandomizado()
 
             if(primeiraInteracao)
             {
-                no = grafo->getNo(listaIds[indiceSelecionado]);
-                coloracao[indiceSelecionado] = 2; //Pinta o Grafo de preto
+                no = grafo->getNo(listaIds[i]);
+                coloracao[i] = 2; //Pinta o Grafo de preto
+                primeiraInteracao = false;
             }
             else
             {
@@ -274,18 +267,16 @@ void Guloso::algoritmoGulosoRandomizado()
                     listaGraus[p] = listaGraus[p] - 1; //Diminui o Grau dos já conectados à ele
             }
 
-            /*Forçando ele a ficar no inicio da lista*/
-            if(primeiraInteracao)
-            {
-                forcaInicio(i,indiceSelecionado);
-                primeiraInteracao = false;
-            }
-
             if(coloracao[i] == 2)
             {
-                candidatos--;
+                //solucao[i] = no->getId();
                 i++;
             }
+
+            /*for(int m = 0; m < grafo->getOrdem(); m++)
+            {
+                cout << "ID: " << listaIds[m] << " colorido: " << coloracao[m] << " com grau: " << listaGraus[m] << " na interacao: " << z << endl;
+            }*/
 
             quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds,coloracao);
 
@@ -303,7 +294,7 @@ void Guloso::algoritmoGulosoRandomizado()
             if(cont == grafo->getOrdem())
                 w = false;
         }
-        primeiraInteracao = true;
+
         int t = 0;
         for(int m = 0; m < grafo->getOrdem(); m++)
         {
@@ -314,6 +305,7 @@ void Guloso::algoritmoGulosoRandomizado()
             }
 
         }
+
         if(tamSolucao > t)
         {
             tamSolucao = t;
