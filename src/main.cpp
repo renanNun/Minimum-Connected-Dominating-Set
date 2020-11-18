@@ -143,9 +143,11 @@ int main(int argc, char * argv [])
                 guloso= new Guloso(grafo);
                 if(salvar())
                 {
+                    guloso->imprime(outputFile);
                 }
+                delete guloso;
                 limparTela();
-                delete [] guloso;
+
             }
             else
             {
@@ -158,10 +160,10 @@ int main(int argc, char * argv [])
                 guloso= new Guloso(grafo,0.1);
                 if(salvar())
                 {
+                    guloso->imprime(outputFile);
                 }
-
+                delete guloso;
                 limparTela();
-                delete [] guloso;
             }
             else
             {
@@ -499,6 +501,3 @@ Grafo* leituraDat()
 
     return grafo;
 }
-
-
-
