@@ -1,5 +1,5 @@
 #include "Guloso.h"
-#define MAX_INTERACOES 28
+#define MAX_INTERACOES 10
 
 /*
 * Cores para coloração
@@ -13,6 +13,7 @@ Guloso::Guloso(Grafo* grafo)
     this->alfa = 1;
     this->tamSolucao = 999999999;
     this->grafo=grafo;
+    solucao = new int[grafo->getOrdem()];
     algoritmoGuloso();
     verifica = false;
 
@@ -23,26 +24,28 @@ Guloso::Guloso(Grafo* grafo, double alfa)
     this->alfa = alfa;
     this->tamSolucao = 999999999;
     this->grafo=grafo;
+    solucao = new int[grafo->getOrdem()];
     algoritmoGulosoRandomizado();
     verifica = false;
 }
 
 Guloso::~Guloso()
 {
-    delete [] solucao;
-    delete [] listaGraus;
-    delete [] listaIds;
-    delete [] coloracao;
+
 }
 
 
 void Guloso::algoritmoGuloso()
 {
-    start(); //Começo o algoritmo
-    iniciaVetores(); //Inicia os vetores
-    bool primeiraInteracao = true;
+    start = std::chrono::system_clock::now();
 
-    resetaSolucaoTemporaria();
+    int* listaGraus = new int[grafo->getOrdem()];
+    int* listaIds = new int[grafo->getOrdem()];
+    int* coloracao = new int[grafo->getOrdem()];
+    bool primeiraInteracao = true;
+    //Inicializa toda a solucação com -1
+    for(int k = 0; k < grafo->getOrdem(); k++)
+        solucao[k] = -1;
 
     int i = 0;
     for(No* no = grafo->getPrimeiroNo(); no != nullptr; no = no->getProx()) //Iniciando graus e ids
@@ -59,10 +62,12 @@ void Guloso::algoritmoGuloso()
     No* no;
     bool w = 1;
     int p,cont;
+    int z=0;
     while(w)
     {
+        z++;
 
-        if(primeiraInteracao) //Caso seja a primeira interação
+        if(primeiraInteracao)
         {
             no = grafo->getNo(listaIds[i]);
             coloracao[i] = 2; //Pinta o Grafo de preto
@@ -80,6 +85,8 @@ void Guloso::algoritmoGuloso()
                 }
             }
         }
+
+        int q =0;
 
         for(Aresta* aresta = no->getPrimeiraAresta(); aresta != nullptr; aresta = aresta->getProxAresta())
         {
@@ -103,8 +110,14 @@ void Guloso::algoritmoGuloso()
 
         if(coloracao[i] == 2)
         {
+            //solucao[i] = no->getId();
             i++;
         }
+
+        /*for(int m = 0; m < grafo->getOrdem(); m++)
+        {
+            cout << "ID: " << listaIds[m] << " colorido: " << coloracao[m] << " com grau: " << listaGraus[m] << " na interacao: " << z << endl;
+        }*/
 
         quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds,coloracao);
 
@@ -128,16 +141,31 @@ void Guloso::algoritmoGuloso()
     {
         if(coloracao[n] == 2)
         {
+            //cout << " lista " << listaIds[n];
             solucao[t] = listaIds[n];
+            //cout << " SolucaoN: " << solucao[n];
             t++;
         }
 
     }
 
+
+    cout << endl;
+    cout<< "[";
+    for(int r = 0; r < t; r++)
+    {
+        if(solucao[r] != -1)
+            cout << solucao[r] << " ";
+    }
+    cout<<"]"<<endl;
     this->tamSolucao = t;
     verificaResposta();
 
-    finish();
+
+
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    duracao = elapsed_seconds.count();
     cout << "Tempo: " << duracao  << " resultado: " << t << endl;
 
 }
@@ -193,21 +221,24 @@ void Guloso::verificaResposta()
 
 void Guloso::algoritmoGulosoRandomizado()
 {
-    start();
+    start = std::chrono::system_clock::now();
     /*Inicio da Contagem de Tempo*/
 
-    iniciaVetores();
-
     int n = grafo->getOrdem();
+    int* listaGraus = new int[n];
+    int* listaIds = new int[n];
+    int* coloracao = new int[n];
     int i,indiceSelecionado,candidatos;
     bool primeiraInteracao = true;
     candidatos = n;
-
     //Possui máximo de interações
-
+    cout << "Antes de entrar no randomizado " << endl;
     for(int j = 0; j < MAX_INTERACOES; j++)
     {
-        resetaSolucaoTemporaria();
+        for(int k = 0; k < n; k++)
+        {
+            solucao[k] = -1;
+        }
 
 
         i = 0;
@@ -230,11 +261,15 @@ void Guloso::algoritmoGulosoRandomizado()
             indiceSelecionado = rand()%(int)ceil((candidatos)*alfa);
         }
 
+        cout << "indice selecionado: " << listaIds[indiceSelecionado] << endl;
+        candidatos--;
         No* no;
         bool w = 1;
         int p,cont;
+        int z=0;
         while(w)
         {
+            z++;
 
             if(primeiraInteracao)
             {
@@ -277,15 +312,21 @@ void Guloso::algoritmoGulosoRandomizado()
             /*Forçando ele a ficar no inicio da lista*/
             if(primeiraInteracao)
             {
-                forcaInicio(i,indiceSelecionado);
+                swap(listaGraus[i],listaGraus[indiceSelecionado]);
+                swap(listaIds[i],listaIds[indiceSelecionado]);
+                swap(coloracao[i],coloracao[indiceSelecionado]);
                 primeiraInteracao = false;
             }
 
             if(coloracao[i] == 2)
             {
-                candidatos--;
                 i++;
             }
+
+            /*for(int m = 0; m < grafo->getOrdem(); m++)
+            {
+                cout << "ID: " << listaIds[m] << " colorido: " << coloracao[m] << " com grau: " << listaGraus[m] << " na interacao: " << z << " no max_int: " << j << endl;
+            }*/
 
             quickSort(listaGraus,i,grafo->getOrdem()-1, listaIds,coloracao);
 
@@ -318,10 +359,22 @@ void Guloso::algoritmoGulosoRandomizado()
         {
             tamSolucao = t;
         }
+
     }
 
-    finish();
+    /*Fim Contagem de Tempo*/
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    duracao = elapsed_seconds.count();
     cout << "Tempo: " << duracao << " tamanho: " << tamSolucao << endl;
+}
+
+int Guloso::gerarSemente()
+{
+    int semente;
+    semente = time(nullptr);
+
+    return semente;
 }
 
 void Guloso::imprime(fstream &outputFile)
@@ -368,49 +421,4 @@ void Guloso::quickSort(int* vetor,int esquerda,int direita, int* indices, int* c
         quickSort(vetor,esquerda,j,indices,coloracao);
     if(i < direita)
         quickSort(vetor,i,direita,indices,coloracao);
-}
-
-/**
-  Começa a contagem de tempo
-*/
-void Guloso::start()
-{
-    init = std::chrono::system_clock::now();
-}
-
-/**
-    Termina Contagem de Tempo e realiza a contagem
-*/
-void Guloso::finish()
-{
-    end = std::chrono::system_clock::now();
-    std::chrono::duration<double> elapsed_seconds = end - init;
-    duracao = elapsed_seconds.count();
-}
-
-/**
-    Inicia todos os vetores com tamanho n, onde n é a ordem do grafo
-*/
-void Guloso::iniciaVetores()
-{
-    int n = this->grafo->getOrdem();
-
-    solucao = new int [n];
-    listaGraus = new int[n];
-    listaIds = new int[n];
-    coloracao = new int[n];
-}
-
-void Guloso::resetaSolucaoTemporaria()
-{
-    //Inicializa toda a solucação com -1
-    for(int k = 0; k < grafo->getOrdem(); k++)
-        solucao[k] = -1;
-}
-
-void Guloso::forcaInicio(int i,int j)
-{
-    swap(listaGraus[i],listaGraus[j]);
-    swap(listaIds[i],listaIds[j]);
-    swap(coloracao[i],coloracao[j]);
 }

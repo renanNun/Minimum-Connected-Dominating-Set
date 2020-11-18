@@ -12,39 +12,22 @@ public:
     virtual ~Guloso();
 
     void imprime(fstream &outputFile);
+
     void verificaResposta();
 private:
     double alfa;
+    int* solucao;
     int tamSolucao;
     Grafo * grafo;
-    bool verifica;
-
-    /*Algoritmos Gulosos*/
     void algoritmoGuloso();
     void algoritmoGulosoRandomizado();
+    bool verifica;
 
 
-    /*vetores a serem utilizados*/
-    int* solucao;
-    int* listaGraus;
-    int* listaIds;
-    int* coloracao;
-    int* solucaoFinal;
-
+    int gerarSemente();
     void quickSort(int vetor[],int esquerda,int direita, int* indices,int* coloracao);
-
-    /*Variáveis para o calculo de tempo*/
-    std::chrono::time_point<std::chrono::system_clock> init, end;
-    std::chrono::duration<double> elapsed_seconds;
+    std::chrono::time_point<std::chrono::system_clock> start, end;
     double duracao;
-
-    /*Funções auxiliares*/
-    void start();
-    void finish();
-    void iniciaVetores();
-    void resetaSolucaoTemporaria();
-    void forcaInicio(int i,int j);
-
 };
 
 #endif // GULOSO_H

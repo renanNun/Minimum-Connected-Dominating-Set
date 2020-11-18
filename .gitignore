@@ -55,3 +55,11 @@ src/Problem.dat_800_0_0
 src/Problem.dat_800_5000_0
 
 *.txt,
+
+scriptExecucao.py
+
+*.dat_50_50_0
+
+*.csv
+
+src/saida-50-500.txt
