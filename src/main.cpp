@@ -8,6 +8,7 @@
 #include "Dijkstra.h"
 #include "Prim.h"
 #include "Kruskal.h"
+#include "Guloso.h"
 
 std::fstream inputFile;
 std::fstream outputFile;
@@ -15,10 +16,15 @@ std::fstream outputFile;
 using namespace std;
 
 void menu();
+void novoMenu();
 
 void limparTela();
 
 Grafo* leitura();
+
+Grafo* leituraDat();
+
+string* limpaMatriz(string &line);
 
 bool salvar();
 
@@ -56,7 +62,38 @@ int main(int argc, char * argv [])
     outputFile << "Alunos: Luan Reis Ciribelli e Renan Nunes da Costa Gonçalves" << endl;
     outputFile << "Nome do arquivo: " << argv[1] << endl;
 
-    Grafo* grafo = leitura();
+    Grafo* grafo;
+
+    string arquivo = argv[1];
+    string tex = "txt";
+    bool flag = false;
+    int k = 0;
+    for(int i = 0; i < 3; i++)
+    {
+        for(int j = 0; j < arquivo.size(); j++)
+            if(arquivo[j] == tex[i])
+            {
+                flag = true;
+                k++;
+            }
+            else
+            {
+                flag = false;
+            }
+    }
+
+    if(k == 3)
+        flag = true;
+
+    if(flag)
+    {
+        grafo = leitura();
+    }
+    else
+    {
+        grafo=leituraDat();
+    }
+
 
     outputFile << "Sobre o Grafo:" << endl;
     outputFile << "\tNumero de Vertices - " << grafo->getOrdem() << endl;
@@ -77,25 +114,77 @@ int main(int argc, char * argv [])
 
     int opcao_escolhida;
     int id;
+    bool menuAntigo=false;
+    bool menuNovo=true;
 
-    /*Algoritmos de Caminho Mínimo e AGM*/
+    /*Algoritmos de Caminho M�nimo e AGM*/
     Floyd* floyd;
     Dijkstra* dijkstra;
     Prim* prim;
     Kruskal* kruskal;
     Grafo* AGM;
+    Guloso * guloso;
 
-    cout << endl;
-    cout << "Para criacao deste algoritmo, estamos considerando que a entrada seja sempre um grafo simples,ponderado nas arestas e nao direcionado" << endl;
-    cout << "Para maiores informacoes, visite o respositorio do projeto https://github.com/renanNun/Minimum-independent-set-connected" << endl;
-    cout << endl;
+    while(menuNovo)
+    {
+        novoMenu();
+        cin>>opcao_escolhida;
+        switch(opcao_escolhida)
+        {
+        case 0:
+            cout<< "Fechando programa"<<endl;
+            outputFile.close();
+            inputFile.close();
+            exit(0);
+            break;
+        case 1:
+            if(grafo->ehConexo())
+            {
+                guloso= new Guloso(grafo);
+                if(salvar())
+                {
+                    guloso->imprime(outputFile);
+                }
 
-    outputFile << endl;
-    outputFile << "Para criacao deste algoritmo, estamos considerando que a entrada seja sempre um grafo simples,ponderado nas arestas e nao direcionado" << endl;
-    outputFile << "Para maiores informacoes, visite o respositorio do projeto https://github.com/renanNun/Minimum-independent-set-connected" << endl;
-    outputFile << endl;
+                limparTela();
 
-    while(true)
+
+            }
+            else
+            {
+                cout<< "O grafo precisa ser conexo para o grafo funcionar"<<endl;
+            }
+            break;
+        case 2:
+            if(grafo->ehConexo())
+            {
+                guloso= new Guloso(grafo,0.1);
+                if(salvar())
+                {
+                    guloso->imprime(outputFile);
+                }
+                limparTela();
+
+            }
+            else
+            {
+                cout<< "O grafo precisa ser conexo para o grafo funcionar"<<endl;
+            }
+            break;
+        case 3:
+            menuNovo=false;
+            menuAntigo=true;
+            cout<< "Abrindo menu antigo: "<<endl;
+            break;
+        default:
+            cout << "Opcao Invalida! Digite Novamente: ";
+            cin >> opcao_escolhida;
+
+        }
+
+    }
+
+    while(menuAntigo)
     {
         menu();
         cin >> opcao_escolhida;
@@ -103,8 +192,10 @@ int main(int argc, char * argv [])
         switch(opcao_escolhida)
         {
         case 0:
+            cout<< "Fechando programa"<<endl;
             outputFile.close();
             inputFile.close();
+            menuAntigo=false;
             exit(0);
             break;
         case 1:
@@ -122,6 +213,7 @@ int main(int argc, char * argv [])
             {
                 outputFile << endl << grafo->imprimirMatriz() << endl;
             }
+            grafo->deleteMatriz();
             limparTela();
             grafo->deleteMatriz();
             break;
@@ -152,19 +244,14 @@ int main(int argc, char * argv [])
         case 5:
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                cout << "Aten��o: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
                 break;
             }
             else
             {
                 cout << "\tNo Inicial: ";
                 cin >> id;
-                cout << endl;;
-                while(grafo->getNo(id) == nullptr)
-                {
-                    cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
-                    cin >> id;
-                }
+                cout << endl;
                 dijkstra = new Dijkstra(grafo,id);
                 if(salvar())
                 {
@@ -177,12 +264,13 @@ int main(int argc, char * argv [])
         case 6:
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Floyd!" << endl;
+                cout << "Aten��o: O grafo precisa ter aresta ponderada para Floyd!" << endl;
                 break;
             }
             else
             {
                 floyd = new Floyd(grafo);
+                cout << endl << endl << "A EXECUTACAO DO ALGORITMO PODE RESULTAR NO FECHAMENTO IMEDIATO DO PROGRAMA" << endl;
                 if(salvar())
                 {
                     floyd->imprimeSolucaoFile(outputFile);
@@ -194,24 +282,22 @@ int main(int argc, char * argv [])
         case 7:
             if(grafo->getDirecionado())
             {
-                cout << "Atenção: O grafo não pode ser orientado para calcular a arvore geradora mínima por Prim!" << endl;
+                cout << "Aten��o: O grafo n�o pode ser orientado para calcular a arvore geradora m�nima por Prim!" << endl;
                 break;
             }
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Prim!" << endl;
+                cout << "Aten��o: O grafo precisa ter aresta ponderada para Prim!" << endl;
                 break;
             }
             int escolha;
             cout<< "Escolha o no inicial de prim : "<<endl;
             cin >> escolha;
-
-            while(grafo->getNo(escolha) == nullptr)
+            while(escolha>(grafo->getOrdem()-1) || escolha<0)
             {
-                cout<< "Escolha invalida, por favor escolha um no que exista: "<<endl;
+                cout<< "Escolha invalida, por favor escolha um no que exista: : "<<endl;
                 cin >> escolha;
             }
-
             prim = new Prim(grafo,escolha);
 
             if(salvar())
@@ -223,7 +309,7 @@ int main(int argc, char * argv [])
         case 8:
             if(!grafo->getPonderadoAresta())
             {
-                cout << "Atenção: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
+                cout << "Aten��o: O grafo precisa ter aresta ponderada para Kruskal!" << endl;
                 break;
             }
             else
@@ -236,6 +322,7 @@ int main(int argc, char * argv [])
                 limparTela();
             }
             break;
+
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
@@ -257,6 +344,17 @@ void menu()
     cout << "[06] - Algoritmo de FloydMarshall. " << endl;
     cout << "[07] - Algoritmo de Prim. " << endl;
     cout << "[08] - Algoritmo de Kruskal. " << endl;
+    cout << "[09] - Algoritmo de Guloso. " << endl;
+    cout << "[0] - Sair. " << endl;
+    cout << "Escolha: ";
+}
+
+void novoMenu()
+{
+    cout << "\t\tFuncionalidades:" << endl;
+    cout << "[01] - Algoritmo Guloso. " << endl;
+    cout << "[02] - Algoritmo Guloso Randomizado " << endl;
+    cout << "[03] - Funcionalidades parte 2" << endl;
     cout << "[0] - Sair. " << endl;
     cout << "Escolha: ";
 }
@@ -277,16 +375,18 @@ bool salvar()
     cout << endl << "Deseja salvar em arquivo? [s/n]" << endl;
     cin >> op;
 
-    while(op != 's' && op != 'n')
+    if(op == 's' || op != 'S')
+        return true;
+    else if(op == 'n' || op != 'N')
+        return false;
+
+    while(op != 's' || op != 'S' && op != 'n' || op != 'N')
     {
         cout << "Opcao Invalida! Digite Novamente: " << endl;
         cin >> op;
     }
 
-    if(op == 's')
-        return true;
-    else if(op == 'n')
-        return false;
+    return false;
 }
 
 Grafo* leitura()
@@ -297,7 +397,6 @@ Grafo* leitura()
 
     int id_no,id_alvo,peso;
     int ordem;
-
     string line;
 
     getline(inputFile,line);
@@ -330,6 +429,82 @@ Grafo* leitura()
         }
     }
 
+    return grafo;
+}
+
+string* limpaMatriz(string &line)
+{
+    int tam = (line.size()-1)/2;
+    string* arr = new string[tam]; //Array para guardar os elementos
+    int i = 0; //Controle
+    stringstream ssin(line);
+    while (ssin.good() && i < tam)
+    {
+        ssin >> arr[i];
+        i++;
+    }
+
+    return arr;
+}
+
+
+Grafo* leituraDat()
+{
+    bool direcionado = false;
+    bool ponderado_aresta = false;
+    bool ponderado_no = false;
+    int ordem;
+    string line;
+    string* control;
+    getline(inputFile,line);
+
+    if(line[0]=='N')
+    {
+
+        getline(inputFile,line);
+
+    }
+
+    ordem = (stoi(line));
+
+
+
+    Grafo* grafo = new Grafo(ordem,direcionado,ponderado_aresta,ponderado_no);
+
+    /*Leitura propriamente dita*/
+    while(line[0]!='*' && line[20]!='W')
+    {
+        getline(inputFile,line);
+    }
+    for(int i = 0; i < ordem; i++) //Cria todos os n�s
+    {
+        getline(inputFile,line);
+        grafo->inserirNo(i,stoi(line));
+    }
+
+    while(line[0]!='*' && line[18]!='C')
+    {
+        getline(inputFile,line);
+    }
+
+    for(int i = 0; i < ordem; i++)
+    {
+        getline(inputFile,line);
+        for(int j = i; j < ordem; j++)
+        {
+            control = limpaMatriz(line);
+            if(stoi(control[j]) == 1)
+            {
+                if(i != j)
+                {
+                    grafo->inserirAresta(i,j,0);
+                    grafo->inserirAresta(j,i,0);
+                    grafo->aumentaNumArestas();
+                }
+            }
+
+        }
+    }
 
     return grafo;
 }

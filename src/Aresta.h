@@ -36,6 +36,12 @@ public:
         return peso < ArestaObj.peso;
     }
 
+    // Função especial que serve para estrtura de comparação do Kruskal
+    bool operator <(const Aresta & ArestaObj) const
+    {
+        return peso < ArestaObj.peso;
+    }
+
 private:
     int id_alvo; // Identificiador do id do Nó adjacente
     int id_origem; // Identificiador do id do Nó de origem

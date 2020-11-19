@@ -102,6 +102,9 @@ void No::setPeso(int peso)
 */
 void No::inserirAresta(int id_alvo,int peso)
 {
+    if(this->existeAresta(id_alvo) == true)
+        return;
+
     if(this->primeira_aresta != nullptr)
     {
         Aresta* aresta = new Aresta(id_alvo,this->id,peso);

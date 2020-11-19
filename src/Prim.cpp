@@ -4,8 +4,8 @@
 
 /*
 * Construtor  da classe Prim
-* @param: Grafo* grafo // Ponteiro do grafo que se espera a solução de Prim
-* @param: int no_escolhido // Id do No escolhido para começar a analise do algoritmo de Prim
+* @param: Grafo* grafo // Ponteiro do grafo que se espera a soluï¿½ï¿½o de Prim
+* @param: int no_escolhido // Id do No escolhido para comeï¿½ar a analise do algoritmo de Prim
 */
 
 Prim::Prim(Grafo* grafo, int no_escolhido)
@@ -25,7 +25,7 @@ Prim::~Prim()
 }
 
 /*
-* Função que resolve o algoritmo de Prim usando as informações previamente armazenadas no construtor.
+* Funï¿½ï¿½o que resolve o algoritmo de Prim usando as informaï¿½ï¿½es previamente armazenadas no construtor.
 */
 void Prim::algoritmoDePrim()
 {
@@ -123,7 +123,7 @@ void Prim::algoritmoDePrim()
 }
 
 /*
-* Função responsavel pela impressão da solução do algoritmo de Prim na tela
+* Funï¿½ï¿½o responsavel pela impressï¿½o da soluï¿½ï¿½o do algoritmo de Prim na tela
 */
 void Prim::imprime()
 {
@@ -136,13 +136,13 @@ void Prim::imprime()
 
     }
     cout << endl;
-    cout<<"O peso final da solução do algoritmo de Prim é : "<<pesoFinal<<endl;
+    cout<<"O peso final da soluï¿½ï¿½o do algoritmo de Prim ï¿½ : "<<pesoFinal<<endl;
 
 }
 
 /*
-* Função responsavel pela impressão da solução do algoritmo de Prim no arquivo de saida
-* @param: fstream &outputFile // Arquivo onde será feita a impressão.
+* Funï¿½ï¿½o responsavel pela impressï¿½o da soluï¿½ï¿½o do algoritmo de Prim no arquivo de saida
+* @param: fstream &outputFile // Arquivo onde serï¿½ feita a impressï¿½o.
 */
 
 void Prim::imprimeFile(fstream &outputFile)
@@ -156,5 +156,5 @@ void Prim::imprimeFile(fstream &outputFile)
 
     }
     outputFile << endl;
-    outputFile<<"O peso final da solucao do algoritmo de Prim é : "<<pesoFinal<<endl;
+    outputFile<<"O peso final da solucao do algoritmo de Prim ï¿½ : "<<pesoFinal<<endl;
 }

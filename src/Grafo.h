@@ -28,19 +28,19 @@ public:
         Grafo(int ordem, bool direcionado,bool ponderado_aresta,bool ponderado_no);
         virtual ~Grafo();
 
-        int getOrdem();
-        int getNumeroArestas();
-        bool getDirecionado();
-        bool getPonderadoAresta();
-        bool getPonderadoNo();
+    int getOrdem();
+    int getNumeroArestas();
+    bool getDirecionado();
+    bool getPonderadoAresta();
+    bool getPonderadoNo();
 
-        No* getPrimeiroNo();
-        No* getUltimoNo();
+    No* getPrimeiroNo();
+    No* getUltimoNo();
 
-        void setOrdem(int ordem);
-        void setNumeroArestas(int numeroArestas);
-        void aumentaNumArestas();
-        void diminuiNumArestas();
+    void setOrdem(int ordem);
+    void setNumeroArestas(int numeroArestas);
+    void aumentaNumArestas();
+    void diminuiNumArestas();
 
         /*Funções do Grafo*/
         No* getNo(int id);
@@ -50,18 +50,18 @@ public:
         void removerNo(int id);
         void inserirAresta(int id,int id_alvo,int peso);
 
-        int grauMedioPorSomatorio();
-        int grauMedioPorAdjacencia();
-        int frequenciaRelativa(int d);
-        int grauDoGrafo();
+    int grauMedioPorSomatorio();
+    int grauMedioPorAdjacencia();
+    int frequenciaRelativa(int d);
+    int grauDoGrafo();
 
         string imprimir();
         string imprimirMatriz();
         bool verificaAdjacencia(int i,int j);
 
 
-        bool depthFirstSearch(int id_inicial);
-        bool depthFirstSearchFile(int id_inicial,fstream &outputFile);
+    bool depthFirstSearch(int id_inicial);
+    bool depthFirstSearchFile(int id_inicial,fstream &outputFile);
 
         void breathFirstSearch();
         void breathFirstSearchFile(fstream& output_file);
