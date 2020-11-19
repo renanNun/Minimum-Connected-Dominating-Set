@@ -215,7 +215,6 @@ int main(int argc, char * argv [])
             }
             grafo->deleteMatriz();
             limparTela();
-            grafo->deleteMatriz();
             break;
         case 3:
             cout << "\tNo Inicial: ";
@@ -322,7 +321,6 @@ int main(int argc, char * argv [])
                 limparTela();
             }
             break;
-
         default:
             cout << "Opcao Invalida! Digite Novamente: ";
             cin >> opcao_escolhida;
