@@ -344,7 +344,6 @@ void menu()
     cout << "[06] - Algoritmo de FloydMarshall. " << endl;
     cout << "[07] - Algoritmo de Prim. " << endl;
     cout << "[08] - Algoritmo de Kruskal. " << endl;
-    cout << "[09] - Algoritmo de Guloso. " << endl;
     cout << "[0] - Sair. " << endl;
     cout << "Escolha: ";
 }
