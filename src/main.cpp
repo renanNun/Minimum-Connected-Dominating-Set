@@ -145,8 +145,9 @@ int main(int argc, char * argv [])
                 {
                     guloso->imprime(outputFile);
                 }
-                delete guloso;
+
                 limparTela();
+
 
             }
             else
@@ -155,15 +156,15 @@ int main(int argc, char * argv [])
             }
             break;
         case 2:
-             if(grafo->ehConexo())
+            if(grafo->ehConexo())
             {
                 guloso= new Guloso(grafo,0.1);
                 if(salvar())
                 {
                     guloso->imprime(outputFile);
                 }
-                delete guloso;
                 limparTela();
+
             }
             else
             {
