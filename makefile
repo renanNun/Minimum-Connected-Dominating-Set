@@ -1,6 +1,9 @@
 
 
-all: main clean
+all: exec clean
+
+exec: main
+		g++ *.o -o main
 
 main:
 		g++ -c src/*.cpp
